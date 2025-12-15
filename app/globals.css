@@ -1,26 +1,91 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope&display=swap");
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-inter: Inter;
+  --font-manrope: Manrope;
+  --main-orange: #FF8B49;
+  --dark-orange: #D3590B;
+  --light-orange: #FFE8DA;
+  --grey-950: #0F0F0F;
+  --grey-800: #1F1F1F;
+  --grey-600: #6B7280;
+  --grey-400: #9CA3AE;
+  --grey-200: #E5E7EB;
+  --grey-100: #F3F4F6;
+  --grey-50: #F9FAFB;
+  --white: #FFF;
+  --success: #23AD67;
+  --success-light: #F1FFF7;
+  --error: #F04644;
+  --error-light: #FFE0E0;
+  --info: #3A85F1;
+  --info-light: #E0ECFE;
+  --warning: #E08C21;
+  --warning-light: #FFF0D9;
+  --radius50p: 50%;
+  --radius40: 40px;
+  --radius50: 50px;
+  --radius8: 8px;
+  --radius10: 10px;
+  --radius4: 4px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--white);
+  color: var(--grey-800);
+  font-family: var(--font-inter);
+  font-weight: 400;
+}
+
+.body-l {
+  font-size: 18px;
+}
+
+.body-m {
+  font-size: 16px;
+}
+
+.body-s {
+  font-size: 14px;
+}
+
+.body-xs {
+  font-size: 12px;
+}
+
+.body-2xs {
+  font-size: 10px;
+}
+
+.caption-l {
+  font-size: 14px;
+  vertical-trim: CAP_HEIGHT;
+  letter-spacing: 2%;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.caption-m {
+  font-size: 12px;
+}
+
+.caption-s {
+  font-size: 10px;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 40px;
+}
+
+h4 {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+h5 {
+  font-size: 18px;
+  font-weight: 600;
 }
