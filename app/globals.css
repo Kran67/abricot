@@ -61,18 +61,15 @@ body {
 
 .caption-l {
   font-size: 14px;
-  vertical-trim: CAP_HEIGHT;
   letter-spacing: 2%;
   text-align: center;
   text-transform: uppercase;
 }
 
-.caption-m {
-  font-size: 12px;
-}
-
-.caption-s {
-  font-size: 10px;
+h1,
+h4,
+h5 {
+  font-family: var(--font-manrope);
 }
 
 h1 {
