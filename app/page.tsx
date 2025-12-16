@@ -7,6 +7,7 @@ export default function Home() {
         <Button text="Se connecter" url="https://www.google.fr" disabled={false} width={217} height={50} />
         <Button text="Se connecter" url="" disabled={true} width={217} height={50} />
         <Button text="IA" url="" disabled={false} width={94} height={50} color="orange" image={{ url: "/images/star.svg", alt: "IA star image" }} />
+        <Button className="rounded-full" url="" disabled={false} width={40} height={40} color="orange" image={{ url: "/images/star.svg", alt: "IA star image" }} />
       </main>
     </div>
   );

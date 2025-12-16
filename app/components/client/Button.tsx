@@ -12,7 +12,7 @@ interface ImageButtonProps {
 }
 
 interface ButtonProps {
-    text: string;
+    text?: string;
     disabled: boolean;
     className?: string;
     image?: ImageButtonProps;
@@ -31,7 +31,7 @@ export default function Button({ text, disabled, className, image, url, width, h
 
     const colors: { [key: string]: string } = {
         black: " bg-(--grey-800) hover:bg-(--grey-950)",
-        orange: " bg-(--dark-orange) hover:bg-(--light-orange) hover:text-(--dark-orange)"
+        orange: " bg-(--dark-orange) hover:bg-(--light-orange) hover:text-(--dark-orange) hover:fill-(--dark-orange)"
     };
 
     const buttonColors: string = color ? colors[color] : colors.black;
@@ -53,7 +53,7 @@ export default function Button({ text, disabled, className, image, url, width, h
         "ease-out",
         "cursor-pointer",
         "disabled:cursor-not-allowed"
-    ].join(" ") + buttonColors + (className ?? '');
+    ].join(" ") + buttonColors + (className ? " " + className : "");
 
     return (
         <button
@@ -61,7 +61,7 @@ export default function Button({ text, disabled, className, image, url, width, h
             disabled={disabled}
             style={{ width: width ?? '', height: height ?? '' }}
             onClick={handleClick}>
-            {image ? <Image className={"" + (image.className ?? '')} src={image.url} alt={image.alt} width={image.width ?? 21} height={image.height ?? 21} /> : ""}{text}
+            {image ? <Image className={"" + (image.className ?? '') + color} src={image.url} alt={image.alt} width={image.width ?? 21} height={image.height ?? 21} /> : ""}{text}
         </button>
     );
 }

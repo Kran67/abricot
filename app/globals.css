@@ -87,3 +87,7 @@ h5 {
   font-size: 18px;
   font-weight: 600;
 }
+
+button:hover img.orange {
+  filter: invert(42%) sepia(89%) saturate(2275%) hue-rotate(6deg) brightness(96%) contrast(101%);
+}
