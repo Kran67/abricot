@@ -2,20 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-
-interface ImageButtonProps {
-    url: string;
-    width?: number;
-    height?: number;
-    className?: string;
-    alt: string;
-}
+import { ImageProps } from "../../interfaces/imageProps";
 
 interface ButtonProps {
     text?: string;
     disabled: boolean;
     className?: string;
-    image?: ImageButtonProps;
+    image?: ImageProps;
     url: string
     width?: number;
     height?: number;
@@ -61,7 +54,7 @@ export default function Button({ text, disabled, className, image, url, width, h
             disabled={disabled}
             style={{ width: width ?? '', height: height ?? '' }}
             onClick={handleClick}>
-            {image ? <Image className={"" + (image.className ?? '') + color} src={image.url} alt={image.alt} width={image.width ?? 21} height={image.height ?? 21} /> : ""}{text}
+            {image ? <Image className={(image.className ?? '') + color} src={image.url} alt={image.alt} width={image.width ?? 21} height={image.height ?? 21} /> : ""}{text}
         </button>
     );
 }

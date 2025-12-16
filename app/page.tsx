@@ -1,13 +1,12 @@
-import Button from "./components/client/Button";
+import Chip from "./components/client/Chip";
 
 export default function Home() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white sm:items-start">
-        <Button text="Se connecter" url="https://www.google.fr" disabled={false} width={217} height={50} />
-        <Button text="Se connecter" url="" disabled={true} width={217} height={50} />
-        <Button text="IA" url="" disabled={false} width={94} height={50} color="orange" image={{ url: "/images/star.svg", alt: "IA star image" }} />
-        <Button className="rounded-full" url="" disabled={false} width={40} height={40} color="orange" image={{ url: "/images/star.svg", alt: "IA star image" }} />
+        <Chip text="Mes tâches" url="https://www.google.fr" width={217} height={50} active={false} image={{ url: "/images/task_check.svg", alt: "IA star image" }} />
+        <Chip text="Kanban" url="" width={217} height={50} active={true} image={{ url: "/images/calendar.svg", alt: "IA star image" }} />
+        <Chip text="Mes projets" url="" width={217} height={50} active={false} image={{ url: "/images/project.svg", alt: "IA star image" }} />
       </main>
     </div>
   );
