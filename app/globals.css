@@ -3,6 +3,7 @@
 @import "tailwindcss";
 
 :root {
+  --spacing: 1px;
   --font-inter: Inter;
   --font-manrope: Manrope;
   --main-orange: #FF8B49;
