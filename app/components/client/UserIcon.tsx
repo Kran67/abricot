@@ -1,7 +1,6 @@
-export enum UserIconModes {
-    Small,
-    Large
-}
+'use client'
+
+import { UserIconModes } from '../../enums/enums';
 
 interface UserIconProps {
     text: string;
@@ -11,7 +10,8 @@ interface UserIconProps {
 }
 
 export function UserIcon({ text, mode, isOwner = false, hasBorder = false }: UserIconProps) {
-    let classNames = [
+    let classNames: string[] = [
+        "user-icon",
         "inline-flex",
         "items-center",
         "justify-center",
@@ -20,7 +20,6 @@ export function UserIcon({ text, mode, isOwner = false, hasBorder = false }: Use
         "text-base",
         "uppercase",
     ];
-    console.log(mode);
     if (mode === UserIconModes.Large) {
         classNames = [...classNames, `w-65 h-65 bg-(--light-orange) text-(--grey-950) transition-colors duration-300 caption-l 
             ease-out hover:bg-(--dark-orange) hover:text-(--white)`];

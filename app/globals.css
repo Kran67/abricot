@@ -99,3 +99,11 @@ button:hover img.calendar {
 button.chip img.calendar {
   filter: invert(36%) sepia(88%) saturate(2430%) hue-rotate(7deg) brightness(101%) contrast(103%);
 }
+
+button:hover img.orange {
+  filter: invert(42%) sepia(89%) saturate(2275%) hue-rotate(6deg) brightness(96%) contrast(101%);
+}
+
+button.menu-item:hover img {
+  filter: brightness(0) invert(1);
+}

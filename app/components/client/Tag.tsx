@@ -1,6 +1,5 @@
 'use client'
 
-
 interface TagProps {
     text: string;
     color?: string;
@@ -19,6 +18,7 @@ export default function Tag({ text, color }: TagProps) {
     const tagColors: string = color ? colors[color] : colors.default;
 
     const classNames = [
+        "tag",
         "inline-flex",
         "items-center",
         "justify-center",

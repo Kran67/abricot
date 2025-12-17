@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ImageProps } from "../../interfaces/imageProps";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 
 interface ChipProps {
@@ -16,7 +17,7 @@ interface ChipProps {
 }
 
 export default function Chip({ text, className, image, url, width, height, active }: ChipProps) {
-    const router = useRouter();
+    const router: AppRouterInstance = useRouter();
 
     const handleClick = () => {
         router.push(url);

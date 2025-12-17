@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ImageProps } from "../../interfaces/imageProps";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface ButtonProps {
     text?: string;
@@ -16,7 +17,7 @@ interface ButtonProps {
 }
 
 export default function Button({ text, disabled, className, image, url, width, height, color }: ButtonProps) {
-    const router = useRouter();
+    const router: AppRouterInstance = useRouter();
 
     const handleClick = () => {
         router.push(url);
@@ -30,6 +31,7 @@ export default function Button({ text, disabled, className, image, url, width, h
     const buttonColors: string = color ? colors[color] : colors.black;
 
     const classNames = [
+        "button",
         "inline-flex",
         "items-center",
         "justify-center",
