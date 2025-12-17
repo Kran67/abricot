@@ -103,3 +103,11 @@ button.icon-button:not(.back):hover img {
 button.menu-item:hover img {
   filter: brightness(0) invert(1);
 }
+
+img.logo.white {
+  filter: brightness(0) invert(1);
+}
+
+img.logo.black {
+  filter: brightness(0);
+}

@@ -12,3 +12,9 @@ export enum IconButtonTypes {
     Arrow,
     Points
 }
+
+export enum LogoColors {
+    Orange = 'orange',
+    White = 'white',
+    Black = 'black'
+}
