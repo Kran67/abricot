@@ -31,7 +31,7 @@ export default function Link({ text, url = "#", disabled = false }: LinkProps) {
         disabled ? "" : "hover:text-(--grey-950)",
         disabled ? "disabled" : "",
 
-    ].join(" ")
+    ].join(" ");
 
     return (
         <a href={url}
