@@ -7,3 +7,8 @@ export enum MenuItemTypes {
     Dashboard,
     Projects
 }
+
+export enum IconButtonTypes {
+    Arrow,
+    Points
+}
