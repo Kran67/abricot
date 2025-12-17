@@ -7,9 +7,10 @@ interface UserIconProps {
     mode: UserIconModes;
     isOwner?: boolean;
     hasBorder?: boolean;
+    withDrawal?: boolean;
 }
 
-export default function UserIcon({ text, mode, isOwner = false, hasBorder = false }: UserIconProps) {
+export default function UserIcon({ text, mode, isOwner = false, hasBorder = false, withDrawal = false }: UserIconProps) {
     let classNames: string[] = [
         "user-icon",
         "inline-flex",
@@ -32,6 +33,9 @@ export default function UserIcon({ text, mode, isOwner = false, hasBorder = fals
         }
         if (hasBorder && !isOwner) {
             classNames = [...classNames, "border-white border border-solid"];
+        }
+        if (withDrawal) {
+            classNames = [...classNames, "-ml-8"];
         }
     }
 

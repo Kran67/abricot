@@ -114,3 +114,14 @@ img.logo.white {
 img.logo.black {
   filter: brightness(0);
 }
+
+.project-card .progress:after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: var(--progress);
+  background-color: var(--dark-orange);
+  border-radius: var(--radius40);
+}
