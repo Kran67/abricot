@@ -25,13 +25,13 @@ export default function UserIcon({ text, mode, isOwner = false, hasBorder = fals
         classNames = [...classNames, `w-65 h-65 bg-(--light-orange) text-(--grey-950) transition-colors duration-300 caption-l 
             ease-out hover:bg-(--dark-orange) hover:text-(--white)`];
     } else {
-        classNames = [...classNames, "w-27 h-27 cursor-default body-2xs text-(--grey-950)"];
+        classNames = [...classNames, "w-27 h-27 min-w-27 max-w-27 min-h-27 max-h-27 cursor-default body-2xs text-(--grey-950)"];
         if (isOwner) {
             classNames = [...classNames, "bg-(--light-orange)"];
         } else {
             classNames = [...classNames, "bg-(--grey-200) text-(--grey-950)"];
         }
-        if (hasBorder && !isOwner) {
+        if (hasBorder) {
             classNames = [...classNames, "border-white border border-solid"];
         }
         if (withDrawal) {

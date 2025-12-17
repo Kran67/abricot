@@ -37,7 +37,7 @@ export default function ProjectCard({ name, description, progress, nbTaskDone, n
 
     return (
         <div className={classNames}>
-            <div className="flex flex-col self-strecth gap-8">
+            <div className="flex flex-col self-stretch gap-8">
                 <h5 className="text-(--grey-800)">{name}</h5>
                 <div className="body-s text-(--grey-600)">{description}</div>
             </div>
