@@ -25,6 +25,7 @@
   --info-light: #E0ECFE;
   --warning: #E08C21;
   --warning-light: #FFF0D9;
+  --radius80: 80px;
   --radius50p: 50%;
   --radius40: 40px;
   --radius50: 50px;
@@ -91,7 +92,8 @@ h5 {
 button:hover img.orange,
 button:hover img.calendar,
 button:hover img.orange,
-button.icon-button.back:hover img {
+button.icon-button.back:hover img,
+.ia-input button:hover img {
   filter: invert(42%) sepia(89%) saturate(2275%) hue-rotate(6deg) brightness(96%) contrast(101%);
 }
 
