@@ -7,9 +7,10 @@ import { MenuItemTypes } from "@/app/enums/enums";
 
 interface MenuItemProps {
     type?: MenuItemTypes;
+    active?: boolean;
 }
 
-export function MenuItem({ type = MenuItemTypes.Dashboard }: MenuItemProps) {
+export default function MenuItem({ type = MenuItemTypes.Dashboard, active = false }: MenuItemProps) {
     const isDashboard = type === MenuItemTypes.Dashboard;
     const router: AppRouterInstance = useRouter();
 
@@ -20,6 +21,7 @@ export function MenuItem({ type = MenuItemTypes.Dashboard }: MenuItemProps) {
 
     const classNames: string[] = [
         "menu-item",
+        active ? "active" : "",
         "inline-flex",
         "items-center",
         "justify-center",
@@ -31,10 +33,10 @@ export function MenuItem({ type = MenuItemTypes.Dashboard }: MenuItemProps) {
         "duration-300",
         "ease-out",
         "cursor-pointer",
-        "bg-(--white)",
-        "text-(--dark-orange)",
-        "hover:bg-(--grey-950)",
-        "hover:text-(--white)",
+        active ? "bg-(--grey-950)" : "bg-(--white)",
+        active ? "text-(--white)" : "text-(--dark-orange)",
+        !active ? "hover:bg-(--grey-950)" : "",
+        !active ? "hover:text-(--white)" : "",
         "w-248",
         "h-78"
     ];

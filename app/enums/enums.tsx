@@ -18,3 +18,8 @@ export enum LogoColors {
     White = 'white',
     Black = 'black'
 }
+
+export enum HeaderMenuItems {
+    Dashbord,
+    Projects
+}

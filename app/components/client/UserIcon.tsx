@@ -9,7 +9,7 @@ interface UserIconProps {
     hasBorder?: boolean;
 }
 
-export function UserIcon({ text, mode, isOwner = false, hasBorder = false }: UserIconProps) {
+export default function UserIcon({ text, mode, isOwner = false, hasBorder = false }: UserIconProps) {
     let classNames: string[] = [
         "user-icon",
         "inline-flex",
