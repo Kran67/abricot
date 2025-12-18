@@ -13,10 +13,10 @@ interface ChipProps {
     url: string
     width?: number;
     height?: number;
-    active: boolean
+    isActive?: boolean
 }
 
-export default function Chip({ text, className, image, url, width, height, active }: ChipProps) {
+export default function Chip({ text, className, image, url, width, height, isActive }: ChipProps) {
     const router: AppRouterInstance = useRouter();
 
     const handleClick = () => {
@@ -31,7 +31,7 @@ export default function Chip({ text, className, image, url, width, height, activ
         "gap-10",
         "whitespace-nowrap",
         "rounded-(--radius8)",
-        active ? "bg-(--light-orange)" : "bg-(--white)",
+        isActive ? "bg-(--light-orange)" : "bg-(--white)",
         "hover:bg-(--light-orange)",
         "text-base",
         "text-(--dark-orange)",
