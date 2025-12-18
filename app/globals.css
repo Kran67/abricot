@@ -12,7 +12,7 @@
   --grey-950: #0F0F0F;
   --grey-800: #1F1F1F;
   --grey-600: #6B7280;
-  --grey-400: #9CA3AE;
+  --grey-400: #9CA3AF;
   --grey-200: #E5E7EB;
   --grey-100: #F3F4F6;
   --grey-50: #F9FAFB;
@@ -89,6 +89,7 @@ h5 {
   font-weight: 600;
 }
 
+/* noir -> #D3590B (dark-orange) */
 button:hover img.orange,
 button:hover img.calendar,
 button:hover img.orange,
@@ -97,20 +98,20 @@ button.icon-button.back:hover img,
   filter: invert(42%) sepia(89%) saturate(2275%) hue-rotate(6deg) brightness(96%) contrast(101%);
 }
 
+/* #6B7280 (grey-600) -> #D3590B (dark-orange) */
 button.chip img.calendar,
 button.icon-button:not(.back):hover img {
   filter: invert(36%) sepia(88%) saturate(2430%) hue-rotate(7deg) brightness(101%) contrast(103%);
 }
 
+/* #D3590B (dark-orange) -> blanc */
 button.menu-item.active img,
-button.menu-item:hover img {
-  filter: brightness(0) invert(1);
-}
-
+button.menu-item:hover img,
 img.logo.white {
   filter: brightness(0) invert(1);
 }
 
+/* #D3590B (dark-orange) -> noir */
 img.logo.black {
   filter: brightness(0);
 }
@@ -124,4 +125,9 @@ img.logo.black {
   width: var(--progress);
   background-color: var(--dark-orange);
   border-radius: var(--radius40);
+}
+
+.task .project-image-wrapper {
+  mask: url("../public/images/project.svg") no-repeat center / contain;
+  -webkit-mask: url("../public/images/project.svg") no-repeat center / contain;
 }
