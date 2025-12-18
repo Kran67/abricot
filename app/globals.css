@@ -140,3 +140,9 @@ img.logo.black,
 .project-task:not(.opended) img {
   rotate: -180deg;
 }
+
+.login {
+  background-image: url("../public/images/login_back.jpg");
+  background-repeat: no-repeat;
+  background-size: 103%;
+}
