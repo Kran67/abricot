@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${manrope.variable} antialiased`}
+        className={`${inter.variable} ${manrope.variable} antialiased justify-center flex`}
       >
         {children}
       </body>

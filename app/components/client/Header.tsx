@@ -20,17 +20,18 @@ export default function Header({ activeMenu }: HeaderProps) {
         "pt-8",
         "pl-100",
         "pr-100",
-        "pb-8"
+        "pb-8",
+        "self-stretch"
     ].join(" ");
 
     return (
         <header className={classNames}>
             <Logo />
             <div className="flex gap-16">
-                <MenuItem active={activeMenu === HeaderMenuItems.Dashbord} />
-                <MenuItem type={MenuItemTypes.Projects} active={activeMenu === HeaderMenuItems.Projects} />
+                <MenuItem isActive={activeMenu === HeaderMenuItems.Dashboard} />
+                <MenuItem type={MenuItemTypes.Projects} isActive={activeMenu === HeaderMenuItems.Projects} />
             </div>
-            <UserIcon text="AD" mode={UserIconModes.Large} />
+            <UserIcon text="AD" mode={UserIconModes.Large} url="/" isActive={activeMenu === HeaderMenuItems.Profile} />
         </header>
     );
 }

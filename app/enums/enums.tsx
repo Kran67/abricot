@@ -20,8 +20,9 @@ export enum LogoColors {
 }
 
 export enum HeaderMenuItems {
-    Dashbord,
-    Projects
+    Dashboard,
+    Projects,
+    Profile
 }
 
 export enum InputTypes {
@@ -33,4 +34,16 @@ export enum InputImageTypes {
     Calendar = "calendar",
     BottomArrow = "bottom_arrow",
     Search = "search"
+}
+
+export enum PageViews {
+    Dashboard,
+    Project,
+    ProjectDetail,
+    Profile
+}
+
+export enum DashboardViews {
+    List,
+    Kanban
 }

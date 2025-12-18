@@ -7,10 +7,10 @@ import { MenuItemTypes } from "@/app/enums/enums";
 
 interface MenuItemProps {
     type?: MenuItemTypes;
-    active?: boolean;
+    isActive?: boolean;
 }
 
-export default function MenuItem({ type = MenuItemTypes.Dashboard, active = false }: MenuItemProps) {
+export default function MenuItem({ type = MenuItemTypes.Dashboard, isActive = false }: MenuItemProps) {
     const isDashboard = type === MenuItemTypes.Dashboard;
     const router: AppRouterInstance = useRouter();
 
@@ -18,10 +18,9 @@ export default function MenuItem({ type = MenuItemTypes.Dashboard, active = fals
         router.push(isDashboard ? "/dashboard" : "/projects");
     };
 
-
     const classNames: string[] = [
         "menu-item",
-        active ? "active" : "",
+        isActive ? "active" : "",
         "inline-flex",
         "items-center",
         "justify-center",
@@ -33,10 +32,10 @@ export default function MenuItem({ type = MenuItemTypes.Dashboard, active = fals
         "duration-300",
         "ease-out",
         "cursor-pointer",
-        active ? "bg-(--grey-950)" : "bg-(--white)",
-        active ? "text-(--white)" : "text-(--dark-orange)",
-        !active ? "hover:bg-(--grey-950)" : "",
-        !active ? "hover:text-(--white)" : "",
+        isActive ? "bg-(--grey-950)" : "bg-(--white)",
+        isActive ? "text-(--white)" : "text-(--dark-orange)",
+        !isActive ? "hover:bg-(--grey-950)" : "",
+        !isActive ? "hover:text-(--white)" : "",
         "w-248",
         "h-78"
     ];
