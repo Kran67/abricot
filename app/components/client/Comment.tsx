@@ -29,7 +29,7 @@ export default function Comment({ comments, owner }: CommentProps) {
             ))}
             <div className="flex gap-14 w-full">
                 <UserIcon text={owner} mode={UserIconModes.Small} hasBorder={true} isOwner={true} />
-                <textarea id="addComment" name="addComment" className="body-2xs bg-(--grey-50) p-10 rounded-(--radius10) text-black w-full h-83" placeholder="Ajouter un commentaire..."></textarea>
+                <textarea id="addComment" name="addComment" className="body-2xs bg-(--grey-50) p-10 rounded-(--radius10) text-black w-full h-83 outline-0" placeholder="Ajouter un commentaire..."></textarea>
             </div>
             <Button className="self-end" text="Envoyer" width={209} height={50} url="" disabled={true} />
         </div>

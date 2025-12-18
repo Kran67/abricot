@@ -33,7 +33,7 @@ export default function ProjectTask({ name, description, status, date, assignedU
         "border",
         "border-solid",
         "border-(--grey-200)",
-        "flex-1",
+        "self-stretch",
         "gap-24"
     ].join(" ");
 
