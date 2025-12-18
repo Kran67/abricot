@@ -6,11 +6,11 @@ import { IconButtonTypes } from "../../enums/enums";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface IconButtonProps {
-    mode?: IconButtonTypes;
+    type?: IconButtonTypes;
 }
 
-export default function IconButton({ mode = IconButtonTypes.Arrow }: IconButtonProps) {
-    const isBackBtn: boolean = mode === IconButtonTypes.Arrow;
+export default function IconButton({ type = IconButtonTypes.Arrow }: IconButtonProps) {
+    const isBackBtn: boolean = type === IconButtonTypes.Arrow;
     const router: AppRouterInstance = useRouter();
 
     const handleClick = () => {

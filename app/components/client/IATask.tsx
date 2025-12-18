@@ -34,7 +34,7 @@ export default function IATask({ name, description }: IATaskProps) {
         "border",
         "border-solid",
         "border-(--grey-200)",
-        "self-stretch"
+        "flex-1"
     ].join(" ");
 
     return (

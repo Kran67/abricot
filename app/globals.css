@@ -89,6 +89,10 @@ h5 {
   font-weight: 600;
 }
 
+.hidden {
+  display: none;
+}
+
 /* noir -> #D3590B (dark-orange) */
 button:hover img.orange,
 button:hover img.calendar,
@@ -112,7 +116,8 @@ img.logo.white {
 }
 
 /* #D3590B (dark-orange) -> noir */
-img.logo.black {
+img.logo.black,
+.project-task .calendar img {
   filter: brightness(0);
 }
 
@@ -130,4 +135,8 @@ img.logo.black {
 .task .project-image-wrapper {
   mask: url("../public/images/project.svg") no-repeat center / contain;
   -webkit-mask: url("../public/images/project.svg") no-repeat center / contain;
+}
+
+.project-task:not(.opended) img {
+  rotate: -180deg;
 }

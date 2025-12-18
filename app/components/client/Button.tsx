@@ -7,7 +7,7 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 
 interface ButtonProps {
     text?: string;
-    disabled: boolean;
+    disabled?: boolean;
     className?: string;
     image?: ImageProps;
     url: string

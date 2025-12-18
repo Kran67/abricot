@@ -17,7 +17,7 @@ export default function Input({ name, label, type, value, imageType, placeHolder
         "input",
         "flex",
         "flex-col",
-        "self-stretch",
+        "flex-1",
         "gap-7",
         "justify-center",
         "h-77"

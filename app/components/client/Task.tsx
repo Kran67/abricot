@@ -29,7 +29,7 @@ export default function Task({ name, description, status, projectName, date, nbC
         "border",
         "border-solid",
         "border-(--grey-200)",
-        "self-stretch"
+        "flex-1"
     ].join(" ");
 
     const tagStatusText: { [key: string]: string } = {
