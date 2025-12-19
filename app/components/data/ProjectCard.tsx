@@ -54,7 +54,7 @@ export default function ProjectCard({ props }: PropsPC) {
                         <div className="body-xs text-(--grey-800)">{props.progress ?? 0}%</div>
                     </div>
                     <div className="flex flex-col gap-8">
-                        <div className="progress rounded-(--radius40) bg-(--grey-200) h-7 relative" style={progressValue}></div>
+                        <div className="progress rounded-(--radius40) bg-(--grey-200) h-7 relative" style={{ ["--progress" as string]: `${props.progress}%` }}></div>
                         <div className="body-2xs text-(--grey-600)">{totalTasks}</div>
                     </div>
                 </div>

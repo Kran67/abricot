@@ -6,12 +6,12 @@ import Button from "@/app/components/ui/Button";
 import Link from "@/app/components/ui/Link";
 import IconButton from "@/app/components/ui/IconButton";
 import { PropsPC } from "@/app/interfaces/projectProps";
-import UserIcon from "../components/ui/UserIcon";
-import Tag from "../components/ui/Tag";
-import { DashboardViews, InputImageTypes, InputTypes, UserIconModes } from "../enums/enums";
-import Input from "../components/ui/Input";
-import Chip from "../components/ui/Chip";
-import ProjectTask from "../components/data/ProjectTask";
+import UserIcon from "@/app/components/ui/UserIcon";
+import Tag from "@/app/components/ui/Tag";
+import { DashboardViews, InputImageTypes, InputTypes, UserIconModes } from "@/app/enums/enums";
+import Input from "@/app/components/ui/Input";
+import Chip from "@/app/components/ui/Chip";
+import ProjectTask from "@/app/components/data/ProjectTask";
 
 
 export default function ProjectDetails({ props }: PropsPC) {

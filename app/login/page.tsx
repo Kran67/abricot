@@ -7,7 +7,6 @@ import Link from "@/app/components/ui/Link";
 import Input from "@/app/components/ui/Input";
 import { InputTypes } from "@/app/enums/enums";
 import Button from "@/app/components/ui/Button";
-import Image from "next/image";
 
 export default function Login() {
     const router: AppRouterInstance = useRouter();
@@ -19,8 +18,7 @@ export default function Login() {
     return (
         <div className="login flex w-1440 h-1024 flex-1 ">
             <div className="flex flex-col w-562 bg-(--white) gap-202 pt-55 pr-140 pb-55 pl-140">
-                <Image alt="" height={100} width={250} src="/images/logo.svg" />
-                {/* <Logo /> */}
+                <Logo />
                 <div className="flex flex-col gap-30">
                     <h1 className="text-(--dark-orange) self-center">Connexion</h1>
                     <div className="flex flex-col gap-21">
