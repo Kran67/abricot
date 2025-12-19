@@ -1,5 +1,5 @@
-import ProjectCardProps from "../interfaces/projectProps";
-import { tasks } from "./tasks";
+import ProjectCardProps from "@/app/interfaces/projectProps";
+import { tasks } from "@/app/mocks/tasks";
 
 export const projects: ProjectCardProps[] = [
     {

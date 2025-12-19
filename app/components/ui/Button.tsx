@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { ImageProps } from "../../interfaces/imageProps";
+import { ImageProps } from "@/app/interfaces/imageProps";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface ButtonProps {

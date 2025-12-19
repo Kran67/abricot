@@ -1,11 +1,11 @@
 import React from "react";
-import Header from "./components/client/Header";
-import Footer from "./components/client/Footer";
-import { HeaderMenuItems, PageViews } from "./enums/enums";
-import Profile from "./pages/Profile";
-import Dashboard from "./pages/Dashboard";
-import Projects from "./pages/Projects";
-import ProjectDetails from "./pages/ProjectDetails";
+import Header from "@/app/components/layout/Header";
+import Footer from "@/app/components/layout/Footer";
+import { HeaderMenuItems, PageViews } from "@/app/enums/enums";
+import Profile from "@/app/pages/Profile";
+import Dashboard from "@/app/pages/Dashboard";
+import Projects from "@/app/pages/Projects";
+import ProjectDetails from "@/app/pages/ProjectDetails";
 
 export default function Home() {
   const pages: string[] = ["dashboard", "projects", "projectdetail", "profile"];

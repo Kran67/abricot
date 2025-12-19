@@ -1,9 +1,9 @@
 'use client'
 
 import { UserIconModes } from "@/app/enums/enums";
-import UserIcon from "./UserIcon";
+import UserIcon from "@/app/components/ui/UserIcon";
 import { formatDate } from "@/app/lib/utils";
-import Button from "./Button";
+import Button from "@/app/components/ui/Button";
 
 interface CommentProps {
     comments?: { userName: string, userInitials: string, comment: string, date: Date }[];

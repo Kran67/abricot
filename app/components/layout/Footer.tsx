@@ -1,6 +1,6 @@
 'use client'
 
-import Logo from "@/app/components/client/Logo";
+import Logo from "@/app/components/ui/Logo";
 import { LogoColors } from "@/app/enums/enums";
 
 export default function Footer() {

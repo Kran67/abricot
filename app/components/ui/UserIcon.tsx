@@ -1,6 +1,6 @@
 'use client'
 
-import { UserIconModes } from '../../enums/enums';
+import { UserIconModes } from '@/app/enums/enums';
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 

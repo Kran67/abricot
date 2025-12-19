@@ -2,13 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import Input from "../components/client/Input";
-import { InputTypes } from "../enums/enums";
-import Button from "../components/client/Button";
-import Link from "../components/client/Link";
-import ProjectCardProps from "../interfaces/projectProps";
-import { projects } from "../mocks/projects";
-import ProjectCard from "../components/client/ProjectCard";
+import Button from "@/app/components/ui/Button";
+import { projects } from "@/app/mocks/projects";
+import ProjectCard from "@/app/components/data/ProjectCard";
 
 export default function Projects() {
     const router: AppRouterInstance = useRouter();

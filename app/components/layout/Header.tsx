@@ -1,8 +1,8 @@
 'use client'
 
-import Logo from "@/app/components/client/Logo";
-import MenuItem from "./MenuItem";
-import UserIcon from "./UserIcon";
+import Logo from "@/app/components/ui/Logo";
+import MenuItem from "@/app/components/ui/MenuItem";
+import UserIcon from "@/app/components/ui/UserIcon";
 import { MenuItemTypes, UserIconModes, HeaderMenuItems } from "@/app/enums/enums";
 
 interface HeaderProps {

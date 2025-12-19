@@ -2,10 +2,10 @@
 
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import Input from "../components/client/Input";
-import { InputTypes } from "../enums/enums";
-import Button from "../components/client/Button";
-import Link from "../components/client/Link";
+import Input from "@/app/components/ui/Input";
+import { InputTypes } from "@/app/enums/enums";
+import Button from "@/app/components/ui/Button";
+import Link from "@/app/components/ui/Link";
 
 // à remplacer par l'utilisateur connecté
 interface ProfileProps {

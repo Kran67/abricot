@@ -1,13 +1,13 @@
 'use client'
 
 import Image from "next/image";
-import Tag from "./Tag";
-import IconButton from "./IconButton";
+import Tag from "@/app/components/ui/Tag";
+import IconButton from "@/app/components/ui/IconButton";
 import { formatDate } from "@/app/lib/utils";
-import UserIcon from "./UserIcon";
+import UserIcon from "@/app/components/ui/UserIcon";
 import { UserIconModes, IconButtonTypes } from "@/app/enums/enums";
-import Comment from "./Comment";
-import { PropsTL } from "./Task";
+import Comment from "@/app/components/data/Comment";
+import { PropsTL } from "@/app/components/data/Task";
 
 export default function ProjectTask({ props }: PropsTL) {
     const classNames = [

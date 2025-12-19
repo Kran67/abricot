@@ -1,8 +1,8 @@
 'use client'
 
 import Image from "next/image";
-import Tag from "./Tag";
-import Button from "./Button";
+import Tag from "@/app/components/ui/Tag";
+import Button from "@/app/components/ui/Button";
 import { formatDate } from "@/app/lib/utils";
 
 export interface PropsTL {

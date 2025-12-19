@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { IconButtonTypes } from "../../enums/enums";
+import { IconButtonTypes } from "@/app/enums/enums";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface IconButtonProps {

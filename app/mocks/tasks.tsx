@@ -1,4 +1,4 @@
-import { TaskProps } from "../components/client/Task";
+import { TaskProps } from "@/app/components/data/Task";
 
 export const tasks: TaskProps[] = [
     {

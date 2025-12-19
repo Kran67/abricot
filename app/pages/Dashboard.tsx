@@ -2,14 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-import Input from "../components/client/Input";
-import Button from "../components/client/Button";
-import Link from "../components/client/Link";
-import Chip from "../components/client/Chip";
-import { DashboardViews, InputImageTypes } from "../enums/enums";
-import Task, { TaskProps } from "../components/client/Task";
-import Tag from "../components/client/Tag";
-import { tasks } from "../mocks/tasks";
+import Input from "@/app/components/ui/Input";
+import Button from "@/app/components/ui/Button";
+import Chip from "@/app/components/ui/Chip";
+import { DashboardViews, InputImageTypes } from "@/app/enums/enums";
+import Task, { TaskProps } from "@/app/components/data/Task";
+import Tag from "@/app/components/ui/Tag";
+import { tasks } from "@/app/mocks/tasks";
 
 export default function Dashboard() {
     const router: AppRouterInstance = useRouter();

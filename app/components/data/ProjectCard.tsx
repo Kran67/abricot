@@ -3,11 +3,11 @@
 import { useRouter } from "next/navigation";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Image from "next/image";
-import UserIcon from "./UserIcon";
+import UserIcon from "@/app/components/ui/UserIcon";
 import { UserIconModes } from "@/app/enums/enums";
-import Tag from "./Tag";
+import Tag from "@/app/components/ui/Tag";
 import ProjectCardProps from "@/app/interfaces/projectProps";
-import { TaskProps } from "./Task";
+import { TaskProps } from "@/app/components/data/Task";
 
 interface PropsPC {
     props: ProjectCardProps;
