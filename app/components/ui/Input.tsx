@@ -30,7 +30,7 @@ export default function Input({ name, label, type, value, imageType, placeHolder
         : 16;
 
     return (
-        <div className={classNames}>
+        <div className={classNames} style={{ "minWidth": width, "maxWidth": width }}>
             {label
                 ? <label className="body-s text-black h-17" htmlFor={name}>{label}&nbsp;{required ? "*" : ""}</label>
                 : null

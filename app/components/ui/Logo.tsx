@@ -16,6 +16,6 @@ export default function Logo({ color = LogoColors.Orange, width = 147, height = 
     ].join(" ");
 
     return (
-        <Image className={classNames} src="/images/logo.svg" alt="Image du logo" width={width} height={height} />
+        <Image className={classNames} src="/logo.svg" alt="Image du logo" width={width} height={height} />
     );
 }

@@ -9,3 +9,7 @@ export default interface ProjectCardProps {
     owner: string;
     contributors: { fullName: string, initials: string }[]; // à remplacer par des users
 }
+
+export interface PropsPC {
+    props: ProjectCardProps;
+}

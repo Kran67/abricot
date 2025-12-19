@@ -6,16 +6,17 @@ import Profile from "@/app/pages/Profile";
 import Dashboard from "@/app/pages/Dashboard";
 import Projects from "@/app/pages/Projects";
 import ProjectDetails from "@/app/pages/ProjectDetails";
+import { projects } from "@/app/mocks/projects";
 
 export default function Home() {
   const pages: string[] = ["dashboard", "projects", "projectdetail", "profile"];
-  const view: number = PageViews.Projects;
+  const view: number = PageViews.ProjectDetail;
   const displayedView = React.useCallback(() => {
     switch (view) {
       case PageViews.Projects:
         return <Projects />;
       case PageViews.ProjectDetail:
-        return <ProjectDetails />;
+        return <ProjectDetails props={projects[0]} />;
       case PageViews.Profile:
         return <Profile name="Amélie" lastName="Dupont" email="a.dupont@mail.com" password="azerty" />;
       default:
