@@ -1,22 +1,25 @@
 'use client'
 
+import { useRouter } from "next/navigation";
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Image from "next/image";
 import UserIcon from "./UserIcon";
 import { UserIconModes } from "@/app/enums/enums";
 import Tag from "./Tag";
+import ProjectCardProps from "@/app/interfaces/projectProps";
+import { TaskProps } from "./Task";
 
-interface ProjectCardProps {
-    name: string;
-    description: string;
-    progress?: number;
-    nbTaskDone: number;
-    nbTotalTasks: number;
-    team: string;
-    owner: string;
-    users: string[];
+interface PropsPC {
+    props: ProjectCardProps;
 }
 
-export default function ProjectCard({ name, description, progress, nbTaskDone, nbTotalTasks, team, owner, users }: ProjectCardProps) {
+export default function ProjectCard({ props }: PropsPC) {
+    const router: AppRouterInstance = useRouter();
+
+    const handleClick = () => {
+        router.push("");
+    };
+
     const classNames = [
         "project-card",
         "flex",
@@ -32,42 +35,47 @@ export default function ProjectCard({ name, description, progress, nbTaskDone, n
         "pb-30"
     ].join(" ");
 
-    const totalTasks = `${nbTotalTasks} tâche${nbTotalTasks > 1 ? "s" : ""} terminée${nbTotalTasks > 1 ? "s" : ""}`;
-    const progressValue = { "--progress": `${progress}%` };
+    const nbTotalTasks: number = props.tasks.length;
+    const nbTaskDone: number = props.tasks.filter((task: TaskProps) => task.status === "done").length;
+
+    const totalTasks = `${nbTaskDone}/${nbTotalTasks} tâche${nbTotalTasks > 1 ? "s" : ""} terminée${nbTotalTasks > 1 ? "s" : ""}`;
+    const progressValue = { "--progress": `${props.progress}%` };
 
     return (
-        <div className={classNames}>
-            <div className="flex flex-col flex-1 gap-8">
-                <h5 className="text-(--grey-800)">{name}</h5>
-                <div className="body-s text-(--grey-600)">{description}</div>
-            </div>
-            <div className="flex flex-col gap-16">
-                <div className="flex justify-between">
-                    <div className="body-xs text-(--grey-600)">Progession</div>
-                    <div className="body-xs text-(--grey-800)">{progress ?? 0}%</div>
+        <a href="#" onClick={handleClick}>
+            <div className={classNames}>
+                <div className="flex flex-col flex-1 gap-8">
+                    <h5 className="text-(--grey-800)">{props.name}</h5>
+                    <div className="body-s text-(--grey-600)">{props.description}</div>
                 </div>
-                <div className="flex flex-col gap-8">
-                    <div className="progress rounded-(--radius40) bg-(--grey-200) h-7 relative" style={progressValue}></div>
-                    <div className="body-2xs text-(--grey-600)">{nbTaskDone}/{totalTasks}</div>
-                </div>
-            </div>
-            <div className="flex flex-col gap-15">
-                <div className="flex gap-8 body-2xs text-(--grey-600)">
-                    <Image src="/images/users.svg" alt="Image équipe" width={11} height={11} />
-                    {team}
-                </div>
-                <div className="flex gap-4">
-                    <div className="flex gap-5">
-                        <UserIcon text={owner} isOwner={true} mode={UserIconModes.Small} />
-                        <Tag text="Propriètaire" />
+                <div className="flex flex-col gap-16">
+                    <div className="flex justify-between">
+                        <div className="body-xs text-(--grey-600)">Progession</div>
+                        <div className="body-xs text-(--grey-800)">{props.progress ?? 0}%</div>
                     </div>
-                    <div className="flex">
-                        {users.map((user, index) => (
-                            <UserIcon key={index} text={user} mode={UserIconModes.Small} hasBorder={true} withDrawal={index > 0} />
-                        ))}
+                    <div className="flex flex-col gap-8">
+                        <div className="progress rounded-(--radius40) bg-(--grey-200) h-7 relative" style={progressValue}></div>
+                        <div className="body-2xs text-(--grey-600)">{totalTasks}</div>
                     </div>
                 </div>
-            </div>
-        </div >
+                <div className="flex flex-col gap-15">
+                    <div className="flex gap-8 body-2xs text-(--grey-600)">
+                        <Image src="/images/users.svg" alt="Image équipe" width={11} height={11} />
+                        {props.team}
+                    </div>
+                    <div className="flex gap-4">
+                        <div className="flex gap-5">
+                            <UserIcon text={props.owner} isOwner={true} mode={UserIconModes.Small} />
+                            <Tag text="Propriètaire" />
+                        </div>
+                        <div className="flex">
+                            {props.contributors.map((user, index) => (
+                                <UserIcon key={index} text={user.initials} mode={UserIconModes.Small} hasBorder={true} withDrawal={index > 0} />
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div >
+        </a>
     );
 }

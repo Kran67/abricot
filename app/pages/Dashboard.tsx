@@ -9,18 +9,11 @@ import Chip from "../components/client/Chip";
 import { DashboardViews, InputImageTypes } from "../enums/enums";
 import Task, { TaskProps } from "../components/client/Task";
 import Tag from "../components/client/Tag";
+import { tasks } from "../mocks/tasks";
 
 export default function Dashboard() {
     const router: AppRouterInstance = useRouter();
     const view: number = DashboardViews.Kanban;
-    const tasks: TaskProps[] = [
-        { name: "Nom de la tâche", description: "Description de la tâche", status: "todo", projectName: "Nom du projet", date: new Date(), nbComments: 2 },
-        { name: "Nom de la tâche", description: "Description de la tâche", status: "in_progress", projectName: "Nom du projet", date: new Date(), nbComments: 2 },
-        { name: "Nom de la tâche", description: "Description de la tâche", status: "todo", projectName: "Nom du projet", date: new Date(), nbComments: 2 },
-        { name: "Nom de la tâche", description: "Description de la tâche", status: "todo", projectName: "Nom du projet", date: new Date(), nbComments: 2 },
-        { name: "Nom de la tâche", description: "Description de la tâche", status: "todo", projectName: "Nom du projet", date: new Date(), nbComments: 2 },
-        { name: "Nom de la tâche", description: "Description de la tâche", status: "todo", projectName: "Nom du projet", date: new Date(), nbComments: 2 },
-    ];
 
     const classNames = [
         "dashboard",
@@ -52,8 +45,8 @@ export default function Dashboard() {
                 <Button text="+ Créer un projet" url="" width={181} height={50} />
             </div>
             <div className="flex gap-10 mt-60">
-                <Chip text="Liste" url="" image={{ url: "/images/task_check.svg", alt: "Image liste", width: 16, height: 16 }} isActive={true} width={94} height={45} />
-                <Chip text="Kanban" url="" image={{ url: "/images/calendar.svg", alt: "Image liste", width: 15, height: 16 }} width={111} height={45} />
+                <Chip text="Liste" url="/" image={{ url: "/images/task_check.svg", alt: "Image liste", width: 16, height: 16 }} isActive={view === DashboardViews.List} width={94} height={45} />
+                <Chip text="Kanban" url="/" image={{ url: "/images/calendar.svg", alt: "Image kanban", width: 15, height: 16 }} isActive={view === DashboardViews.Kanban} width={111} height={45} />
             </div>
             {view === DashboardViews.List
                 ? <div className="flex flex-col gap-41 border border-solid border-(--grey-200) bg-(--white) pt-40 pr-59 pb-40 pl-59 rounded-(--radius10) mt-30">

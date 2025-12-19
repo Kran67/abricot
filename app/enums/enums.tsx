@@ -38,7 +38,7 @@ export enum InputImageTypes {
 
 export enum PageViews {
     Dashboard,
-    Project,
+    Projects,
     ProjectDetail,
     Profile
 }

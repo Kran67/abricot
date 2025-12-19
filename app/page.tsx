@@ -9,10 +9,10 @@ import ProjectDetails from "./pages/ProjectDetails";
 
 export default function Home() {
   const pages: string[] = ["dashboard", "projects", "projectdetail", "profile"];
-  const view: number = PageViews.Dashboard;
+  const view: number = PageViews.Projects;
   const displayedView = React.useCallback(() => {
     switch (view) {
-      case PageViews.Project:
+      case PageViews.Projects:
         return <Projects />;
       case PageViews.ProjectDetail:
         return <ProjectDetails />;
@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <main className="flex flex-col bg-white w-1440">
-      <Header activeMenu={HeaderMenuItems.Profile} />
+      <Header activeMenu={HeaderMenuItems.Projects} />
       {displayedView()}
       <Footer />
     </main>

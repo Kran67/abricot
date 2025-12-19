@@ -41,16 +41,19 @@ export default function Chip({ text, className, image, url, width, height, isAct
         "ease-out",
         "cursor-pointer",
     ].join(" ") + (className ? " " + className : "");
-    if (image?.url.includes("calendar")) {
+    if (image?.url.includes("calendar") && !image?.className?.includes("calendar")) {
+        if (!image.className) {
+            image.className = "";
+        }
         image.className += " calendar";
     }
 
     return (
         <button
             className={classNames}
-            style={{ width: width ?? '', height: height ?? '' }}
+            style={{ width: width ?? "", height: height ?? "" }}
             onClick={handleClick}>
-            {image ? <Image className={(image.className ?? '')} src={image.url} alt={image.alt} width={image.width ?? 16} height={image.height ?? 16} /> : ""}{text}
+            {image ? <Image className={(image.className ?? "")} src={image.url} alt={image.alt} width={image.width ?? 16} height={image.height ?? 16} /> : null}{text}
         </button>
     );
 }

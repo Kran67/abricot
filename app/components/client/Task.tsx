@@ -5,7 +5,7 @@ import Tag from "./Tag";
 import Button from "./Button";
 import { formatDate } from "@/app/lib/utils";
 
-interface PropsTL {
+export interface PropsTL {
     props: TaskProps;
 }
 
@@ -15,7 +15,9 @@ export interface TaskProps {
     status: string;
     projectName: string;
     date: Date;
-    nbComments: number;
+    comments?: { userName: string, userInitials: string, comment: string, date: Date }[];
+    assignedUsers: { name: string, initials: string }[];
+    isCommentOpen?: boolean;
 }
 
 export default function Task({ props }: PropsTL) {
@@ -61,7 +63,7 @@ export default function Task({ props }: PropsTL) {
                     <span className="body-xs text-(--grey-600) pl-8 whitespace-nowrap">{formatDate(props.date, false)}</span>
                     <span className="body-2xs pl-15 pr-15">|</span>
                     <Image src="/images/comment.svg" alt="Image projet" width={15} height={15} />
-                    <span className="body-xs text-(--grey-600) pl-8">{props.nbComments}</span>
+                    <span className="body-xs text-(--grey-600) pl-8">{props.comments?.length ?? 0}</span>
                 </div>
                 <Button className="mt-32" text="Voir" disabled={false} url="/" width={121} height={50} />
             </div>
