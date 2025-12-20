@@ -15,7 +15,7 @@ export default function MenuItem({ type = MenuItemTypes.Dashboard, isActive = fa
     const router: AppRouterInstance = useRouter();
 
     const handleClick = () => {
-        router.push(isDashboard ? "/dashboard" : "/projects");
+        router.push(isDashboard ? "/" : "/projects");
     };
 
     const classNames: string[] = [

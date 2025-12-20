@@ -1,30 +1,53 @@
 'use client'
 
-import { useRouter } from "next/navigation";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Logo from "@/app/components/ui/Logo";
 import Link from "@/app/components/ui/Link";
 import Input from "@/app/components/ui/Input";
 import { InputTypes } from "@/app/enums/enums";
 import Button from "@/app/components/ui/Button";
+import { useState } from "react";
+import { createCookie } from "@/app/lib/utils";
+
 
 export default function Login() {
-    const router: AppRouterInstance = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState(false);
 
-    const handleClick = () => {
-        router.push("");
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (res.ok) {
+            const data = await res.json();
+            createCookie("token", data.data.token, 1);
+            window.location.reload();
+        } else {
+            setError(true);
+        }
     };
 
     return (
         <div className="login flex w-1440 h-1024 flex-1 ">
-            <div className="flex flex-col w-562 bg-(--white) gap-202 pt-55 pr-140 pb-55 pl-140">
+            <div className="flex flex-col w-562 bg-(--white) gap-202 py-55 px-140">
                 <Logo />
                 <div className="flex flex-col gap-30">
                     <h1 className="text-(--dark-orange) self-center">Connexion</h1>
                     <div className="flex flex-col gap-21">
-                        <form className="flex flex-col gap-29" method="post" action="/">
-                            <Input name="email" label="Email" type={InputTypes.Text} />
-                            <Input name="password" label="Mot de passe" type={InputTypes.Password} />
+                        <form className="flex flex-col gap-29" onSubmit={handleLogin}>
+                            <Input name="email" label="Email" type={InputTypes.Text} value={email} onChange={(e) => {
+                                setEmail(e.target.value);
+                                setError(false);
+                            }} hasError={error} />
+                            <Input name="password" label="Mot de passe" type={InputTypes.Password} value={password} onChange={(e) => {
+                                setPassword(e.target.value);
+                                setError(false);
+                            }} hasError={error} />
                             <Button className="self-center" text="Se connecter" url="" width={248} height={50} />
                         </form>
                         <Link text="Mot de passe oublié?" url="" />

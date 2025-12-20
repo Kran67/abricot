@@ -51,7 +51,7 @@ export default function ProjectDetails({ props }: PropsPC) {
                 </div>
                 <div className="flex gap-8">
                     {props.contributors.map((user, index) => (
-                        <div key={index}>
+                        <div key={index} className="flex items-center gap-5">
                             <UserIcon text={user.initials} mode={UserIconModes.Small} isOwner={user.initials === props.owner} hasBorder={user.initials !== props.owner} />
                             <Tag text={user.fullName} color={user.initials === props.owner ? "default" : "user"} />
                         </div>

@@ -10,7 +10,7 @@ interface ButtonProps {
     disabled?: boolean;
     className?: string;
     image?: ImageProps;
-    url: string
+    url?: string
     width?: number;
     height?: number;
     color?: string;
@@ -20,7 +20,9 @@ export default function Button({ text, disabled, className, image, url, width, h
     const router: AppRouterInstance = useRouter();
 
     const handleClick = () => {
-        router.push(url);
+        if (url) {
+            router.push(url);
+        }
     };
 
     const colors: { [key: string]: string } = {

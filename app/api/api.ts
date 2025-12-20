@@ -10,7 +10,7 @@ export const getProfile = async (): Promise<User | null> => {
   if (!token) return null;
 
   try {
-    const res = await fetch(`${process.env.REACT_APP_USE_MOCK_API}/auth/profile`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/profile`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

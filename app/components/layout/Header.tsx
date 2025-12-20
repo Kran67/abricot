@@ -4,12 +4,15 @@ import Logo from "@/app/components/ui/Logo";
 import MenuItem from "@/app/components/ui/MenuItem";
 import UserIcon from "@/app/components/ui/UserIcon";
 import { MenuItemTypes, UserIconModes, HeaderMenuItems } from "@/app/enums/enums";
+import { User } from "@/app/interfaces/user";
+import { useUser } from "@/app/contexts/userContext";
 
 interface HeaderProps {
     activeMenu: HeaderMenuItems;
 }
 
 export default function Header({ activeMenu }: HeaderProps) {
+    const user: User | null = useUser();
     const classNames = [
         "flex",
         "flex-1",
@@ -24,6 +27,14 @@ export default function Header({ activeMenu }: HeaderProps) {
         "self-stretch"
     ].join(" ");
 
+    let firstName = "";
+    let lastName = "";
+
+    if (user?.name) {
+        [firstName, lastName] = user?.name.split(" ");
+    }
+    const userInitials: string = `${firstName ? firstName[0] : "X"}${lastName ? lastName[0] : "X"}`;
+
     return (
         <header className={classNames}>
             <Logo />
@@ -31,7 +42,7 @@ export default function Header({ activeMenu }: HeaderProps) {
                 <MenuItem isActive={activeMenu === HeaderMenuItems.Dashboard} />
                 <MenuItem type={MenuItemTypes.Projects} isActive={activeMenu === HeaderMenuItems.Projects} />
             </div>
-            <UserIcon text="AD" mode={UserIconModes.Large} url="/" isActive={activeMenu === HeaderMenuItems.Profile} />
+            <UserIcon text={userInitials} mode={UserIconModes.Large} url="/profile" isActive={activeMenu === HeaderMenuItems.Profile} />
         </header>
     );
 }

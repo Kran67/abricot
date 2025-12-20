@@ -6,9 +6,25 @@ export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
   const publicPaths = ["/login", "/signin"];
+  const url = new URL(request.url);
+  const origin = url.origin;
+  const urlpathname = url.pathname;
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-url', request.url);
+  requestHeaders.set('x-origin', origin);
+  requestHeaders.set('x-pathname', urlpathname);
+  const headers: {
+    request: {
+      headers: Headers;
+    };
+  } = {
+    request: {
+      headers: requestHeaders,
+    }
+  };
 
   if (publicPaths.includes(pathname) && !token) {
-    return NextResponse.next();
+    return NextResponse.next(headers);
   }
 
   if (publicPaths.includes(pathname) && token) {
@@ -20,7 +36,7 @@ export async function proxy(request: NextRequest) {
   }
 
   try {
-    const res = await fetch(`${process.env.REACT_APP_USE_MOCK_API}/auth/profile`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/profile`, {
       headers: { Authorization: `Bearer ${token}` },
     });
 
@@ -35,7 +51,7 @@ export async function proxy(request: NextRequest) {
     return resp;
   }
 
-  return NextResponse.next();
+  return NextResponse.next(headers);
 }
 
 export const config = {

@@ -8,12 +8,14 @@ interface LinkProps {
     text: string;
     url?: string;
     disabled?: boolean;
+    onClickFunc?(): void;
 }
 
-export default function Link({ text, url = "#", disabled = false }: LinkProps) {
+export default function Link({ text, url = "#", disabled = false, onClickFunc }: LinkProps) {
     const router: AppRouterInstance = useRouter();
 
     const handleClick = () => {
+        onClickFunc?.();
         router.push(url);
     };
 
