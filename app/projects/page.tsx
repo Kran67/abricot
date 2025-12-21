@@ -5,6 +5,9 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 import Button from "@/app/components/ui/Button";
 import { projects } from "@/app/mocks/projects";
 import ProjectCard from "@/app/components/data/ProjectCard";
+import Header from "@/app/components/layout/Header";
+import Footer from "@/app/components/layout/Footer";
+import { HeaderMenuItems } from "@/app/enums/enums";
 
 export default function Projects() {
     const router: AppRouterInstance = useRouter();
@@ -23,19 +26,23 @@ export default function Projects() {
     ].join(" ");
 
     return (
-        <div className={classNames}>
-            <div className="flex flex-1 items-center">
-                <div className="flex flex-col flex-1 gap-6">
-                    <h4 className="text-(--grey-800)">Mes projets</h4>
-                    <span className="body-l text-black">Gérez vos projets</span>
+        <main className="flex flex-col bg-white w-1440">
+            <Header activeMenu={HeaderMenuItems.Projects} />
+            <div className={classNames}>
+                <div className="flex flex-1 items-center">
+                    <div className="flex flex-col flex-1 gap-6">
+                        <h4 className="text-(--grey-800)">Mes projets</h4>
+                        <span className="body-l text-black">Gérez vos projets</span>
+                    </div>
+                    <Button text="+ Créer un projet" url="" width={181} height={50} />
                 </div>
-                <Button text="+ Créer un projet" url="" width={181} height={50} />
-            </div>
-            <div className="grid grid-cols-3 gap-16" style={{ "gridTemplateRows": `repeat(${projects.length / 3}, 1fr)` }}>
-                {projects.map((project, index) => (
-                    <ProjectCard key={index} props={project} />
-                ))}
-            </div>
-        </div >
+                <div className="grid grid-cols-3 gap-16" style={{ "gridTemplateRows": `repeat(${projects.length / 3}, 1fr)` }}>
+                    {projects.map((project, index) => (
+                        <ProjectCard key={index} props={project} />
+                    ))}
+                </div>
+            </div >
+            <Footer />
+        </main>
     );
 }

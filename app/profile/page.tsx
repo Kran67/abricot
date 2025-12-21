@@ -1,12 +1,14 @@
 'use client'
 
 import Input from "@/app/components/ui/Input";
-import { InputTypes } from "@/app/enums/enums";
+import { InputTypes, HeaderMenuItems } from "@/app/enums/enums";
 import Button from "@/app/components/ui/Button";
 import Link from "@/app/components/ui/Link";
 import { eraseCookie } from "@/app/lib/utils";
 import { User } from "@/app/interfaces/user";
 import { useUser } from "@/app/contexts/userContext";
+import Header from "@/app/components/layout/Header";
+import Footer from "@/app/components/layout/Footer";
 
 export default function Profile() {
     const user: User | null = useUser();
@@ -29,23 +31,27 @@ export default function Profile() {
     }
 
     return (
-        <div className={classNames}>
-            <div className="flex flex-col flex-1 gap-41 rounded-(--radius10) border border-solid border-(--grey-200) bg-(--white) pt-40 pr-59 pb-40 pl-59">
-                <form method="post" action="" className="flex flex-col gap-41">
-                    <div className="flex flex-col gap-8">
-                        <h5 className="text-(--grey-800)">Mon compte</h5>
-                        <span className="body-m text-(--grey-600)">{user?.name}</span>
-                    </div>
-                    <div className="flex flex-col gap-24">
-                        <Input name="lastname" label="Nom" value={lastName} required={true} />
-                        <Input name="name" label="Prénom" value={firstName} required={true} />
-                        <Input name="email" label="Email" value={user?.email} required={true} />
-                        <Input name="password" label="Mot de passe" type={InputTypes.Password} value="123456789" required={true} />
-                    </div>
-                    <Button text="Modifier les informations" url="" width={242} height={50} />
-                </form>
-                <Link text="Se déconnecter" url="/" onClickFunc={() => eraseCookie("token")} />
+        <main className="flex flex-col bg-white w-1440">
+            <Header activeMenu={HeaderMenuItems.Profile} />
+            <div className={classNames}>
+                <div className="flex flex-col flex-1 gap-41 rounded-(--radius10) border border-solid border-(--grey-200) bg-(--white) pt-40 pr-59 pb-40 pl-59">
+                    <form method="post" action="" className="flex flex-col gap-41">
+                        <div className="flex flex-col gap-8">
+                            <h5 className="text-(--grey-800)">Mon compte</h5>
+                            <span className="body-m text-(--grey-600)">{user?.name}</span>
+                        </div>
+                        <div className="flex flex-col gap-24">
+                            <Input name="lastname" label="Nom" value={lastName} required={true} />
+                            <Input name="name" label="Prénom" value={firstName} required={true} />
+                            <Input name="email" label="Email" value={user?.email} required={true} />
+                            <Input name="password" label="Mot de passe" type={InputTypes.Password} value="123456789" required={true} />
+                        </div>
+                        <Button text="Modifier les informations" url="" width={242} height={50} />
+                    </form>
+                    <Link text="Se déconnecter" url="/" onClickFunc={() => eraseCookie("token")} />
+                </div>
             </div>
-        </div>
+            <Footer />
+        </main>
     );
 }

@@ -4,10 +4,6 @@ import "@/app/globals.css";
 import type { User } from "@/app/interfaces/user";
 import { UserProvider } from "@/app/contexts/userContext";
 import { getProfile } from "@/app/api/api";
-import { headers } from "next/headers";
-import Header from "@/app/components/layout/Header";
-import Footer from "@/app/components/layout/Footer";
-import { getHeaderMenuItem } from "@/app/lib/utils";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,19 +28,12 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const user: User | null = await getProfile();
-  const heads = await headers();
-  const pathname: string | null = heads.get('x-pathname');
-  const showHeaderAndFooter: boolean = !["/login", "/signin"].includes(pathname ?? "");
 
   return (
     <html lang="fr">
       <body className={`${inter.variable} ${manrope.variable} antialiased justify-center flex`}>
         <UserProvider initialUser={user}>
-          <main className="flex flex-col bg-white w-1440">
-            {showHeaderAndFooter && <Header activeMenu={getHeaderMenuItem(pathname)} />}
-            {children}
-            {showHeaderAndFooter && <Footer />}
-          </main>
+          {children}
         </UserProvider>
       </body>
     </html>
