@@ -1,5 +1,6 @@
 import type { User, ProfileResponse } from "@/app/interfaces/user";
 import { cookies } from "next/headers";
+import { Project, ProjectsResponse } from "../interfaces/project";
 
 
 // retrieve profile data
@@ -25,3 +26,27 @@ export const getProfile = async (): Promise<User | null> => {
     return null;
   }
 }
+
+// retrieve the projects to which the user has assigned tasks
+export const getProjectsWithTasks = async (token: string | undefined): Promise<Project[] | null> => {
+  if (!token) return null;
+
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/dashboard/projects-with-tasks`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      cache: "no-store",
+    });
+
+    if (!res.ok) return null;
+
+    const data: ProjectsResponse = await res.json();
+
+    return data.data.projects ?? null;
+  } catch (err) {
+    console.error("Erreur lors de la récupération des projets :", err);
+    return null;
+  }
+};

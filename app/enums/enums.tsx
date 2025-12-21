@@ -47,3 +47,10 @@ export enum DashboardViews {
     List,
     Kanban
 }
+
+export enum PriorityOrders {
+    Urgent = 1,
+    High = 2,
+    Medium = 3,
+    Low = 4
+}

@@ -4,20 +4,10 @@ import Image from "next/image";
 import Tag from "@/app/components/ui/Tag";
 import Button from "@/app/components/ui/Button";
 import { formatDate } from "@/app/lib/utils";
+import { TaskProjectItem } from "@/app/interfaces/taskProjectItem";
 
 export interface PropsTL {
-    props: TaskProps;
-}
-
-export interface TaskProps {
-    name: string;
-    description: string;
-    status: string;
-    projectName: string;
-    date: Date;
-    comments?: { userName: string, userInitials: string, comment: string, date: Date }[];
-    assignedUsers: { name: string, initials: string }[];
-    isCommentOpen?: boolean;
+    props: TaskProjectItem;
 }
 
 export default function Task({ props }: PropsTL) {
@@ -49,7 +39,7 @@ export default function Task({ props }: PropsTL) {
         <div className={classNames}>
             <div className="flex">
                 <div className="flex flex-col flex-1">
-                    <h5 className="text-black h-25">{props.name}</h5>
+                    <h5 className="text-black h-25">{props.title}</h5>
                     <div className="body-s text-(--grey-600) h-17">{props.description}</div>
                 </div>
                 <Tag text={tagStatusText[props.status]} color={props.status} />
@@ -60,10 +50,10 @@ export default function Task({ props }: PropsTL) {
                     <span className="body-xs text-(--grey-600) pl-8 whitespace-nowrap">{props.projectName}</span>
                     <span className="body-2xs pl-15 pr-15">|</span>
                     <Image src="/images/calendar.svg" alt="Image projet" width={15} height={16} />
-                    <span className="body-xs text-(--grey-600) pl-8 whitespace-nowrap">{formatDate(props.date, false)}</span>
+                    <span className="body-xs text-(--grey-600) pl-8 whitespace-nowrap">{formatDate(new Date(props.dueDate), false)}</span>
                     <span className="body-2xs pl-15 pr-15">|</span>
                     <Image src="/images/comment.svg" alt="Image projet" width={15} height={15} />
-                    <span className="body-xs text-(--grey-600) pl-8">{props.comments?.length ?? 0}</span>
+                    <span className="body-xs text-(--grey-600) pl-8">{props.commentsCount}</span>
                 </div>
                 <Button className="mt-32" text="Voir" disabled={false} url="/" width={121} height={50} />
             </div>

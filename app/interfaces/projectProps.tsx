@@ -1,10 +1,8 @@
-import { TaskProps } from "@/app/components/data/Task";
-
 export default interface ProjectCardProps {
     name: string;
     description: string;
     progress?: number;
-    tasks: TaskProps[];
+    //tasks: TaskProps[];
     team: string;
     owner: string;
     contributors: { fullName: string, initials: string }[]; // à remplacer par des users

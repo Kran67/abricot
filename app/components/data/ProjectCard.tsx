@@ -7,7 +7,7 @@ import UserIcon from "@/app/components/ui/UserIcon";
 import { UserIconModes } from "@/app/enums/enums";
 import Tag from "@/app/components/ui/Tag";
 import ProjectCardProps from "@/app/interfaces/projectProps";
-import { TaskProps } from "@/app/components/data/Task";
+//import { TaskProps } from "@/app/components/data/Task";
 
 interface PropsPC {
     props: ProjectCardProps;
@@ -35,8 +35,8 @@ export default function ProjectCard({ props }: PropsPC) {
         "pb-30"
     ].join(" ");
 
-    const nbTotalTasks: number = props.tasks.length;
-    const nbTaskDone: number = props.tasks.filter((task: TaskProps) => task.status === "done").length;
+    const nbTotalTasks: number = 0; //props.tasks.length;
+    const nbTaskDone: number = 0; //props.tasks.filter((task: TaskProps) => task.status === "done").length;
 
     const totalTasks = `${nbTaskDone}/${nbTotalTasks} tâche${nbTotalTasks > 1 ? "s" : ""} terminée${nbTotalTasks > 1 ? "s" : ""}`;
     const progressValue = { "--progress": `${props.progress}%` };

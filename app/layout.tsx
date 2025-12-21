@@ -4,6 +4,7 @@ import "@/app/globals.css";
 import type { User } from "@/app/interfaces/user";
 import { UserProvider } from "@/app/contexts/userContext";
 import { getProfile } from "@/app/api/api";
+import { CookiesProvider } from 'next-client-cookies/server';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -33,7 +34,7 @@ export default async function RootLayout({
     <html lang="fr">
       <body className={`${inter.variable} ${manrope.variable} antialiased justify-center flex`}>
         <UserProvider initialUser={user}>
-          {children}
+          <CookiesProvider>{children}</CookiesProvider>
         </UserProvider>
       </body>
     </html>

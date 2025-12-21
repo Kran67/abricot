@@ -7,7 +7,7 @@ export const projects: ProjectCardProps[] = [
         description: "Développement de la nouvelle version de l'API REST avec authentification JWT",
         progress: 13,
         team: "Équipe (3)",
-        tasks: tasks,
+        //tasks: tasks,
         owner: "AD",
         contributors: [
             { fullName: "Bertrand Dupont", initials: "BD" },
@@ -20,7 +20,7 @@ export const projects: ProjectCardProps[] = [
         description: "Développement de la nouvelle version de l'API REST avec authentification JWT",
         progress: 20,
         team: "Équipe (1)",
-        tasks: tasks,
+        //tasks: tasks,
         owner: "AD",
         contributors: [
             { fullName: "Bertrand Dupont", initials: "BD" },
@@ -33,7 +33,7 @@ export const projects: ProjectCardProps[] = [
         description: "Développement de la nouvelle version de l'API REST avec authentification JWT",
         progress: 26,
         team: "Équipe (2)",
-        tasks: tasks,
+        //tasks: tasks,
         owner: "AD",
         contributors: [
             { fullName: "Bertrand Dupont", initials: "BD" },
@@ -46,7 +46,7 @@ export const projects: ProjectCardProps[] = [
         description: "Développement de la nouvelle version de l'API REST avec authentification JWT",
         progress: 35,
         team: "Équipe (4)",
-        tasks: tasks,
+        //tasks: tasks,
         owner: "AD",
         contributors: [
             { fullName: "Bertrand Dupont", initials: "BD" },
@@ -59,7 +59,7 @@ export const projects: ProjectCardProps[] = [
         description: "Développement de la nouvelle version de l'API REST avec authentification JWT",
         progress: 47,
         team: "Équipe (1)",
-        tasks: tasks,
+        //tasks: tasks,
         owner: "AD",
         contributors: [
             { fullName: "Bertrand Dupont", initials: "BD" },
@@ -72,7 +72,7 @@ export const projects: ProjectCardProps[] = [
         description: "Développement de la nouvelle version de l'API REST avec authentification JWT",
         progress: 55,
         team: "Équipe (2)",
-        tasks: tasks,
+        //tasks: tasks,
         owner: "AD",
         contributors: [
             { fullName: "Bertrand Dupont", initials: "BD" },
@@ -85,7 +85,7 @@ export const projects: ProjectCardProps[] = [
         description: "Développement de la nouvelle version de l'API REST avec authentification JWT",
         progress: 66,
         team: "Équipe (3)",
-        tasks: tasks,
+        //tasks: tasks,
         owner: "",
         contributors: [
             { fullName: "Bertrand Dupont", initials: "BD" },
@@ -98,7 +98,7 @@ export const projects: ProjectCardProps[] = [
         description: "Développement de la nouvelle version de l'API REST avec authentification JWT",
         progress: 76,
         team: "Équipe (3)",
-        tasks: tasks,
+        //tasks: tasks,
         owner: "AD",
         contributors: [
             { fullName: "Bertrand Dupont", initials: "BD" },
@@ -111,7 +111,7 @@ export const projects: ProjectCardProps[] = [
         description: "Développement de la nouvelle version de l'API REST avec authentification JWT",
         progress: 84,
         team: "Équipe (2)",
-        tasks: tasks,
+        //tasks: tasks,
         owner: "AD",
         contributors: [
             { fullName: "Bertrand Dupont", initials: "BD" },

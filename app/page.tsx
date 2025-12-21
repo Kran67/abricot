@@ -1,19 +1,25 @@
 'use client'
 
-import { useRouter } from "next/navigation";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Input from "@/app/components/ui/Input";
 import Button from "@/app/components/ui/Button";
 import Chip from "@/app/components/ui/Chip";
 import { DashboardViews, InputImageTypes, HeaderMenuItems } from "@/app/enums/enums";
-import Task, { TaskProps } from "@/app/components/data/Task";
+import Task from "@/app/components/data/Task";
 import Tag from "@/app/components/ui/Tag";
-import { tasks } from "@/app/mocks/tasks";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
+import { User } from "@/app/interfaces/user";
+import { useUser } from "@/app/contexts/userContext";
+import { useProjectsWithTasks } from "@/app/hooks/useProjectsWithTasks";
+import { TaskProjectItem } from "@/app/interfaces/taskProjectItem";
+import { useCookies } from 'next-client-cookies';
 
 export default function Dashboard() {
-  const view: number = DashboardViews.Kanban;
+  const user: User | null = useUser();
+  const view: number = DashboardViews.List;
+  const cookies = useCookies();
+  const { projects, refresh } = useProjectsWithTasks(cookies.get('token'));
+  const tasks: TaskProjectItem[] = [];
 
   const classNames = [
     "dashboard",
@@ -27,9 +33,24 @@ export default function Dashboard() {
     "flex-1"
   ].join(" ");
 
-  const todoTasks: TaskProps[] = tasks.filter((task) => task.status === "todo");
-  const inProgressTasks: TaskProps[] = tasks.filter((task) => task.status === "in_progress");
-  const doneTasks: TaskProps[] = tasks.filter((task) => task.status === "done");
+  projects?.forEach((project) => {
+    project.tasks?.forEach((task) => {
+      tasks.push({
+        title: task.title,
+        description: task.description,
+        status: task.status,
+        priority: task.priority,
+        dueDate: task.dueDate,
+        commentsCount: task.comments.length,
+        projectName: project.name,
+        projectID: project.id,
+      });
+    });
+  });
+
+  const todoTasks: TaskProjectItem[] = tasks.filter((task) => task.status === "TODO");
+  const inProgressTasks: TaskProjectItem[] = tasks.filter((task) => task.status === "IN_PROGRESS");
+  const doneTasks: TaskProjectItem[] = tasks.filter((task) => task.status === "DONE");
 
   const nbTodoTasks: string = todoTasks.length.toString();
   const nbInProgressTasks: string = inProgressTasks.length.toString();
@@ -42,7 +63,7 @@ export default function Dashboard() {
         <div className="flex flex-1 items-center">
           <div className="flex flex-col flex-1 gap-6">
             <h4 className="text-(--grey-800)">Tableau de bord</h4>
-            <span className="body-l text-black">Bonjour { }, voici un aperçu de vos projets et tâches</span>
+            <span className="body-l text-black">Bonjour {user?.name}, voici un aperçu de vos projets et tâches</span>
           </div>
           <Button text="+ Créer un projet" url="" width={181} height={50} />
         </div>

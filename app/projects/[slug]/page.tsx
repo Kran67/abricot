@@ -77,9 +77,9 @@ export default function ProjectDetails({ props }: PropsPC) {
                         </div>
                     </div>
                     <div className="flex flex-col gap-17 pr-36 pl-36">
-                        {props.tasks.map((task, index) => (
+                        {/* {props.tasks.map((task, index) => (
                             <ProjectTask key={index} props={task} />
-                        ))}
+                        ))} */}
                     </div>
                 </div>
             </div >
