@@ -1,5 +1,5 @@
 import { ProjectMember } from "./projectMember";
-import { Task } from "./task";
+import { Task } from "./taskItem";
 import { User } from "./user";
 
 interface Count {

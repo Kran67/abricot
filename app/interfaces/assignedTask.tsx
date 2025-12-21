@@ -1,4 +1,4 @@
-import { Task } from "@/app/interfaces/task";
+import { Task } from "@/app/interfaces/taskItem";
 
 export interface AssignedTasksResponse {
     success: boolean;

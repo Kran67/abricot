@@ -11,15 +11,17 @@ import Footer from "@/app/components/layout/Footer";
 import { User } from "@/app/interfaces/user";
 import { useUser } from "@/app/contexts/userContext";
 import { useProjectsWithTasks } from "@/app/hooks/useProjectsWithTasks";
-import { TaskProjectItem } from "@/app/interfaces/taskProjectItem";
 import { useCookies } from 'next-client-cookies';
+import { useState } from "react";
+import type { TaskItem } from "@/app/interfaces/taskItem";
 
 export default function Dashboard() {
   const user: User | null = useUser();
   const view: number = DashboardViews.List;
   const cookies = useCookies();
   const { projects, refresh } = useProjectsWithTasks(cookies.get('token'));
-  const tasks: TaskProjectItem[] = [];
+  const tasks: TaskItem[] = [];
+  const [search, setSearch] = useState<string>("");
 
   const classNames = [
     "dashboard",
@@ -35,22 +37,27 @@ export default function Dashboard() {
 
   projects?.forEach((project) => {
     project.tasks?.forEach((task) => {
-      tasks.push({
-        title: task.title,
-        description: task.description,
-        status: task.status,
-        priority: task.priority,
-        dueDate: task.dueDate,
-        commentsCount: task.comments.length,
-        projectName: project.name,
-        projectID: project.id,
-      });
+      task.projectName = project.name;
+      tasks.push(task);
     });
   });
 
-  const todoTasks: TaskProjectItem[] = tasks.filter((task) => task.status === "TODO");
-  const inProgressTasks: TaskProjectItem[] = tasks.filter((task) => task.status === "IN_PROGRESS");
-  const doneTasks: TaskProjectItem[] = tasks.filter((task) => task.status === "DONE");
+  const priorityOrder = { URGENT: 1, HIGH: 2, MEDIUM: 3, LOW: 4 };
+
+  tasks.sort((a: TaskItem, b: TaskItem) => {
+    return priorityOrder[a.priority] - priorityOrder[b.priority];
+  });
+
+  /* pour l'affichage liste */
+  const filteredTasks = tasks.filter((task: TaskItem) => {
+    const strToSearch = search.toLowerCase();
+    return task.title.toLowerCase().includes(strToSearch) || task.description.toLowerCase().includes(strToSearch) || task.projectName.toLowerCase().includes(strToSearch);
+  });
+
+  /* pour l'affichage kanban */
+  const todoTasks: TaskItem[] = tasks.filter((task) => task.status === "TODO");
+  const inProgressTasks: TaskItem[] = tasks.filter((task) => task.status === "IN_PROGRESS");
+  const doneTasks: TaskItem[] = tasks.filter((task) => task.status === "DONE");
 
   const nbTodoTasks: string = todoTasks.length.toString();
   const nbInProgressTasks: string = inProgressTasks.length.toString();
@@ -78,10 +85,10 @@ export default function Dashboard() {
                 <h4 className="text-(--grey-800)">Mes tâches assignées</h4>
                 <span className="body-l text-black">Par ordre de priorité</span>
               </div>
-              <Input name="search" placeHolder="Rechercher une tâche" imageType={InputImageTypes.Search} width={357} />
+              <Input name="search" placeHolder="Rechercher une tâche" imageType={InputImageTypes.Search} width={357} value={search} onChange={(e) => setSearch(e.target.value)} />
             </div>
             <div className="flex flex-col gap-17">
-              {tasks.map((task, index) => (
+              {filteredTasks.map((task, index) => (
                 <Task key={index} props={task} />
               ))}
             </div>
@@ -90,7 +97,7 @@ export default function Dashboard() {
             <div className="flex flex-col gap-41 rounded-(--radius10) max-w-419 min-w-419 border border-solid border-(--error-light) pt-40 pr-24 pb-40 pl-24 bg-(--white)">
               <div className="flex gap-8">
                 <h5 className="text-(--grey-800)">À faire</h5>
-                <Tag text={nbTodoTasks} color="user" />
+                <Tag text={nbTodoTasks} color="USER" />
               </div>
               <div className="flex flex-col gap-16">
                 {todoTasks.map((task, index) => (
@@ -101,7 +108,7 @@ export default function Dashboard() {
             <div className="flex flex-col gap-41 rounded-(--radius10) max-w-419 min-w-419 border border-solid border-(--error-light) pt-40 pr-24 pb-40 pl-24 bg-(--white)">
               <div className="flex gap-8">
                 <h5 className="text-(--grey-800)">En cours</h5>
-                <Tag text={nbInProgressTasks} color="user" />
+                <Tag text={nbInProgressTasks} color="USER" />
               </div>
               <div className="flex flex-col gap-16">
                 {inProgressTasks.map((task, index) => (
@@ -112,7 +119,7 @@ export default function Dashboard() {
             <div className="flex flex-col gap-41 rounded-(--radius10) max-w-419 min-w-419 border border-solid border-(--error-light) pt-40 pr-24 pb-40 pl-24 bg-(--white)">
               <div className="flex gap-8">
                 <h5 className="text-(--grey-800)">Terminées</h5>
-                <Tag text={nbDoneTasks} color="user" />
+                <Tag text={nbDoneTasks} color="USER" />
               </div>
               <div className="flex flex-col gap-16">
                 {doneTasks.map((task, index) => (

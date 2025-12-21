@@ -21,7 +21,7 @@ export interface TaskComment {
 export type TaskStatus = 'TODO' | 'IN_PROGRESS' | 'DONE' | 'CANCELLED';
 export type TaskPriority = 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
 
-export interface Task {
+export interface TaskItem {
     id: string;
     title: string;
     description: string;
@@ -34,4 +34,5 @@ export interface Task {
     comments: TaskComment[];
     createdAt: string;
     updatedAt: string;
+    projectName: string;
 }

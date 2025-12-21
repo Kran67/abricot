@@ -8,11 +8,11 @@ interface TagProps {
 export default function Tag({ text, color }: TagProps) {
 
     const colors: { [key: string]: string } = {
-        done: " bg-(--success-light) text-(--success)",
-        todo: " bg-(--error-light) text-(--error)",
-        in_progress: " bg-(--warning-light) text-(--warning)",
-        user: " bg-(--grey-200) text-(--grey-600)",
-        default: " bg-(--light-orange) text-(--dark-orange)",
+        DONE: " bg-(--success-light) text-(--success)",
+        TODO: " bg-(--error-light) text-(--error)",
+        IN_PROGRESS: " bg-(--warning-light) text-(--warning)",
+        USER: " bg-(--grey-200) text-(--grey-600)",
+        DEFAULT: " bg-(--light-orange) text-(--dark-orange)",
     };
 
     const tagColors: string = color ? colors[color] : colors.default;

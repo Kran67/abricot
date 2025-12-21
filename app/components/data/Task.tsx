@@ -4,10 +4,10 @@ import Image from "next/image";
 import Tag from "@/app/components/ui/Tag";
 import Button from "@/app/components/ui/Button";
 import { formatDate } from "@/app/lib/utils";
-import { TaskProjectItem } from "@/app/interfaces/taskProjectItem";
+import { TaskItem } from "@/app/interfaces/taskItem";
 
 export interface PropsTL {
-    props: TaskProjectItem;
+    props: TaskItem;
 }
 
 export default function Task({ props }: PropsTL) {
@@ -29,10 +29,10 @@ export default function Task({ props }: PropsTL) {
     ].join(" ");
 
     const tagStatusText: { [key: string]: string } = {
-        in_progress: "En cours",
-        done: "Terminée",
-        todo: "À faire",
-        cancelled: "Annulée"
+        IN_PROGRESS: "En cours",
+        DONE: "Terminée",
+        TODO: "À faire",
+        CANCELLED: "Annulée"
     }
 
     return (
@@ -53,7 +53,7 @@ export default function Task({ props }: PropsTL) {
                     <span className="body-xs text-(--grey-600) pl-8 whitespace-nowrap">{formatDate(new Date(props.dueDate), false)}</span>
                     <span className="body-2xs pl-15 pr-15">|</span>
                     <Image src="/images/comment.svg" alt="Image projet" width={15} height={15} />
-                    <span className="body-xs text-(--grey-600) pl-8">{props.commentsCount}</span>
+                    <span className="body-xs text-(--grey-600) pl-8">{props.comments.length}</span>
                 </div>
                 <Button className="mt-32" text="Voir" disabled={false} url="/" width={121} height={50} />
             </div>

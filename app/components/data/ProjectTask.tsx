@@ -29,10 +29,10 @@ export default function ProjectTask({ props }: PropsTL) {
     ].join(" ");
 
     const tagStatusText: { [key: string]: string } = {
-        in_progress: "En cours",
-        done: "Terminée",
-        todo: "À faire",
-        cancelled: "Annulée"
+        IN_PROGRESS: "En cours",
+        DONE: "Terminée",
+        TODO: "À faire",
+        CANCELLED: "Annulée"
     }
 
     return (
