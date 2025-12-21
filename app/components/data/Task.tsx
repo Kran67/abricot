@@ -55,7 +55,7 @@ export default function Task({ props }: PropsTL) {
                     <Image src="/images/comment.svg" alt="Image projet" width={15} height={15} />
                     <span className="body-xs text-(--grey-600) pl-8">{props.comments.length}</span>
                 </div>
-                <Button className="mt-32" text="Voir" disabled={false} url="/" width={121} height={50} />
+                <Button className="mt-32" text="Voir" disabled={false} url={`/projects/${props.projectId}`} width={121} height={50} />
             </div>
         </div>
     );

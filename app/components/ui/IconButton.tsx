@@ -14,7 +14,7 @@ export default function IconButton({ type = IconButtonTypes.Arrow }: IconButtonP
     const router: AppRouterInstance = useRouter();
 
     const handleClick = () => {
-        router.push(isBackBtn ? "" : "");
+        router.push(isBackBtn ? "/projects" : "");
     };
 
     const classNames = [

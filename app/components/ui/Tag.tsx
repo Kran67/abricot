@@ -1,7 +1,7 @@
 'use client'
 
 interface TagProps {
-    text: string;
+    text: string | undefined;
     color?: string;
 }
 

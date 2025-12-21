@@ -19,7 +19,7 @@ export default function Dashboard() {
   const user: User | null = useUser();
   const view: number = DashboardViews.List;
   const cookies = useCookies();
-  const { projects, refresh } = useProjectsWithTasks(cookies.get('token'));
+  const { projects, refresh } = useProjectsWithTasks(cookies.get("token"));
   const tasks: TaskItem[] = [];
   const [search, setSearch] = useState<string>("");
 

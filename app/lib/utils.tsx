@@ -21,3 +21,12 @@ export function getHeaderMenuItem(pathname: string | null): HeaderMenuItems {
 
     return HeaderMenuItems.Dashboard;
 }
+
+export const getInitials = (name?: string) =>
+    name
+        ? name
+            .split(" ")
+            .map((n) => n[0])
+            .join("")
+            .toUpperCase()
+        : "?";

@@ -3,13 +3,19 @@
 import Image from "next/image";
 import Tag from "@/app/components/ui/Tag";
 import IconButton from "@/app/components/ui/IconButton";
-import { formatDate } from "@/app/lib/utils";
+import { formatDate, getInitials } from "@/app/lib/utils";
 import UserIcon from "@/app/components/ui/UserIcon";
 import { UserIconModes, IconButtonTypes } from "@/app/enums/enums";
 import Comment from "@/app/components/data/Comment";
-import { PropsTL } from "@/app/components/data/Task";
+import { useState } from "react";
+import { TaskItem } from "@/app/interfaces/taskItem";
+
+export interface PropsTL {
+    props: TaskItem;
+}
 
 export default function ProjectTask({ props }: PropsTL) {
+    const [isCommentOpen, setIsCommentOpen] = useState(false);
     const classNames = [
         "project-task",
         "flex",
@@ -54,25 +60,25 @@ export default function ProjectTask({ props }: PropsTL) {
             </div>
             <div className="flex gap-8 items-center">
                 <span className="body-xs text-(--grey-600)">Assigné à :</span>
-                {/* {props.assignedUsers.map((user, index) => (
+                {props.assignees.map((assignee, index) => (
                     <div key={index} className="flex items-center gap-4">
-                        <UserIcon text={user.initials} mode={UserIconModes.Small} />
-                        <Tag text={user.name} color="user" />
+                        <UserIcon text={getInitials(assignee.user.name)} mode={UserIconModes.Small} />
+                        <Tag text={assignee.user.name} color="USER" />
                     </div>
-                ))} */}
+                ))}
             </div>
             <hr className="h-px bg-(--grey-200) border-0" />
             <div className="flex flex-col">
-                <div className="flex cursor-pointer">
-                    <div className="flex body-s text-(--grey-800) flex-1">Commenaires ({props.commentsCount})</div>
-                    {/* <div className={"flex " + (props.isCommentOpen ? "opended" : "")}>
-                        <Image src="./images/bottom_arrow.svg" alt="Image commentaires ouvert ou non" width={16} height={8} />
-                    </div> */}
+                <div className="flex cursor-pointer" onClick={() => setIsCommentOpen(!isCommentOpen)}>
+                    <div className="flex body-s text-(--grey-800) flex-1">Commenaires ({props.comments.length ?? 0})</div>
+                    <div className={"flex " + (isCommentOpen ? "opended" : "")}>
+                        <Image src="/images/bottom_arrow.svg" alt="Image commentaires ouvert ou non" width={16} height={8} />
+                    </div>
                 </div>
             </div>
-            {/* <div className={"flex flex-1 overflow-hidden transition-[height] duration-300 ease-out " + (!props.isCommentOpen ? "h-0 max-h-0" : "")}>
-                <Comment comments={props.comments ?? []} owner="" />
-            </div> */}
+            <div className={"flex flex-1 overflow-hidden transition-[height] duration-300 ease-out " + (!isCommentOpen ? "h-0 max-h-0" : "")}>
+                <Comment props={props.comments ?? []} />
+            </div>
         </div>
     );
 }
