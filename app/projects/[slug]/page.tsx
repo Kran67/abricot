@@ -19,6 +19,7 @@ import { useProjects } from "@/app/hooks/useProjects";
 import { useCookies } from 'next-client-cookies';
 import ProjectTask from "@/app/components/data/ProjectTask";
 import { TaskItem } from "@/app/interfaces/taskItem";
+import Select, { ActionMeta } from "react-select";
 
 export default function ProjectDetails({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
@@ -28,6 +29,10 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
     const { projects, refresh } = useProjects(token);
     const [view, setView] = useState<ProjectsViews>(ProjectsViews.List);
     const [search, setSearch] = useState<string>("");
+    const [status, setStatus] = useState<{
+        value: string,
+        label: string,
+    } | null>(null);
 
     const classNames = [
         "projectdetails",
@@ -40,6 +45,24 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
         "bg-(--grey-50)",
         "flex-1",
     ].join(" ");
+    const statuts = [
+        {
+            value: "TODO",
+            label: "À faire",
+        },
+        {
+            value: "IN_PROGRESS",
+            label: "En cours",
+        },
+        {
+            value: "DONE",
+            label: "Terminée",
+        },
+        {
+            value: "CANCELLED",
+            label: "Annulée",
+        },
+    ];
 
     const priorityOrder = { URGENT: 1, HIGH: 2, MEDIUM: 3, LOW: 4 };
 
@@ -48,11 +71,14 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
     });
 
     /* pour l'affichage liste */
-    const filteredTasks = tasks?.filter((task: TaskItem) => {
+    let filteredTasks = tasks?.filter((task: TaskItem) => {
         const strToSearch = search.toLowerCase();
         return task?.title?.toLowerCase().includes(strToSearch) || task?.description?.toLowerCase().includes(strToSearch) ||
             task?.projectName?.toLowerCase().includes(strToSearch);
     });
+    if (status) {
+        filteredTasks = filteredTasks?.filter((task: TaskItem) => task.status === status.value);
+    }
 
     const projet: Project | undefined = projects?.find((p) => p.id === slug);
     const memberInitials = projet?.members.map((m) => getInitials(m.user?.name)) ?? [];
@@ -118,7 +144,16 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                                     onClickFunc={() => setView(ProjectsViews.Calendar)}
                                 />
                             </div>
-                            <Input name="status" type={InputTypes.Text} imageType={InputImageTypes.BottomArrow} width={152} />
+                            <Select
+                                className="status-drop-down"
+                                classNamePrefix="status-drop-down"
+                                name="status"
+                                options={statuts}
+                                isClearable={true}
+                                isSearchable={true}
+                                placeholder="Statut"
+                                onChange={(option: { value: string, label: string } | null, actionMeta: ActionMeta<any>) => setStatus(option)}
+                            />
                             <Input
                                 name="search"
                                 type={InputTypes.Text}

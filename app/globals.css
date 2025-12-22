@@ -156,3 +156,33 @@ img.logo.black,
 .project-task .opended {
   rotate: -180deg;
 }
+
+.status-drop-down {
+  width: 152px;
+  height: 53px;
+  display: flex;
+}
+
+.status-drop-down .status-drop-down__control,
+.status-drop-down .status-drop-down__control:hover,
+.status-drop-down .status-drop-down__control:focus {
+  flex: 1;
+  border-color: var(--grey-200);
+  box-shadow: none;
+}
+
+.status-drop-down .status-drop-down__indicator-separator {
+  display: none;
+}
+
+.status-drop-down .status-drop-down__input,
+.status-drop-down .status-drop-down__single-value,
+.status-drop-down .status-drop-down__placeholder,
+.status-drop-down .status-drop-down__menu {
+
+  font-size: 14px;
+}
+
+.status-drop-down .status-drop-down__clear-indicator {
+  padding: 8px 0;
+}
