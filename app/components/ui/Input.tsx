@@ -15,9 +15,10 @@ interface InputProps {
     onChange?: (e: any) => void
     hasError?: boolean;
     autoComplete?: string;
+    maxLength?: number;
 }
 
-export default function Input({ name, label, type, value, imageType, placeHolder, required, width, onChange, hasError, autoComplete = "on" }: InputProps) {
+export default function Input({ name, label, type, value, imageType, placeHolder, required, width, onChange, hasError, autoComplete = "on", maxLength }: InputProps) {
     const classNames = [
         "input",
         "flex",
@@ -50,6 +51,7 @@ export default function Input({ name, label, type, value, imageType, placeHolder
                     required={required}
                     autoComplete={autoComplete}
                     onChange={onChange}
+                    maxLength={maxLength}
                 />
                 {imageType &&
                     <Image src={"/images/" + imageType + ".svg"} width={15} height={imgHeight} alt={" Image " + imageType} />

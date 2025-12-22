@@ -3,10 +3,13 @@
 interface TagProps {
     text: string | undefined;
     color?: string;
+    onClick?: () => void;
 }
 
-export default function Tag({ text, color }: TagProps) {
-
+export default function Tag({ text, color, onClick }: TagProps) {
+    const handleClick = () => {
+        onClick?.();
+    };
     const colors: { [key: string]: string } = {
         DONE: " bg-(--success-light) text-(--success)",
         TODO: " bg-(--error-light) text-(--error)",
@@ -30,10 +33,11 @@ export default function Tag({ text, color }: TagProps) {
         "pr-16",
         "pb-4",
         "pl-16",
-        "h-25"
+        "h-25",
+        "select-none"
     ].join(" ") + tagColors;
 
     return (
-        <span className={classNames}>{text}</span>
+        <span className={classNames} onClick={handleClick}>{text}</span>
     );
 }

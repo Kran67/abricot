@@ -27,7 +27,8 @@ export enum HeaderMenuItems {
 
 export enum InputTypes {
     Text = 'text',
-    Password = 'password'
+    Password = 'password',
+    Date = 'date'
 }
 
 export enum InputImageTypes {

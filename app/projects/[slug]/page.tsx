@@ -20,19 +20,22 @@ import { useCookies } from 'next-client-cookies';
 import ProjectTask from "@/app/components/data/ProjectTask";
 import { TaskItem } from "@/app/interfaces/taskItem";
 import Select, { ActionMeta } from "react-select";
+import ModalCreateTask from "@/app/components/modals/ModalCreateTask";
+import { createPortal } from "react-dom";
 
 export default function ProjectDetails({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
     const cookies = useCookies();
     const token: string | undefined = cookies.get("token");
     const { tasks, refreshTasks } = useProjectsTasks(token, slug);
-    const { projects, refresh } = useProjects(token);
+    const { projects } = useProjects(token);
     const [view, setView] = useState<ProjectsViews>(ProjectsViews.List);
     const [search, setSearch] = useState<string>("");
     const [status, setStatus] = useState<{
         value: string,
         label: string,
     } | null>(null);
+    const [showModal, setShowModal] = useState(false);
 
     const classNames = [
         "projectdetails",
@@ -71,23 +74,22 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
     });
 
     /* pour l'affichage liste */
-    let filteredTasks = tasks?.filter((task: TaskItem) => {
+    const filteredTasks = tasks?.filter((task: TaskItem) => {
         const strToSearch = search.toLowerCase();
-        return task?.title?.toLowerCase().includes(strToSearch) || task?.description?.toLowerCase().includes(strToSearch) ||
-            task?.projectName?.toLowerCase().includes(strToSearch);
-    });
-    if (status) {
-        filteredTasks = filteredTasks?.filter((task: TaskItem) => task.status === status.value);
-    }
 
-    const projet: Project | undefined = projects?.find((p) => p.id === slug);
-    const memberInitials = projet?.members.map((m) => getInitials(m.user?.name)) ?? [];
-    const members = projet?.members.map((m) => m.user?.name) ?? [];
-    const ownerInitials = getInitials(projet?.owner?.name);
-    const initials = [ownerInitials, ...memberInitials];
-    const names = ["Propriétaire", ...members];
-    const contributorList: User[] | undefined = projet?.members.map((member) => member.user);
-    const contributorCount: number = contributorList?.length ?? 0;
+        const matchSearch = task.title.toLowerCase().includes(strToSearch) || task.description.toLowerCase().includes(strToSearch);
+
+        const matchStatus = !status || task.status === status.value;
+
+        return matchSearch && matchStatus;
+    });
+
+    const project: Project | undefined = projects?.find((p) => p.id === slug);
+    const memberInitials = project?.members.map((m) => getInitials(m.user?.name)) ?? [];
+    const members = project?.members.map((m) => m.user?.name) ?? [];
+    const ownerInitials = getInitials(project?.owner?.name);
+    const contributorList: { value: string, label: string | undefined }[] = project?.members.map((member) => { return { value: member.user.id, label: member.user.name } }) || [];
+    const memberCount: number = members?.length ?? 0;
 
     return (
         <main className="flex flex-col bg-white w-1440">
@@ -97,24 +99,36 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                     <IconButton />
                     <div className="flex flex-col flex-1 gap-6">
                         <div className="flex gap-16">
-                            <h4 className="text-(--grey-800)">{projet?.name}</h4>
+                            <h4 className="text-(--grey-800)">{project?.name}</h4>
                             <Link text="Modifier" url="" />
                         </div>
-                        <span className="body-l text-black">{projet?.description}</span>
+                        <span className="body-l text-black">{project?.description}</span>
                     </div>
-                    <Button text="Créer une tâche" url="" width={141} height={50} />
-                    <Button text="IA" url="" width={94} height={50} image={{ url: "/images/star.svg", alt: "", width: 21, height: 21 }} color="orange" />
+                    <Button text="Créer une tâche" width={141} height={50} onClick={() => setShowModal(true)} />
+                    {showModal && createPortal(
+                        <ModalCreateTask
+                            projectId={project?.id}
+                            contributorList={contributorList}
+                            closeModal={() => setShowModal(false)}
+                            onSuccess={() => {
+                                refreshTasks();
+                                setShowModal(false);
+                            }}
+                        />,
+                        document.body
+                    )}
+                    <Button text="IA" width={94} height={50} image={{ url: "/images/star.svg", alt: "", width: 21, height: 21 }} color="orange" />
                 </div>
                 <div className="flex gap-24 bg-(--grey-100) rounded-(--radius10) pt-20 pr-50 pb-20 pl-50 items-center mt-48">
                     <div className="flex gap-8 items-center flex-1">
                         <h5 className="text-(--grey-800)">Contributeurs</h5>
-                        <span className="body-m text-(--grey-600)">{contributorCount + 1} personne{contributorCount + 1 > 1 ? "s" : null}</span>
+                        <span className="body-m text-(--grey-600)">{memberCount} personne{memberCount > 1 ? "s" : null}</span>
                     </div>
                     <div className="flex gap-8">
-                        {initials?.map((member: string, index: number) => (
+                        {memberInitials?.map((member: string, index: number) => (
                             <div key={index} className="flex items-center gap-5">
                                 <UserIcon text={member} mode={UserIconModes.Small} isOwner={member === ownerInitials} hasBorder={member !== ownerInitials} />
-                                <Tag text={names?.[index]} color={member === ownerInitials ? "DEFAULT" : "USER"} />
+                                <Tag text={ownerInitials === member ? "Propriétaire" : members?.[index]} color={member === ownerInitials ? "DEFAULT" : "USER"} />
                             </div>
                         ))}
                     </div>
