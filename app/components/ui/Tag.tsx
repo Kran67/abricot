@@ -15,7 +15,7 @@ export default function Tag({ text, color }: TagProps) {
         DEFAULT: " bg-(--light-orange) text-(--dark-orange)",
     };
 
-    const tagColors: string = color ? colors[color] : colors.default;
+    const tagColors: string = color ? colors[color] : colors.DEFAULT;
 
     const classNames = [
         "tag",

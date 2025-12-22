@@ -71,12 +71,12 @@ export default function ProjectTask({ props }: PropsTL) {
             <div className="flex flex-col">
                 <div className="flex cursor-pointer" onClick={() => setIsCommentOpen(!isCommentOpen)}>
                     <div className="flex body-s text-(--grey-800) flex-1">Commenaires ({props.comments.length ?? 0})</div>
-                    <div className={"flex " + (isCommentOpen ? "opended" : "")}>
+                    <div className={"flex transition-rotate duration-300 ease-out " + (isCommentOpen ? "opended" : "")}>
                         <Image src="/images/bottom_arrow.svg" alt="Image commentaires ouvert ou non" width={16} height={8} />
                     </div>
                 </div>
             </div>
-            <div className={"flex flex-1 overflow-hidden transition-[height] duration-300 ease-out " + (!isCommentOpen ? "h-0 max-h-0" : "")}>
+            <div className={"flex flex-1 overflow-hidden " + (!isCommentOpen ? "h-0 max-h-0" : "")}>
                 <Comment props={props.comments ?? []} />
             </div>
         </div>

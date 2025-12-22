@@ -152,3 +152,7 @@ img.logo.black,
   background-repeat: no-repeat;
   background-size: 104%;
 }
+
+.project-task .opended {
+  rotate: -180deg;
+}
