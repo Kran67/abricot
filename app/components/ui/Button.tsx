@@ -14,14 +14,17 @@ interface ButtonProps {
     width?: number;
     height?: number;
     color?: string;
+    onClick?: () => void
 }
 
-export default function Button({ text, disabled, className, image, url, width, height, color }: ButtonProps) {
+export default function Button({ text, disabled, className, image, url, width, height, color, onClick }: ButtonProps) {
     const router: AppRouterInstance = useRouter();
 
     const handleClick = () => {
         if (url) {
             router.push(url);
+        } else if (onClick) {
+            onClick();
         }
     };
 

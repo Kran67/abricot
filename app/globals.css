@@ -165,24 +165,33 @@ img.logo.black,
 
 .status-drop-down .status-drop-down__control,
 .status-drop-down .status-drop-down__control:hover,
-.status-drop-down .status-drop-down__control:focus {
+.status-drop-down .status-drop-down__control:focus,
+.contributors-drop-down .contributors-drop-down__control,
+.contributors-drop-down .contributors-drop-down__control:hover,
+.contributors-drop-down .contributors-drop-down__control:focus {
   flex: 1;
   border-color: var(--grey-200);
   box-shadow: none;
 }
 
-.status-drop-down .status-drop-down__indicator-separator {
+.status-drop-down .status-drop-down__indicator-separator,
+.contributors-drop-down .contributors-drop-down__indicator-separator {
   display: none;
 }
 
 .status-drop-down .status-drop-down__input,
 .status-drop-down .status-drop-down__single-value,
 .status-drop-down .status-drop-down__placeholder,
-.status-drop-down .status-drop-down__menu {
+.status-drop-down .status-drop-down__menu,
+.contributors-drop-down .contributors-drop-down__input,
+.contributors-drop-down .contributors-drop-down__single-value,
+.contributors-drop-down .contributors-drop-down__placeholder,
+.contributors-drop-down .contributors-drop-down__menu {
 
   font-size: 14px;
 }
 
-.status-drop-down .status-drop-down__clear-indicator {
+.status-drop-down .status-drop-down__clear-indicator,
+.contributors-drop-down .contributors-drop-down__clear-indicator {
   padding: 8px 0;
 }

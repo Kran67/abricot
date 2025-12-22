@@ -12,8 +12,10 @@ import { User } from "@/app/interfaces/user";
 import { useUser } from "@/app/contexts/userContext";
 import { useProjectsWithTasks } from "@/app/hooks/useProjectsWithTasks";
 import { useCookies } from 'next-client-cookies';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { TaskItem } from "@/app/interfaces/taskItem";
+import ModalCreateProject from "./components/modals/ModalCreateProject";
+import { createPortal } from "react-dom";
 
 export default function Dashboard() {
   const user: User | null = useUser();
@@ -22,6 +24,7 @@ export default function Dashboard() {
   const { projects, refresh } = useProjectsWithTasks(cookies.get("token"));
   const tasks: TaskItem[] = [];
   const [search, setSearch] = useState<string>("");
+  const [showModal, setShowModal] = useState(false);
 
   const classNames = [
     "dashboard",
@@ -64,6 +67,14 @@ export default function Dashboard() {
   const nbInProgressTasks: string = inProgressTasks.length.toString();
   const nbDoneTasks: string = doneTasks.length.toString();
 
+  useEffect(() => {
+    document.body.style.overflow = showModal ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [showModal]);
+
   return (
     <main className="flex flex-col bg-white w-1440">
       <Header activeMenu={HeaderMenuItems.Dashboard} />
@@ -73,7 +84,17 @@ export default function Dashboard() {
             <h4 className="text-(--grey-800)">Tableau de bord</h4>
             <span className="body-l text-black">Bonjour {user?.name}, voici un aperçu de vos projets et tâches</span>
           </div>
-          <Button text="+ Créer un projet" url="" width={181} height={50} />
+          <Button text="+ Créer un projet" width={181} height={50} onClick={() => setShowModal(true)} />
+          {showModal && createPortal(
+            <ModalCreateProject
+              closeModal={() => setShowModal(false)}
+              onSuccess={() => {
+                refresh();
+                setShowModal(false);
+              }}
+            />,
+            document.body
+          )}
         </div>
         <div className="flex gap-10 mt-60">
           <Chip
@@ -152,6 +173,6 @@ export default function Dashboard() {
         }
       </div>
       <Footer />
-    </main>
+    </main >
   );
 }

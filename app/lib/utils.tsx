@@ -41,3 +41,9 @@ export const validatePassword = (pw: string): boolean => {
 export const redirectWithDelay = (url: string, delay: number = 0): void => {
     setTimeout(() => window.location.href = "/profile", delay);
 }
+
+export const formDataToJSON = (formData: FormData) => {
+    const json: any = {};
+    formData.forEach((value: FormDataEntryValue, key: string) => json[key] = value);
+    return json;
+}
