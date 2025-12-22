@@ -87,6 +87,8 @@ export default function Profile() {
         } else {
             alert("Les données ont bien étés modifiées");
         }
+        // on rappelle la page pour mettre à jour l'utilisateur dans l'application
+        window.location.href = "/profile";
     };
 
     return (
