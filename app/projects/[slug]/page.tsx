@@ -6,12 +6,12 @@ import IconButton from "@/app/components/ui/IconButton";
 import { PropsPC } from "@/app/interfaces/projectProps";
 import UserIcon from "@/app/components/ui/UserIcon";
 import Tag from "@/app/components/ui/Tag";
-import { DashboardViews, HeaderMenuItems, InputImageTypes, InputTypes, UserIconModes } from "@/app/enums/enums";
+import { DashboardViews, HeaderMenuItems, InputImageTypes, InputTypes, ProjectsViews, UserIconModes } from "@/app/enums/enums";
 import Input from "@/app/components/ui/Input";
 import Chip from "@/app/components/ui/Chip";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
-import { use } from "react";
+import { use, useState } from "react";
 import { useUser } from "@/app/contexts/userContext";
 import { Project } from "@/app/interfaces/project";
 import { User } from "@/app/interfaces/user";
@@ -27,7 +27,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
     const token: string | undefined = cookies.get("token");
     const { tasks, refreshTasks } = useProjectsTasks(token, slug);
     const { projects, refresh } = useProjects(token);
-    const view: number = DashboardViews.Kanban;
+    const [view, setView] = useState<ProjectsViews>(ProjectsViews.List);
 
     const classNames = [
         "projectdetails",
@@ -75,7 +75,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                 <div className="flex gap-24 bg-(--grey-100) rounded-(--radius10) pt-20 pr-50 pb-20 pl-50 items-center mt-48">
                     <div className="flex gap-8 items-center flex-1">
                         <h5 className="text-(--grey-800)">Contributeurs</h5>
-                        <span className="body-m text-(--grey-600)">{contributorCount} personne{contributorCount > 1 ? "s" : null}</span>
+                        <span className="body-m text-(--grey-600)">{contributorCount + 1} personne{contributorCount + 1 > 1 ? "s" : null}</span>
                     </div>
                     <div className="flex gap-8">
                         {initials?.map((member: string, index: number) => (
@@ -94,8 +94,22 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                         </div>
                         <div className="flex flex gap-16 items-center">
                             <div className="flex flex gap-10">
-                                <Chip text="Liste" url="/" image={{ url: "/images/task_check.svg", alt: "Image liste", width: 16, height: 16 }} isActive={view === DashboardViews.List} width={94} height={45} />
-                                <Chip text="Kanban" url="/" image={{ url: "/images/calendar.svg", alt: "Image kanban", width: 15, height: 16 }} isActive={view === DashboardViews.Kanban} width={111} height={45} />
+                                <Chip
+                                    text="Liste"
+                                    image={{ url: "/images/task_check.svg", alt: "Image liste", width: 16, height: 16 }}
+                                    isActive={view === ProjectsViews.List}
+                                    width={94}
+                                    height={45}
+                                    onClickFunc={() => setView(ProjectsViews.List)}
+                                />
+                                <Chip
+                                    text="Calendrier"
+                                    image={{ url: "/images/calendar.svg", alt: "Image kanban", width: 15, height: 16 }}
+                                    isActive={view === ProjectsViews.Calendar}
+                                    width={111}
+                                    height={45}
+                                    onClickFunc={() => setView(ProjectsViews.Calendar)}
+                                />
                             </div>
                             <Input name="status" type={InputTypes.Text} imageType={InputImageTypes.BottomArrow} width={152} />
                             <Input name="search" type={InputTypes.Text} imageType={InputImageTypes.Search} width={283} placeHolder="Rechercher une tâche" />

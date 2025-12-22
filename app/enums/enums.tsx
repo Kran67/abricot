@@ -36,21 +36,12 @@ export enum InputImageTypes {
     Search = "search"
 }
 
-export enum PageViews {
-    Dashboard,
-    Projects,
-    ProjectDetail,
-    Profile
-}
-
 export enum DashboardViews {
     List,
     Kanban
 }
 
-export enum PriorityOrders {
-    Urgent = 1,
-    High = 2,
-    Medium = 3,
-    Low = 4
+export enum ProjectsViews {
+    List,
+    Calendar
 }

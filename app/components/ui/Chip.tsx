@@ -1,28 +1,20 @@
 'use client'
 
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ImageProps } from "@/app/interfaces/imageProps";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 
 interface ChipProps {
     text?: string;
     className?: string;
     image?: ImageProps;
-    url: string
     width?: number;
     height?: number;
     isActive?: boolean
+    onClickFunc?(): void;
 }
 
-export default function Chip({ text, className, image, url, width, height, isActive }: ChipProps) {
-    const router: AppRouterInstance = useRouter();
-
-    const handleClick = () => {
-        router.push(url);
-    };
-
+export default function Chip({ text, className, image, width, height, isActive, onClickFunc }: ChipProps) {
     const classNames = [
         "chip",
         "inline-flex",
@@ -52,7 +44,7 @@ export default function Chip({ text, className, image, url, width, height, isAct
         <button
             className={classNames}
             style={{ width: width ?? "", height: height ?? "" }}
-            onClick={handleClick}>
+            onClick={onClickFunc}>
             {image ? <Image className={(image.className ?? "")} src={image.url} alt={image.alt} width={image.width ?? 16} height={image.height ?? 16} /> : null}{text}
         </button>
     );

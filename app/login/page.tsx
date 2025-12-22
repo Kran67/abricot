@@ -6,13 +6,14 @@ import Input from "@/app/components/ui/Input";
 import { InputTypes } from "@/app/enums/enums";
 import Button from "@/app/components/ui/Button";
 import { useState } from "react";
-import { createCookie } from "@/app/lib/utils";
+import { useCookies } from 'next-client-cookies';
 
 
 export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
+    const cookies = useCookies();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -25,7 +26,7 @@ export default function Login() {
 
         if (res.ok) {
             const data = await res.json();
-            createCookie("token", data.data.token, 1);
+            cookies.set("token", data.data.token, { expires: 1 });
             window.location.reload();
         } else {
             setError(true);
