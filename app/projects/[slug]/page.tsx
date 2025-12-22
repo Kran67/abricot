@@ -10,9 +10,8 @@ import Input from "@/app/components/ui/Input";
 import Chip from "@/app/components/ui/Chip";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
-import { use, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Project } from "@/app/interfaces/project";
-import { User } from "@/app/interfaces/user";
 import { getInitials } from "@/app/lib/utils";
 import { useProjectsTasks } from "@/app/hooks/useProjectsTasks";
 import { useProjects } from "@/app/hooks/useProjects";
@@ -91,6 +90,19 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
     const contributorList: { value: string, label: string | undefined }[] = project?.members.map((member) => { return { value: member.user.id, label: member.user.name } }) || [];
     const memberCount: number = members?.length ?? 0;
 
+    useEffect(() => {
+        const root = document.getElementById("app-root");
+        if (!root) return;
+
+        root.inert = showModal;
+        document.body.style.overflow = showModal ? "hidden" : "";
+
+        return () => {
+            root.inert = false;
+            document.body.style.overflow = "";
+        };
+    }, [showModal]);
+
     return (
         <main className="flex flex-col bg-white w-1440">
             <Header activeMenu={HeaderMenuItems.Projects} />
@@ -117,7 +129,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                         />,
                         document.body
                     )}
-                    <Button text="IA" width={94} height={50} image={{ url: "/images/star.svg", alt: "", width: 21, height: 21 }} color="orange" />
+                    {/* <Button text="IA" width={94} height={50} image={{ url: "/images/star.svg", alt: "", width: 21, height: 21 }} color="orange" /> */}
                 </div>
                 <div className="flex gap-24 bg-(--grey-100) rounded-(--radius10) pt-20 pr-50 pb-20 pl-50 items-center mt-48">
                     <div className="flex gap-8 items-center flex-1">
