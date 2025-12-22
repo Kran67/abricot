@@ -1,5 +1,5 @@
 import { ProjectMember } from "./projectMember";
-import { Task } from "./taskItem";
+import { TaskItem } from "./taskItem";
 import { User } from "./user";
 
 interface Count {
@@ -13,7 +13,7 @@ export interface Project {
     ownerId: string;
     owner: User;
     members: ProjectMember[];
-    tasks?: Task[];
+    tasks?: TaskItem[];
     _count?: Count
     createdAt: string;
     updatedAt: string;

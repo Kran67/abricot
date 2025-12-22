@@ -3,16 +3,14 @@
 import Button from "@/app/components/ui/Button";
 import Link from "@/app/components/ui/Link";
 import IconButton from "@/app/components/ui/IconButton";
-import { PropsPC } from "@/app/interfaces/projectProps";
 import UserIcon from "@/app/components/ui/UserIcon";
 import Tag from "@/app/components/ui/Tag";
-import { DashboardViews, HeaderMenuItems, InputImageTypes, InputTypes, ProjectsViews, UserIconModes } from "@/app/enums/enums";
+import { HeaderMenuItems, InputImageTypes, InputTypes, ProjectsViews, UserIconModes } from "@/app/enums/enums";
 import Input from "@/app/components/ui/Input";
 import Chip from "@/app/components/ui/Chip";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import { use, useState } from "react";
-import { useUser } from "@/app/contexts/userContext";
 import { Project } from "@/app/interfaces/project";
 import { User } from "@/app/interfaces/user";
 import { getInitials } from "@/app/lib/utils";
@@ -20,6 +18,7 @@ import { useProjectsTasks } from "@/app/hooks/useProjectsTasks";
 import { useProjects } from "@/app/hooks/useProjects";
 import { useCookies } from 'next-client-cookies';
 import ProjectTask from "@/app/components/data/ProjectTask";
+import { TaskItem } from "@/app/interfaces/taskItem";
 
 export default function ProjectDetails({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
@@ -28,6 +27,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
     const { tasks, refreshTasks } = useProjectsTasks(token, slug);
     const { projects, refresh } = useProjects(token);
     const [view, setView] = useState<ProjectsViews>(ProjectsViews.List);
+    const [search, setSearch] = useState<string>("");
 
     const classNames = [
         "projectdetails",
@@ -43,8 +43,15 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
 
     const priorityOrder = { URGENT: 1, HIGH: 2, MEDIUM: 3, LOW: 4 };
 
-    tasks?.sort((a, b) => {
+    tasks?.sort((a: TaskItem, b: TaskItem) => {
         return priorityOrder[a.priority] - priorityOrder[b.priority];
+    });
+
+    /* pour l'affichage liste */
+    const filteredTasks = tasks?.filter((task: TaskItem) => {
+        const strToSearch = search.toLowerCase();
+        return task?.title?.toLowerCase().includes(strToSearch) || task?.description?.toLowerCase().includes(strToSearch) ||
+            task?.projectName?.toLowerCase().includes(strToSearch);
     });
 
     const projet: Project | undefined = projects?.find((p) => p.id === slug);
@@ -112,11 +119,18 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                                 />
                             </div>
                             <Input name="status" type={InputTypes.Text} imageType={InputImageTypes.BottomArrow} width={152} />
-                            <Input name="search" type={InputTypes.Text} imageType={InputImageTypes.Search} width={283} placeHolder="Rechercher une tâche" />
+                            <Input
+                                name="search"
+                                type={InputTypes.Text}
+                                imageType={InputImageTypes.Search}
+                                width={283}
+                                placeHolder="Rechercher une tâche"
+                                value={search}
+                                onChange={(e) => setSearch(e.target.value)} />
                         </div>
                     </div>
                     <div className="flex flex-col gap-17 pr-36 pl-36">
-                        {tasks?.map((taskItem, index) => (
+                        {filteredTasks?.map((taskItem, index) => (
                             <ProjectTask key={index} props={taskItem} />
                         ))}
                     </div>

@@ -51,7 +51,8 @@ export default function Dashboard() {
   /* pour l'affichage liste */
   const filteredTasks = tasks.filter((task: TaskItem) => {
     const strToSearch = search.toLowerCase();
-    return task.title.toLowerCase().includes(strToSearch) || task.description.toLowerCase().includes(strToSearch) || task.projectName.toLowerCase().includes(strToSearch);
+    return task?.title.toLowerCase().includes(strToSearch) || task?.description?.toLowerCase().includes(strToSearch) ||
+      task?.projectName?.toLowerCase().includes(strToSearch);
   });
 
   /* pour l'affichage kanban */
@@ -99,7 +100,13 @@ export default function Dashboard() {
                 <h4 className="text-(--grey-800)">Mes tâches assignées</h4>
                 <span className="body-l text-black">Par ordre de priorité</span>
               </div>
-              <Input name="search" placeHolder="Rechercher une tâche" imageType={InputImageTypes.Search} width={357} value={search} onChange={(e) => setSearch(e.target.value)} />
+              <Input
+                name="search"
+                placeHolder="Rechercher une tâche"
+                imageType={InputImageTypes.Search}
+                width={357}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)} />
             </div>
             <div className="flex flex-col gap-17">
               {filteredTasks.map((task, index) => (

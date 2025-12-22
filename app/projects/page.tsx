@@ -1,16 +1,17 @@
 'use client'
 
-import { useRouter } from "next/navigation";
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
 import Button from "@/app/components/ui/Button";
-import { projects } from "@/app/mocks/projects";
 import ProjectCard from "@/app/components/data/ProjectCard";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import { HeaderMenuItems } from "@/app/enums/enums";
+import { useProjects } from "../hooks/useProjects";
+import { useCookies } from 'next-client-cookies';
 
 export default function Projects() {
-    const router: AppRouterInstance = useRouter();
+    const cookies = useCookies();
+    const token: string | undefined = cookies.get("token");
+    const { projects, refresh } = useProjects(token);
 
     const classNames = [
         "projects",
@@ -24,6 +25,7 @@ export default function Projects() {
         "flex-1",
         "gap-32"
     ].join(" ");
+    const projectCount: number = projects?.length ?? 0;
 
     return (
         <main className="flex flex-col bg-white w-1440">
@@ -36,8 +38,8 @@ export default function Projects() {
                     </div>
                     <Button text="+ Créer un projet" url="" width={181} height={50} />
                 </div>
-                <div className="grid grid-cols-3 gap-16" style={{ "gridTemplateRows": `repeat(${projects.length / 3}, 1fr)` }}>
-                    {projects.map((project, index) => (
+                <div className="grid grid-cols-3 gap-16" style={{ "gridTemplateRows": `repeat(${projectCount / 3}, 1fr)` }}>
+                    {projects?.map((project, index) => (
                         <ProjectCard key={index} props={project} />
                     ))}
                 </div>
