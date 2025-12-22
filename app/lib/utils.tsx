@@ -30,3 +30,10 @@ export const getInitials = (name?: string) =>
             .join("")
             .toUpperCase()
         : "?";
+
+export const validatePassword = (pw: string): boolean => {
+    if (!pw || pw.trim() === "") return false;
+
+    const regex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    return regex.test(pw);
+}

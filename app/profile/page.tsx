@@ -10,6 +10,7 @@ import { useUser } from "@/app/contexts/userContext";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import { useState } from "react";
+import { validatePassword } from "../lib/utils";
 
 export default function Profile() {
     const user: User | null = useUser();
@@ -35,11 +36,40 @@ export default function Profile() {
         [firstName, lastName] = user?.name.split(" ");
     }
 
-    function validatePassword(pw: string): boolean {
-        if (!pw || pw.trim() === "") return false;
+    const savePassword = (oldPassword: string, newPassword: string): boolean | undefined => {
+        if (oldPassword?.trim() !== "") {
+            if (!newPassword || newPassword.trim() === "") {
+                setPasswordError("Le nouveau mot de passe ne peut pas être vide.");
+                return false;
+            }
+            if (!validatePassword(newPassword)) {
+                setPasswordError("Le mot de passe doit contenir au minimum 8 caractères, une majuscule et un chiffre.");
+                return false;
+            }
+        }
 
-        const regex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
-        return regex.test(pw);
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/password`, {
+            method: "PUT",
+            body: JSON.stringify({
+                currentPassword: oldPassword.trim(),
+                newPassword: password.trim()
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+        }).then((res) => {
+            res.json().then((data) => {
+                if (!res.ok) {
+                    alert("Erreur lors de la mise à jour du mot de passe : " + data.data.errors[0].message);
+                    return false;
+                } else {
+                    alert("Le mot de passe a bien été modifié");
+                    return true;
+                }
+            });
+        })
+            .catch(() => { return false; });
     }
 
     // Avant chaque soumission, vérification des données fournies valides.
@@ -52,43 +82,34 @@ export default function Profile() {
         const lastName = formData.get("lastname") as string;
         const name = formData.get("name") as string;
         const email = formData.get("email") as string;
+        const oldPassword = formData.get("oldPassword") as string;
         const password = formData.get("password") as string;
 
-        if (password.trim() !== "") {
-            if (!validatePassword(password)) {
-                setPasswordError("Le mot de passe doit contenir au minimum 8 caractères, une majuscule et un chiffre.");
-                return;
-            }
-        }
-
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/profile`, {
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/profile`, {
             method: "PUT",
             body: JSON.stringify({
                 name: `${name} ${lastName}`,
                 email,
-                password: password.trim()
             }),
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
+        }).then((res) => {
+            res.json().then((data) => {
+                if (!res.ok) {
+                    alert("Erreur lors de la mise à jour : " + data.data.errors[0].message);
+                    return;
+                } else {
+                    alert("Les données ont bien étés modifiées");
+                }
+                if (password.trim() !== "" && !savePassword(oldPassword, password)) {
+                    return;
+                }
+                // on rappelle la page pour mettre à jour l'utilisateur dans l'application
+                window.location.href = "/profile";
+            });
         });
-
-        const data = await res.json();
-
-        if (!res.ok) {
-            if (data.type === "password") {
-                alert(data.message);
-                return;
-            }
-
-            alert("Erreur lors de la mise à jour : " + data.message);
-            return;
-        } else {
-            alert("Les données ont bien étés modifiées");
-        }
-        // on rappelle la page pour mettre à jour l'utilisateur dans l'application
-        window.location.href = "/profile";
     };
 
     return (
@@ -106,8 +127,14 @@ export default function Profile() {
                             <Input name="name" label="Prénom" value={firstName} required={true} />
                             <Input name="email" label="Email" value={user?.email} required={true} />
                             <Input
+                                name="oldPassword"
+                                label="Ancien mot de passe"
+                                type={InputTypes.Password}
+                                autoComplete="off"
+                            />
+                            <Input
                                 name="password"
-                                label="Mot de passe"
+                                label="Nouveau mot de passe"
                                 type={InputTypes.Password}
                                 value={password}
                                 onChange={(e) => {
@@ -115,7 +142,7 @@ export default function Profile() {
                                     setPasswordError("");
                                 }}
                                 hasError={passwordError !== ""}
-                                autoComplete="off"
+                                autoComplete="new-password"
                             />
                         </div>
                         <Button text="Modifier les informations" width={242} height={50} />
