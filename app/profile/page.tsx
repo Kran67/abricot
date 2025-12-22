@@ -10,14 +10,15 @@ import { useUser } from "@/app/contexts/userContext";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import { useState } from "react";
-import { validatePassword } from "../lib/utils";
+import { redirectWithDelay, validatePassword } from "@/app/lib/utils";
+import { toast } from "react-toastify";
 
 export default function Profile() {
     const user: User | null = useUser();
     const cookies = useCookies();
     const token: string | undefined = cookies.get("token");
     const [password, setPassword] = useState("");
-    const [passwordError, setPasswordError] = useState("");
+    const [passwordError, setPasswordError] = useState(false);
     const classNames = [
         "account",
         "flex",
@@ -39,11 +40,13 @@ export default function Profile() {
     const savePassword = (oldPassword: string, newPassword: string): boolean | undefined => {
         if (oldPassword?.trim() !== "") {
             if (!newPassword || newPassword.trim() === "") {
-                setPasswordError("Le nouveau mot de passe ne peut pas être vide.");
+                setPasswordError(true);
+                toast.error("Le nouveau mot de passe ne peut pas être vide.");
                 return false;
             }
             if (!validatePassword(newPassword)) {
-                setPasswordError("Le mot de passe doit contenir au minimum 8 caractères, une majuscule et un chiffre.");
+                setPasswordError(true);
+                toast.error("Le mot de passe doit contenir au minimum 8 caractères, une majuscule et un chiffre.");
                 return false;
             }
         }
@@ -61,10 +64,12 @@ export default function Profile() {
         }).then((res) => {
             res.json().then((data) => {
                 if (!res.ok) {
-                    alert("Erreur lors de la mise à jour du mot de passe : " + data.data.errors[0].message);
+                    toast.error("Erreur lors de la mise à jour du mot de passe : " + data.data.errors[0].message);
                     return false;
                 } else {
-                    alert("Le mot de passe a bien été modifié");
+                    toast.success("Le mot de passe a bien été modifié");
+                    // on rappelle la page pour mettre à jour l'utilisateur dans l'application
+                    redirectWithDelay("/profile", 1000);
                     return true;
                 }
             });
@@ -98,16 +103,16 @@ export default function Profile() {
         }).then((res) => {
             res.json().then((data) => {
                 if (!res.ok) {
-                    alert("Erreur lors de la mise à jour : " + data.data.errors[0].message);
+                    toast.error("Erreur lors de la mise à jour : " + data.data.errors[0].message);
                     return;
                 } else {
-                    alert("Les données ont bien étés modifiées");
+                    toast.success("Les données ont bien étés modifiées");
                 }
                 if (password.trim() !== "" && !savePassword(oldPassword, password)) {
                     return;
                 }
                 // on rappelle la page pour mettre à jour l'utilisateur dans l'application
-                window.location.href = "/profile";
+                redirectWithDelay("/profile", 1000);
             });
         });
     };
@@ -139,9 +144,9 @@ export default function Profile() {
                                 value={password}
                                 onChange={(e) => {
                                     setPassword(e.target.value);
-                                    setPasswordError("");
+                                    setPasswordError(false);
                                 }}
-                                hasError={passwordError !== ""}
+                                hasError={passwordError}
                                 autoComplete="new-password"
                             />
                         </div>

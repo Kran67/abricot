@@ -8,13 +8,13 @@ import Button from "@/app/components/ui/Button";
 import { useCookies } from "next-client-cookies";
 import { useState } from "react";
 import { validatePassword } from "../lib/utils";
+import { toast } from "react-toastify";
 
 export default function SignIn() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const [errorMail, setErrorMail] = useState(false);
-    const [passwordError, setPasswordError] = useState("");
     const cookies = useCookies();
 
     const handleSignIn = async (e: React.FormEvent) => {
@@ -22,7 +22,7 @@ export default function SignIn() {
 
         if (password.trim() !== "") {
             if (!validatePassword(password)) {
-                setPasswordError("Le mot de passe doit contenir au minimum 8 caractères, une majuscule et un chiffre.");
+                toast.error("Le mot de passe doit contenir au minimum 8 caractères, une majuscule et un chiffre.");
                 return;
             }
         }
@@ -33,17 +33,19 @@ export default function SignIn() {
             body: JSON.stringify({ email, password }),
         });
 
-        if (res.ok) {
-            const data = await res.json();
-            cookies.set("token", data.data.token, { expires: 1 });
-            window.location.href = "/profile";
-        } else {
-            if (res.status === 409) {
-                setErrorMail(true)
+        res.json().then((data) => {
+            if (res.ok) {
+                cookies.set("token", data.data.token, { expires: 1 });
+                window.location.href = "/profile";
             } else {
-                setError(true)
+                if (res.status === 409) {
+                    setErrorMail(true);
+                } else {
+                    setError(true);
+                }
+                toast.error(data.data.errors[0].message);
             }
-        }
+        });
     };
 
     return (
@@ -58,7 +60,7 @@ export default function SignIn() {
                                 setEmail(e.target.value);
                                 setError(false);
                                 setErrorMail(false)
-                                setPasswordError("");
+                                //setPasswordError("");
                             }}
                                 hasError={error || errorMail}
                             />
@@ -66,9 +68,9 @@ export default function SignIn() {
                                 setPassword(e.target.value);
                                 setError(false);
                                 setErrorMail(false);
-                                setPasswordError("");
+                                //setPasswordError("");
                             }}
-                                hasError={error || passwordError !== ""}
+                                hasError={error}
                             />
                             <Button className="self-center" text="S’inscrire" width={248} height={50} />
                         </form>

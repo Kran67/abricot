@@ -7,6 +7,7 @@ import { InputTypes } from "@/app/enums/enums";
 import Button from "@/app/components/ui/Button";
 import { useState } from "react";
 import { useCookies } from 'next-client-cookies';
+import { toast } from "react-toastify";
 
 
 export default function Login() {
@@ -24,13 +25,15 @@ export default function Login() {
             body: JSON.stringify({ email, password })
         });
 
-        if (res.ok) {
-            const data = await res.json();
-            cookies.set("token", data.data.token, { expires: 1 });
-            window.location.reload();
-        } else {
-            setError(true);
-        }
+        res.json().then((data) => {
+            if (res.ok) {
+                cookies.set("token", data.data.token, { expires: 1 });
+                window.location.reload();
+            } else {
+                setError(true);
+                toast.error(data.data.errors[0].message);
+            }
+        });
     };
 
     return (

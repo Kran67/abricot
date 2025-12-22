@@ -37,3 +37,7 @@ export const validatePassword = (pw: string): boolean => {
     const regex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
     return regex.test(pw);
 }
+
+export const redirectWithDelay = (url: string, delay: number = 0): void => {
+    setTimeout(() => window.location.href = "/profile", delay);
+}

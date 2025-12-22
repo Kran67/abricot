@@ -5,6 +5,7 @@ import type { User } from "@/app/interfaces/user";
 import { UserProvider } from "@/app/contexts/userContext";
 import { getProfile } from "@/app/api/api";
 import { CookiesProvider } from 'next-client-cookies/server';
+import { Bounce, ToastContainer } from 'react-toastify';
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,6 +37,19 @@ export default async function RootLayout({
         <UserProvider initialUser={user}>
           <CookiesProvider>{children}</CookiesProvider>
         </UserProvider>
+        <ToastContainer
+          position="bottom-right"
+          autoClose={5000}
+          hideProgressBar
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover
+          theme="colored"
+          transition={Bounce}
+        />
       </body>
     </html>
   );
