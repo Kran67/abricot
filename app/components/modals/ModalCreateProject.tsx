@@ -103,7 +103,7 @@ export default function ModalCreateProject({
                     <Button text="Ajouter un projet" width={181} height={50} />
                 </form>
                 <button className="absolute top-15 right-15 cursor-pointer" onClick={closeModal}>
-                    <Image src="/images/cross.svg" height={15} width={15} alt="close" />
+                    <Image src="/images/cross.svg" height={15} width={15} alt="Image fermer" />
                 </button>
             </div>
         </aside>
