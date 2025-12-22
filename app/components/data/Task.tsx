@@ -39,15 +39,15 @@ export default function Task({ props }: PropsTL) {
         <div className={classNames}>
             <div className="flex">
                 <div className="flex flex-col flex-1">
-                    <h5 className="text-black h-25">{props.title}</h5>
-                    <div className="body-s text-(--grey-600) h-17">{props.description}</div>
+                    <h5 className="text-black">{props.title}</h5>
+                    <div className="body-s text-(--grey-600)">{props.description}</div>
                 </div>
                 <Tag text={tagStatusText[props.status]} color={props.status} />
             </div>
             <div className="flex flex-wrap">
-                <div className="flex items-center h-50 self-end mt-32 flex-1">
+                <div className="flex items-center self-end mt-32 flex-1">
                     <div className="project-image-wrapper min-w-18 min-h-14 bg-(--grey-600)"></div>
-                    <span className="body-xs text-(--grey-600) pl-8 whitespace-nowrap">{props.projectName}</span>
+                    <span className="body-xs text-(--grey-600) pl-8">{props.projectName}</span>
                     <span className="body-2xs pl-15 pr-15">|</span>
                     <Image src="/images/calendar.svg" alt="Image projet" width={15} height={16} />
                     <span className="body-xs text-(--grey-600) pl-8 whitespace-nowrap">{formatDate(new Date(props.dueDate), false)}</span>
