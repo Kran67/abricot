@@ -111,8 +111,7 @@ export default function Comment({ comments, taskId, projectId, refreshTasks }: C
                     placeholder="Ajouter un commentaire..."
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
-                    aria-multiline="true"
-                    aria-placeholder="Ajouter un commentaire..."></textarea>
+                    aria-multiline="true"></textarea>
             </div>
             <Button className="self-end" text="Envoyer" width={209} height={50} url="" disabled={newComment === ""} onClick={createComment} />
         </div>

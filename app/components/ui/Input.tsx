@@ -52,7 +52,6 @@ export default function Input({ name, label, type, value, imageType, placeHolder
                     autoComplete={autoComplete}
                     onChange={onChange}
                     maxLength={maxLength}
-                    aria-placeholder={placeHolder}
                     aria-required={required}
                 />
                 {imageType &&

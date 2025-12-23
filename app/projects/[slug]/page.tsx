@@ -18,7 +18,6 @@ import { useProjects } from "@/app/hooks/useProjects";
 import { useCookies } from 'next-client-cookies';
 import ProjectTask from "@/app/components/data/ProjectTask";
 import { TaskItem } from "@/app/interfaces/taskItem";
-import Select, { ActionMeta } from "react-select";
 import ModalCreateTask from "@/app/components/modals/ModalCreateTask";
 import { createPortal } from "react-dom";
 import { useUser } from "@/app/contexts/userContext";
@@ -33,10 +32,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
     const { projects, refresh } = useProjects(token);
     const [view, setView] = useState<ProjectsViews>(ProjectsViews.List);
     const [search, setSearch] = useState<string>("");
-    const [status, setStatus] = useState<{
-        value: string,
-        label: string,
-    } | null>(null);
+    const [status, setStatus] = useState<string>("");
     const [updateProject, setUpdateProject] = useState(false);
     const user = useUser();
     const [createTask, setCreateTask] = useState(false);
@@ -83,7 +79,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
 
         const matchSearch = task.title.toLowerCase().includes(strToSearch) || task.description.toLowerCase().includes(strToSearch);
 
-        const matchStatus = !status || task.status === status.value;
+        const matchStatus = !status || task.status === status;
 
         return matchSearch && matchStatus;
     });
@@ -187,17 +183,15 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                                     onClickFunc={() => setView(ProjectsViews.Calendar)}
                                 />
                             </div>
-                            {/* à remplacer : https://www.radix-ui.com/primitives/docs/components/select */}
-                            {/* <Select
-                                className="status-drop-down"
-                                classNamePrefix="status-drop-down"
-                                name="status"
-                                options={statuts}
-                                isClearable={true}
-                                isSearchable={true}
-                                placeholder="Statut"
-                                onChange={(option: { value: string, label: string } | null, actionMeta: ActionMeta<any>) => setStatus(option)}
-                            /> */}
+                            <select
+                                id="status"
+                                className="monster-select w-152 h-53 border border-(--grey-200) border-solid rounded-(--radius8) body-s outline-0"
+                                onChange={(e) => setStatus(e.target.value)}>
+                                <option key="-1" value="" label="Tous les statuts"></option>
+                                {statuts.map((status, index) => (
+                                    <option key={index} value={status.value} className="bg-(--light-red)" label={status.label}></option>
+                                ))}
+                            </select>
                             <label htmlFor="search" className="invisible">Rechercher une tâche</label>
                             <Input
                                 name="search"
