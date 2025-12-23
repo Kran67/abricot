@@ -115,8 +115,8 @@ export default function ModalUpdateProject({
             >
                 <h4 className="text-(--grey-800)">Modifier un projet</h4>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-24">
-                    <Input name="name" label="Titre" type={InputTypes.Text} required={true} value={name} />
-                    <Input name="description" label="Description" type={InputTypes.Text} required={true} value={description} />
+                    <Input name="name" label="Titre" type={InputTypes.Text} required={true} value={name} onChange={(e) => setName(e.target.value)} />
+                    <Input name="description" label="Description" type={InputTypes.Text} required={true} value={description} onChange={(e) => setDescription(e.target.value)} />
                     <div className="flex flex-col gap-1">
                         <label htmlFor="assignees">Contributeurs</label>
                         {/* <AsyncSelect

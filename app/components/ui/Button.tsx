@@ -15,18 +15,18 @@ interface ButtonProps {
     width?: number;
     height?: number;
     color?: string;
-    onClick?: () => void;
+    onClick?: (e: any) => void;
     buttonType?: ButtonTypes;
 }
 
 export default function Button({ text, disabled, className, image, url, width, height, color, onClick, buttonType = ButtonTypes.Submit }: ButtonProps) {
     const router: AppRouterInstance = useRouter();
 
-    const handleClick = () => {
+    const handleClick = (e: any) => {
         if (url) {
             router.push(url);
         } else if (onClick) {
-            onClick();
+            onClick(e);
         }
     };
 

@@ -7,14 +7,17 @@ import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.share
 
 interface IconButtonProps {
     type?: IconButtonTypes;
+    onClick?: () => void
 }
 
-export default function IconButton({ type = IconButtonTypes.Arrow }: IconButtonProps) {
+export default function IconButton({ type = IconButtonTypes.Arrow, onClick }: IconButtonProps) {
     const isBackBtn: boolean = type === IconButtonTypes.Arrow;
     const router: AppRouterInstance = useRouter();
 
     const handleClick = () => {
-        router.push(isBackBtn ? "/projects" : "");
+        if (isBackBtn) {
+            router.push("/projects");
+        } else onClick?.();
     };
 
     const classNames = [
@@ -40,7 +43,7 @@ export default function IconButton({ type = IconButtonTypes.Arrow }: IconButtonP
         <button
             className={classNames}
             onClick={handleClick}>
-            <Image src={"/images/" + (isBackBtn ? "left_arrow" : "three_points") + ".svg"} alt={"Image " + (isBackBtn ? "flèche gauche" : "pointillés")} width={15} height={4} />
+            <Image src={"/images/" + (isBackBtn ? "left_arrow" : "three_points") + ".svg"} alt={"Image " + (isBackBtn ? "retour" : "image menu")} width={15} height={4} />
         </button>
     );
 }

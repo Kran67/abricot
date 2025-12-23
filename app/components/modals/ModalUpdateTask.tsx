@@ -9,14 +9,17 @@ import Select from 'react-select';
 import Button from "../ui/Button";
 import { useCookies } from "next-client-cookies";
 import Tag from "../ui/Tag";
+import { TaskItem } from "@/app/interfaces/taskItem";
 
 export default function ModalCreateTask({
-    projectId,
+    task,
+    refresh,
     contributorList,
     closeModal,
     onSuccess,
 }: {
-    projectId?: string;
+    task: TaskItem;
+    refresh: () => void;
     contributorList: { value: string, label: string | undefined }[];
     closeModal: () => void;
     onSuccess: () => void;
@@ -24,20 +27,24 @@ export default function ModalCreateTask({
     const [priority, setPriority] = useState<"LOW" | "MEDIUM" | "HIGH" | "URGENT">("LOW");
     const cookies = useCookies();
     const token: string | undefined = cookies.get("token");
+    const [title, setTitle] = useState(task.title);
+    const [description, setDescription] = useState(task.description);
+    const [date, setDate] = useState<string>(task.dueDate);
+    const [status, setStatus] = useState<"TODO" | "IN_PROGRESS" | "DONE" | "CANCELLED">(task.status);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const form = e.currentTarget;
         const formData = new FormData(form);
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${projectId}/tasks`, {
-            method: "POST",
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${task.projectId}/tasks/${task.id}`, {
+            method: "PUT",
             body: JSON.stringify({
                 title: formData.get("title"),
                 description: formData.get("description"),
                 priority: priority,
                 dueDate: new Date(formData.get("dueDate") as string).toISOString(),
-                assigneeIds: formData.getAll("assignees")
+                status: status
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -46,10 +53,32 @@ export default function ModalCreateTask({
         });
 
         if (res.ok) {
-            toast.success("La tâche à bien été créee");
+            toast.success("La tâche à bien été modifiée");
             onSuccess();
         } else {
-            toast.error("Erreur dans la création de la tâche");
+            toast.error("Erreur dans la modification de la tâche");
+        }
+    };
+
+    const handleDelete = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const ok = window.confirm("Êtes-vous sûr de vouloir supprimer cette tache ?");
+
+        if (!ok) return;
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${task.projectId}/tasks/${task.id}`, {
+            method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            }
+        });
+
+        if (res.ok) {
+            toast.success("La tâche a bien été supprimé");
+            refresh()
+            closeModal()
+        } else {
+            toast.error("Erreur dans la suppression de la tâche");
         }
     };
 
@@ -69,9 +98,9 @@ export default function ModalCreateTask({
             >
                 <h4 className="text-(--grey-800)">Créer une tâche</h4>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-24">
-                    <Input name="title" label="Titre" type={InputTypes.Text} required={true} maxLength={200} />
-                    <Input name="description" label="Description" type={InputTypes.Text} required={true} maxLength={1000} />
-                    <Input name="dueDate" label="Echéance" type={InputTypes.Date} required={true} />
+                    <Input name="title" label="Titre" type={InputTypes.Text} required={true} maxLength={200} value={title} onChange={(e) => setTitle(e.target.value)} />
+                    <Input name="description" label="Description" type={InputTypes.Text} required={true} maxLength={1000} value={description} onChange={(e) => setDescription(e.target.value)} />
+                    <Input name="dueDate" label="Echéance" type={InputTypes.Date} required={true} value="2018-07-22" onChange={(e) => setDate(e.target.value)} />
                     <div className="flex flex-col gap-1">
                         <label htmlFor="assignees">Assigné à</label>
                         <Select
@@ -89,7 +118,7 @@ export default function ModalCreateTask({
                     </div>
                     <div className="flex flex-col gap-2">
                         <label>Priorité</label>
-                        <input type="hidden" name="priority" value={priority} />
+                        <input type="hidden" name="priority" value={status} />
                         <div className="flex gap-2 overflow-auto">
                             <Tag text="Urgente" color={priority === "URGENT" ? "TODO" : "USER"} onClick={() => setPriority("URGENT")} />
                             <Tag text="Élevée" color={priority === "HIGH" ? "DEFAULT" : "USER"} onClick={() => setPriority("HIGH")} />
@@ -97,7 +126,20 @@ export default function ModalCreateTask({
                             <Tag text="Faible" color={priority === "LOW" ? "DONE" : "USER"} onClick={() => setPriority("LOW")} />
                         </div>
                     </div>
-                    <Button text="Ajouter une tâche" width={181} height={50} />
+                    <div className="flex flex-col gap-2">
+                        <label>Statut</label>
+                        <input type="hidden" name="status" value={status} />
+                        <div className="flex gap-2 overflow-auto">
+                            <Tag text="À faire" color={status === "TODO" ? status : "USER"} onClick={() => setStatus("TODO")} />
+                            <Tag text="En cours" color={status === "IN_PROGRESS" ? "DEFAULT" : "USER"} onClick={() => setStatus("IN_PROGRESS")} />
+                            <Tag text="Termnée" color={status === "DONE" ? status : "USER"} onClick={() => setStatus("DONE")} />
+                            <Tag text="Annulée" color={status === "CANCELLED" ? status : "USER"} onClick={() => setStatus("CANCELLED")} />
+                        </div>
+                    </div>
+                    <div className="flex gap-10">
+                        <Button text="Enregistrer" width={181} height={50} />
+                        <Button text="Supprimer" width={181} height={50} color="orange" onClick={(e) => handleDelete(e)} />
+                    </div>
                 </form>
                 <button className="absolute top-15 right-15 cursor-pointer" onClick={closeModal}>
                     <Image src="/images/cross.svg" height={15} width={15} alt="Image fermer" />

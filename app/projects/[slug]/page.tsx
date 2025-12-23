@@ -223,7 +223,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                     </div>
                     <div className="flex flex-col gap-17 pr-36 pl-36">
                         {filteredTasks?.map((taskItem, index) => (
-                            <ProjectTask key={index} props={taskItem} />
+                            <ProjectTask key={index} task={taskItem} contributorList={contributorList} refreshTasks={refreshTasks} />
                         ))}
                     </div>
                 </div>
