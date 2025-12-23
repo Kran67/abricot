@@ -110,8 +110,7 @@ export default function ModalCreateTask({
                     <Input name="dueDate" label="Echéance" type={InputTypes.Date} required={true} value={formatYMMDD(new Date(date))} onChange={(e) => setDate(e.target.value)} />
                     <div className="flex flex-col gap-1">
                         <label htmlFor="assignees">Assigné à</label>
-                        {/* À remplacer */}
-                        {/* <Select
+                        <Select
                             options={contributorList}
                             noOptionsMessage={(obj: { inputValue: string }) => "Aucun utilisateur trouvé"}
                             loadingMessage={(obj: { inputValue: string }) => "Récupération des utilisateurs..."}
@@ -123,7 +122,7 @@ export default function ModalCreateTask({
                             isSearchable={true}
                             placeholder="Choisir un ou plusieurs collaborateurs"
                             defaultValue={assignees}
-                        /> */}
+                        />
                     </div>
                     <div className="flex flex-col gap-2">
                         <label>Priorité</label>

@@ -86,8 +86,7 @@ export default function ModalCreateProject({
                     <Input name="description" label="Description" type={InputTypes.Text} required={true} />
                     <div className="flex flex-col gap-1">
                         <label htmlFor="assignees">Contributeurs</label>
-                        {/* À remplacer */}
-                        {/* <AsyncSelect
+                        <AsyncSelect
                             cacheOptions
                             loadOptions={promiseOptions}
                             defaultOptions={[]}
@@ -100,7 +99,7 @@ export default function ModalCreateProject({
                             isClearable={true}
                             isSearchable={true}
                             placeholder="Choisir un ou plusieurs collaborateurs"
-                        /> */}
+                        />
                     </div>
                     <Button text="Ajouter un projet" width={181} height={50} />
                 </form>

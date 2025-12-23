@@ -175,8 +175,7 @@ export default function ModalUpdateProject({
                     <Input name="description" label="Description" type={InputTypes.Text} required={true} value={description} onChange={(e) => setDescription(e.target.value)} />
                     <div className="flex flex-col gap-1">
                         <label htmlFor="assignees">Contributeurs</label>
-                        {/* À remplacer */}
-                        {/* <AsyncSelect
+                        <AsyncSelect
                             cacheOptions
                             loadOptions={promiseOptions}
                             defaultOptions={[]}
@@ -191,7 +190,7 @@ export default function ModalUpdateProject({
                             placeholder="Choisir un ou plusieurs collaborateurs"
                             defaultValue={contributorsList}
                             onChange={onChange}
-                        /> */}
+                        />
                     </div>
                     <div className="flex gap-10">
                         <Button text="Enregistrer" width={181} height={50} />
