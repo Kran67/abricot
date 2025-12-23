@@ -3,13 +3,14 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Input from "../ui/Input";
+import Input from "@/app/components/ui/Input";
 import { InputTypes } from "@/app/enums/enums";
 import Select from 'react-select';
-import Button from "../ui/Button";
+import Button from "@/app/components/ui/Button";
 import { useCookies } from "next-client-cookies";
-import Tag from "../ui/Tag";
-import { TaskItem } from "@/app/interfaces/taskItem";
+import Tag from "@/app/components/ui/Tag";
+import { TaskAssignee, TaskItem } from "@/app/interfaces/taskItem";
+import { formatYMMDD } from "@/app/lib/utils";
 
 export default function ModalCreateTask({
     task,
@@ -31,6 +32,10 @@ export default function ModalCreateTask({
     const [description, setDescription] = useState(task.description);
     const [date, setDate] = useState<string>(task.dueDate);
     const [status, setStatus] = useState<"TODO" | "IN_PROGRESS" | "DONE" | "CANCELLED">(task.status);
+    console.log(task);
+    const assignees: { value: string, label: string | undefined }[] = task.assignees.map((assignee: TaskAssignee) => {
+        return { value: assignee.user.id, label: assignee.user.name }
+    });
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -44,7 +49,8 @@ export default function ModalCreateTask({
                 description: formData.get("description"),
                 priority: priority,
                 dueDate: new Date(formData.get("dueDate") as string).toISOString(),
-                status: status
+                status: status,
+                assigneeIds: formData.getAll("assignees")
             }),
             headers: {
                 'Content-Type': 'application/json',
@@ -96,11 +102,11 @@ export default function ModalCreateTask({
                 className="bg-(--white) relative px-73 py-79 rounded-(--radius10) flex flex-col gap-40 w-598"
                 onClick={(e) => e.stopPropagation()}
             >
-                <h4 className="text-(--grey-800)">Créer une tâche</h4>
+                <h4 className="text-(--grey-800)">Modifier une tâche</h4>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-24">
                     <Input name="title" label="Titre" type={InputTypes.Text} required={true} maxLength={200} value={title} onChange={(e) => setTitle(e.target.value)} />
                     <Input name="description" label="Description" type={InputTypes.Text} required={true} maxLength={1000} value={description} onChange={(e) => setDescription(e.target.value)} />
-                    <Input name="dueDate" label="Echéance" type={InputTypes.Date} required={true} value="2018-07-22" onChange={(e) => setDate(e.target.value)} />
+                    <Input name="dueDate" label="Echéance" type={InputTypes.Date} required={true} value={formatYMMDD(new Date(date))} onChange={(e) => setDate(e.target.value)} />
                     <div className="flex flex-col gap-1">
                         <label htmlFor="assignees">Assigné à</label>
                         <Select
@@ -114,6 +120,7 @@ export default function ModalCreateTask({
                             isClearable={true}
                             isSearchable={true}
                             placeholder="Choisir un ou plusieurs collaborateurs"
+                            defaultValue={assignees}
                         />
                     </div>
                     <div className="flex flex-col gap-2">

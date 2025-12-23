@@ -47,3 +47,19 @@ export const formDataToJSON = (formData: FormData) => {
     formData.forEach((value: FormDataEntryValue, key: string) => json[key] = value);
     return json;
 }
+
+export const formatYMMDD = (date: Date, locale: string = "en-GB"): string => {
+    const parts: Intl.DateTimeFormatPart[] = new Intl.DateTimeFormat(locale, {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+    }).formatToParts(date);
+
+    const map: {
+        [k: string]: string;
+    } = Object.fromEntries(
+        parts.filter(p => p.type !== "literal").map(p => [p.type, p.value])
+    );
+
+    return `${map.year}-${map.month}-${map.day}`;
+}
