@@ -25,15 +25,14 @@ export default function Login() {
             body: JSON.stringify({ email, password })
         });
 
-        res.json().then((data) => {
-            if (res.ok) {
-                cookies.set("token", data.data.token, { expires: 1 });
-                window.location.reload();
-            } else {
-                setError(true);
-                toast.error(data.data.errors[0].message);
-            }
-        });
+        const data = await res.json()
+        if (res.ok) {
+            cookies.set("token", data.data.token, { expires: 1 });
+            window.location.reload();
+        } else {
+            setError(true);
+            toast.error(data.message);
+        }
     };
 
     return (

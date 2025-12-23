@@ -135,7 +135,10 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                             {updateProject &&
                                 createPortal(
                                     <ModalUpdateProject
-                                        closeModal={() => setUpdateProject(false)}
+                                        closeModal={(isModified: boolean) => {
+                                            setUpdateProject(false);
+                                            if (isModified) refresh();
+                                        }}
                                         project={project}
                                         onSuccess={() => {
                                             refresh();

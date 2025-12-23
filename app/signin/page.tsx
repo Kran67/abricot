@@ -33,19 +33,18 @@ export default function SignIn() {
             body: JSON.stringify({ email, password }),
         });
 
-        res.json().then((data) => {
-            if (res.ok) {
-                cookies.set("token", data.data.token, { expires: 1 });
-                window.location.href = "/profile";
+        const data = await res.json()
+        if (res.ok) {
+            cookies.set("token", data.data.token, { expires: 1 });
+            window.location.href = "/profile";
+        } else {
+            if (res.status === 409) {
+                setErrorMail(true);
             } else {
-                if (res.status === 409) {
-                    setErrorMail(true);
-                } else {
-                    setError(true);
-                }
-                toast.error(data.data.errors[0].message);
+                setError(true);
             }
-        });
+            toast.error(data.message);
+        }
     };
 
     return (

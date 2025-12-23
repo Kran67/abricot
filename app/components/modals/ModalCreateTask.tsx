@@ -49,7 +49,8 @@ export default function ModalCreateTask({
             toast.success("La tâche à bien été créee");
             onSuccess();
         } else {
-            toast.error("Erreur dans la création de la tâche");
+            const data = await res.json();
+            toast.error(<div>Erreur dans la création de la tâche<br />{data.message}</div>);
         }
     };
 

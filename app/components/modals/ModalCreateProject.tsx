@@ -61,7 +61,8 @@ export default function ModalCreateProject({
             toast.success("Le nouveau projet a bien été créé");
             onSuccess();
         } else {
-            toast.error("Erreur dans la création du projet");
+            const data = await res.json();
+            toast.error(<div>Erreur dans la création du projet<br />{data.message}</div>);
         }
     };
 

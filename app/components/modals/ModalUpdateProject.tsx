@@ -8,13 +8,16 @@ import { ButtonTypes, InputTypes } from "@/app/enums/enums";
 import { toast } from "react-toastify";
 import { useCookies } from "next-client-cookies";
 import { redirectWithDelay } from "@/app/lib/utils";
+import AsyncSelect from "react-select/async";
+import { ProjectMember } from "@/app/interfaces/projectMember";
+import { ActionMeta } from "react-select";
 
 export default function ModalUpdateProject({
     closeModal,
     project,
     onSuccess,
 }: {
-    closeModal: () => void;
+    closeModal: (isModified: boolean) => void;
     project: Project | undefined;
     onSuccess: () => void;
 }) {
@@ -22,35 +25,71 @@ export default function ModalUpdateProject({
     const token: string | undefined = cookies.get("token");
     const [name, setName] = useState(project?.name);
     const [description, setDescription] = useState(project?.description);
-    const [contributors, setContributors] = useState<User[]>(project?.members.map((user) => user.user) || []);
+    const [contributors, setContributors] = useState<User[]>(project?.members.map((member: ProjectMember) => member.user) || []);
+    const contributorsList: { value: string, label: string | undefined, user: User }[] | undefined = project?.members.map((member: ProjectMember) => {
+        return { value: member.user.email, label: member.user.name, user: member.user }
+    });
+    const [isModified, setIsModified] = useState(false);
 
-    const addContributor = async (user: User) => {
-        if (!contributors.some((c) => c.id === user.id)) {
+    const promiseOptions = (inputValue: string) => {
+        if (inputValue && inputValue.length > 1) {
+            return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/search?query=${inputValue}`, {
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                }
+            }).then(async (res) => {
+                const data = await res.json();
+                if (res.ok) {
+                    const values = data.data.users.map((user: User) => { return { value: user.email, label: user.name, user: user } });
+                    return values;
+                } else {
+                    return [];
+                }
+            });
+        }
+    }
+
+    const addContributor = async (user: User | undefined) => {
+        if (user && !contributors.some((c) => c.id === user.id)) {
             setContributors((prev) => [...prev, user]);
 
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${project?.id}/contributors`, {
                 method: "POST",
-                body: user.email,
+                body: JSON.stringify({ email: user.email }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                }
             });
 
             if (res.ok) {
                 toast.success("Un contributeur vient d'être ajouté");
+                setIsModified(true);
             } else {
-                toast.error("Erreur dans l'ajout d'un contributeur");
+                const data = await res.json();
+                toast.error(<div>Erreur dans l'ajout d'un contributeur<br />{data.message}</div>);
             }
         }
     };
 
-    const removeContributor = async (id: string) => {
+    const removeContributor = async (id: string | undefined) => {
         setContributors((prev) => prev.filter((u) => u.id !== id));
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${project?.id}/contributors/${id}`, {
             method: "DELETE",
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            }
         });
 
         if (res.ok) {
             toast.success("Un contributeur vient d'être supprimé");
+            setIsModified(true);
         } else {
-            toast.error("Erreur dans la supression d'un contributeur");
+            const data = await res.json();
+            toast.error(<div>Erreur dans la supression d'un contributeur<br />{data.message}</div>);
         }
     };
 
@@ -75,7 +114,8 @@ export default function ModalUpdateProject({
             toast.success("Le projet a bien été modifié");
             onSuccess();
         } else {
-            toast.error("Erreur dans la modification du projet");
+            const data = await res.json();
+            toast.error(<div>Erreur dans la modification du projet<br />{data.message}</div>);
         }
     };
 
@@ -95,20 +135,36 @@ export default function ModalUpdateProject({
             toast.success("Le projet a bien été supprimé");
             redirectWithDelay("/projects", 500);
         } else {
-            toast.error("Erreur dans la suppression du projet");
+            const data = await res.json();
+            toast.error(<div>Erreur dans la suppression du projet<br />{data.message}</div>);
         }
     };
 
+    const onChange = (option: readonly { value: string, label: string | undefined, user: User }[],
+        actionMeta: ActionMeta<{ value: string, label: string | undefined, user: User }>) => {
+        switch (actionMeta.action) {
+            case "remove-value":
+                removeContributor(actionMeta.removedValue.user.id);
+                break;
+            case "select-option":
+                console.log(actionMeta);
+                addContributor(actionMeta.option?.user);
+                break;
+            default:
+                break;
+        }(actionMeta);
+    }
+
     useEffect(() => {
         const closeOnEsc = (e: KeyboardEvent) => {
-            if (e.key === "Escape") closeModal();
+            if (e.key === "Escape") closeModal(isModified);
         };
         document.addEventListener("keydown", closeOnEsc);
         return () => document.removeEventListener("keydown", closeOnEsc);
     }, []);
 
     return (
-        <aside className="fixed inset-0 bg-(--grey-200)/50 flex items-center justify-center" onClick={closeModal}>
+        <aside className="fixed inset-0 bg-(--grey-200)/50 flex items-center justify-center" onClick={() => closeModal(isModified)}>
             <div
                 className="bg-(--white) relative px-73 py-79 rounded-(--radius10) flex flex-col gap-40 w-598"
                 onClick={(e) => e.stopPropagation()}
@@ -119,7 +175,7 @@ export default function ModalUpdateProject({
                     <Input name="description" label="Description" type={InputTypes.Text} required={true} value={description} onChange={(e) => setDescription(e.target.value)} />
                     <div className="flex flex-col gap-1">
                         <label htmlFor="assignees">Contributeurs</label>
-                        {/* <AsyncSelect
+                        <AsyncSelect
                             cacheOptions
                             loadOptions={promiseOptions}
                             defaultOptions={[]}
@@ -132,14 +188,16 @@ export default function ModalUpdateProject({
                             isClearable={true}
                             isSearchable={true}
                             placeholder="Choisir un ou plusieurs collaborateurs"
-                        /> */}
+                            defaultValue={contributorsList}
+                            onChange={onChange}
+                        />
                     </div>
                     <div className="flex gap-10">
                         <Button text="Enregistrer" width={181} height={50} />
                         <Button text="Supprimer" width={181} height={50} buttonType={ButtonTypes.Button} color="orange" onClick={handleDelete} />
                     </div>
                 </form>
-                <button className="absolute top-15 right-15 cursor-pointer" onClick={closeModal}>
+                <button className="absolute top-15 right-15 cursor-pointer" onClick={() => closeModal(isModified)}>
                     <Image src="/images/cross.svg" height={15} width={15} alt="Image fermer" />
                 </button>
             </div>

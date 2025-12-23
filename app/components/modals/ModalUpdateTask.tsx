@@ -32,7 +32,6 @@ export default function ModalCreateTask({
     const [description, setDescription] = useState(task.description);
     const [date, setDate] = useState<string>(task.dueDate);
     const [status, setStatus] = useState<"TODO" | "IN_PROGRESS" | "DONE" | "CANCELLED">(task.status);
-    console.log(task);
     const assignees: { value: string, label: string | undefined }[] = task.assignees.map((assignee: TaskAssignee) => {
         return { value: assignee.user.id, label: assignee.user.name }
     });
@@ -62,7 +61,8 @@ export default function ModalCreateTask({
             toast.success("La tâche à bien été modifiée");
             onSuccess();
         } else {
-            toast.error("Erreur dans la modification de la tâche");
+            const data = await res.json();
+            toast.error(<div>Erreur dans la modification de la tâche<br />{data.message}</div>);
         }
     };
 
@@ -84,7 +84,8 @@ export default function ModalCreateTask({
             refresh()
             closeModal()
         } else {
-            toast.error("Erreur dans la suppression de la tâche");
+            const data = await res.json();
+            toast.error(<div>Erreur dans la suppression de la tâche<br />{data.message}</div>);
         }
     };
 
