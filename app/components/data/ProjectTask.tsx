@@ -9,7 +9,6 @@ import { UserIconModes, IconButtonTypes } from "@/app/enums/enums";
 import Comment from "@/app/components/data/Comment";
 import { useEffect, useState } from "react";
 import { TaskItem } from "@/app/interfaces/taskItem";
-import { User } from "@/app/interfaces/user";
 import { createPortal } from "react-dom";
 import ModalUpdateTask from "../modals/ModalUpdateTask";
 
@@ -105,13 +104,13 @@ export default function ProjectTask({ task, contributorList, refreshTasks }: Pro
             <div className="flex flex-col">
                 <div className="flex cursor-pointer" onClick={() => setIsCommentOpen(!isCommentOpen)}>
                     <div className="flex body-s text-(--grey-800) flex-1">Commenaires ({task.comments.length ?? 0})</div>
-                    <div className={"flex transition-rotate duration-300 ease-out " + (isCommentOpen ? "opended" : "")}>
-                        <Image src="/images/bottom_arrow.svg" alt="Image commentaires ouvert ou non" width={16} height={8} />
+                    <div className={"flex " + (isCommentOpen ? "opended" : "")}>
+                        <Image className="transition-rotate duration-300 ease-out" src="/images/bottom_arrow.svg" alt="Image commentaires ouvert ou non" width={16} height={8} />
                     </div>
                 </div>
             </div>
             <div className={"flex flex-1 overflow-hidden " + (!isCommentOpen ? "h-0 max-h-0" : "")}>
-                <Comment props={task.comments ?? []} />
+                <Comment comments={task.comments ?? []} taskId={task.id} projectId={task.projectId} refreshTasks={refreshTasks} />
             </div>
         </div>
     );

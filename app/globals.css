@@ -137,7 +137,7 @@ img.logo.black,
   -webkit-mask: url("../public/images/project.svg") no-repeat center / contain;
 }
 
-.project-task:not(.opended) img {
+.project-task div:not(.opended)>img {
   rotate: -180deg;
 }
 
@@ -153,8 +153,8 @@ img.logo.black,
   background-size: 104%;
 }
 
-.project-task .opended {
-  rotate: -180deg;
+.project-task div.opended>img {
+  rotate: 0deg;
 }
 
 .status-drop-down {
@@ -194,4 +194,8 @@ img.logo.black,
 .status-drop-down .status-drop-down__clear-indicator,
 .contributors-drop-down .contributors-drop-down__clear-indicator {
   padding: 8px 0;
+}
+
+.trash {
+  filter: sepia(100%) saturate(2800%) hue-rotate(6deg) brightness(95%) contrast(105%);
 }
