@@ -4,10 +4,10 @@ import Image from "next/image";
 import { User } from "@/app/interfaces/user";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import Input from "../ui/Input";
+import Input from "@/app/components/ui/Input";
 import { InputTypes } from "@/app/enums/enums";
 import AsyncSelect from 'react-select/async';
-import Button from "../ui/Button";
+import Button from "@/app/components/ui/Button";
 import { useCookies } from "next-client-cookies";
 
 export default function ModalCreateProject({

@@ -1,4 +1,4 @@
-import { User } from "./user";
+import { User } from "@/app/interfaces/user";
 
 export interface TaskAssignee {
     id: string;

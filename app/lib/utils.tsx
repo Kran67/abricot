@@ -1,4 +1,4 @@
-import { HeaderMenuItems } from "../enums/enums";
+import { HeaderMenuItems } from "@/app/enums/enums";
 
 export function formatDate(date: Date, addTime: boolean = true): string {
     const dateStr = new Intl.DateTimeFormat("fr-FR", { day: "2-digit", month: "long" }).format(date);

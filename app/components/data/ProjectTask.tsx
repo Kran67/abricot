@@ -10,7 +10,7 @@ import Comment from "@/app/components/data/Comment";
 import { useEffect, useState } from "react";
 import { TaskItem } from "@/app/interfaces/taskItem";
 import { createPortal } from "react-dom";
-import ModalUpdateTask from "../modals/ModalUpdateTask";
+import ModalUpdateTask from "@/app/components/modals/ModalUpdateTask";
 
 export interface PropsTL {
     task: TaskItem;

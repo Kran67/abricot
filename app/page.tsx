@@ -14,7 +14,7 @@ import { useProjectsWithTasks } from "@/app/hooks/useProjectsWithTasks";
 import { useCookies } from 'next-client-cookies';
 import { useEffect, useState } from "react";
 import type { TaskItem } from "@/app/interfaces/taskItem";
-import ModalCreateProject from "./components/modals/ModalCreateProject";
+import ModalCreateProject from "@/app/components/modals/ModalCreateProject";
 import { createPortal } from "react-dom";
 
 export default function Dashboard() {

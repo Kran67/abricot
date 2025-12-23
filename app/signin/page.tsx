@@ -7,7 +7,7 @@ import { InputTypes } from "@/app/enums/enums";
 import Button from "@/app/components/ui/Button";
 import { useCookies } from "next-client-cookies";
 import { useState } from "react";
-import { validatePassword } from "../lib/utils";
+import { validatePassword } from "@/app/lib/utils";
 import { toast } from "react-toastify";
 
 export default function SignIn() {

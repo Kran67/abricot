@@ -4,7 +4,6 @@ import { TaskItem } from "@/app/interfaces/taskItem";
 import dayGridPlugin from '@fullcalendar/daygrid';// a plugin!
 import FullCalendar from "@fullcalendar/react";
 import frLocale from '@fullcalendar/core/locales/fr';
-import { title } from "process";
 import { formatYMMDD } from "@/app/lib/utils";
 
 export interface PropsPC {
@@ -51,7 +50,6 @@ export default function ProjectCalendar({ tasks }: PropsPC) {
             textColor: "var(--grey-800)"
         }
     });
-    console.log(events);
 
     return (
         <div className={classNames}>

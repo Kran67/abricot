@@ -3,12 +3,12 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Input from "../ui/Input";
+import Input from "@/app/components/ui/Input";
 import { InputTypes } from "@/app/enums/enums";
 import Select from 'react-select';
-import Button from "../ui/Button";
+import Button from "@/app/components/ui/Button";
 import { useCookies } from "next-client-cookies";
-import Tag from "../ui/Tag";
+import Tag from "@/app/components/ui/Tag";
 
 export default function ModalCreateTask({
     projectId,

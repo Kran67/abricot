@@ -5,7 +5,7 @@ import ProjectCard from "@/app/components/data/ProjectCard";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import { HeaderMenuItems } from "@/app/enums/enums";
-import { useProjects } from "../hooks/useProjects";
+import { useProjects } from "@/app/hooks/useProjects";
 import { useCookies } from 'next-client-cookies';
 import { useEffect, useState } from "react";
 import ModalCreateProject from "@/app/components/modals/ModalCreateProject";

@@ -8,9 +8,7 @@ import { UserIconModes } from "@/app/enums/enums";
 import Tag from "@/app/components/ui/Tag";
 import { Project } from "@/app/interfaces/project";
 import { getInitials } from "@/app/lib/utils";
-import { useProjectsTasks } from "@/app/hooks/useProjectsTasks";
 import { TaskItem } from "@/app/interfaces/taskItem";
-//import { TaskProps } from "@/app/components/data/Task";
 
 interface PropsPC {
     props: Project;

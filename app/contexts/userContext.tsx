@@ -6,7 +6,7 @@ import type { User } from "@/app/interfaces/user";
 const UserContext = createContext<User | null>(null);
 
 export function UserProvider({ children, initialUser }: { children: ReactNode; initialUser: User | null }) {
-  const [user, setUser] = useState<User | null>(initialUser);
+  const [user] = useState<User | null>(initialUser);
 
   return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 }
