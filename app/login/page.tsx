@@ -42,7 +42,7 @@ export default function Login() {
                 <div className="flex flex-col gap-30">
                     <h1 className="text-(--dark-orange) self-center">Connexion</h1>
                     <div className="flex flex-col gap-21">
-                        <form className="flex flex-col gap-29" onSubmit={handleLogin}>
+                        <form className="flex flex-col gap-29" onSubmit={handleLogin} role="form" aria-label="Information de connexion">
                             <Input name="email" label="Email" type={InputTypes.Text} value={email} onChange={(e) => {
                                 setEmail(e.target.value);
                                 setError(false);

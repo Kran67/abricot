@@ -42,7 +42,7 @@ export default function MenuItem({ type = MenuItemTypes.Dashboard, isActive = fa
     const text: string = isDashboard ? "Tableau de bord" : "Projets";
 
     return (
-        <button className={classNames.join(" ")} onClick={handleClick}>
+        <button className={classNames.join(" ")} onClick={handleClick} role="button">
             <Image src={"/images/" + (isDashboard ? "dashbord" : "project") + ".svg"} alt={isDashboard ? "Image tableau de bord" : "Image projet"} width={isDashboard ? 24 : 29} height={isDashboard ? 24 : 23} />{text}
         </button>
     );

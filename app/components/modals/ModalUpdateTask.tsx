@@ -98,19 +98,20 @@ export default function ModalCreateTask({
     }, []);
 
     return (
-        <aside className="fixed inset-0 bg-(--grey-200)/50 flex items-center justify-center" onClick={closeModal}>
+        <aside className="fixed inset-0 bg-(--grey-200)/50 flex items-center justify-center z-1" onClick={closeModal}>
             <div
                 className="bg-(--white) relative px-73 py-79 rounded-(--radius10) flex flex-col gap-40 w-598"
                 onClick={(e) => e.stopPropagation()}
             >
                 <h4 className="text-(--grey-800)">Modifier une tâche</h4>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-24">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-24" role="form" aria-label="Information de la tâche">
                     <Input name="title" label="Titre" type={InputTypes.Text} required={true} maxLength={200} value={title} onChange={(e) => setTitle(e.target.value)} />
                     <Input name="description" label="Description" type={InputTypes.Text} required={true} maxLength={1000} value={description} onChange={(e) => setDescription(e.target.value)} />
                     <Input name="dueDate" label="Echéance" type={InputTypes.Date} required={true} value={formatYMMDD(new Date(date))} onChange={(e) => setDate(e.target.value)} />
                     <div className="flex flex-col gap-1">
                         <label htmlFor="assignees">Assigné à</label>
-                        <Select
+                        {/* À remplacer */}
+                        {/* <Select
                             options={contributorList}
                             noOptionsMessage={(obj: { inputValue: string }) => "Aucun utilisateur trouvé"}
                             loadingMessage={(obj: { inputValue: string }) => "Récupération des utilisateurs..."}
@@ -122,7 +123,7 @@ export default function ModalCreateTask({
                             isSearchable={true}
                             placeholder="Choisir un ou plusieurs collaborateurs"
                             defaultValue={assignees}
-                        />
+                        /> */}
                     </div>
                     <div className="flex flex-col gap-2">
                         <label>Priorité</label>
@@ -149,7 +150,7 @@ export default function ModalCreateTask({
                         <Button text="Supprimer" width={181} height={50} color="orange" onClick={(e) => handleDelete(e)} />
                     </div>
                 </form>
-                <button className="absolute top-15 right-15 cursor-pointer" onClick={closeModal}>
+                <button className="absolute top-15 right-15 cursor-pointer" onClick={closeModal} role="button">
                     <Image src="/images/cross.svg" height={15} width={15} alt="Image fermer" />
                 </button>
             </div>

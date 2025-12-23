@@ -88,9 +88,10 @@ export default function Comment({ comments, taskId, projectId, refreshTasks }: C
                                         <button
                                             className="flex items-center justify-center bg-(--grey-800) rounded-lg py-3 pr-3 pl-6 w-24 h-26 cursor-pointer"
                                             onClick={() => deleteComment(comment.id)}
+                                            role="button"
                                             aria-label="Supprimer ce commentaire"
                                         >
-                                            <Image className="trash" src="/images/Trash.svg" height={12} width={14} alt="" aria-hidden="true" />
+                                            <Image className="trash" src="/images/Trash.svg" height={12} width={14} alt="Image poubelle" aria-hidden="true" />
                                         </button>
                                     )}
                                 </div>
@@ -102,13 +103,16 @@ export default function Comment({ comments, taskId, projectId, refreshTasks }: C
             })}
             <div className="flex gap-14 w-full">
                 <UserIcon text={getInitials(currentUser?.name)} mode={UserIconModes.Small} hasBorder={true} isOwner={true} />
+                <label htmlFor={`addComment-${taskId}-${projectId}`} className="invisible">Ajouter un commentaire...</label>
                 <textarea
-                    id="addComment"
-                    name="addComment"
+                    id={`addComment-${taskId}-${projectId}`}
+                    name={`addComment-${taskId}-${projectId}`}
                     className="body-2xs bg-(--grey-50) p-10 rounded-(--radius10) text-black w-full h-83 outline-0"
                     placeholder="Ajouter un commentaire..."
                     value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}></textarea>
+                    onChange={(e) => setNewComment(e.target.value)}
+                    aria-multiline="true"
+                    aria-placeholder="Ajouter un commentaire..."></textarea>
             </div>
             <Button className="self-end" text="Envoyer" width={209} height={50} url="" disabled={newComment === ""} onClick={createComment} />
         </div>

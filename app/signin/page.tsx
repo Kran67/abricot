@@ -54,7 +54,7 @@ export default function SignIn() {
                 <div className="flex flex-col gap-30">
                     <h1 className="text-(--dark-orange) self-center">Inscription</h1>
                     <div className="flex flex-col gap-21">
-                        <form className="flex flex-col gap-29" onSubmit={handleSignIn}>
+                        <form className="flex flex-col gap-29" onSubmit={handleSignIn} role="form" aria-label="Information de l'inscription">
                             <Input name="email" label="Email" type={InputTypes.Text} value={email} onChange={(e) => {
                                 setEmail(e.target.value);
                                 setError(false);

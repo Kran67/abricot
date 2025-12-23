@@ -44,7 +44,8 @@ export default function Chip({ text, className, image, width, height, isActive, 
         <button
             className={classNames}
             style={{ width: width ?? "", height: height ?? "" }}
-            onClick={onClickFunc}>
+            onClick={onClickFunc}
+            role="button">
             {image ? <Image className={(image.className ?? "")} src={image.url} alt={image.alt} width={image.width ?? 16} height={image.height ?? 16} /> : null}{text}
         </button>
     );

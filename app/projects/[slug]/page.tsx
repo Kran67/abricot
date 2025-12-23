@@ -12,7 +12,7 @@ import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import { use, useEffect, useState } from "react";
 import { Project } from "@/app/interfaces/project";
-import { getInitials } from "@/app/lib/utils";
+import { getInitials, prepareBodyToShowModal } from "@/app/lib/utils";
 import { useProjectsTasks } from "@/app/hooks/useProjectsTasks";
 import { useProjects } from "@/app/hooks/useProjects";
 import { useCookies } from 'next-client-cookies';
@@ -96,29 +96,11 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
     const memberCount: number = members?.length ?? 0;
 
     useEffect(() => {
-        const root = document.getElementById("app-root");
-        if (!root) return;
-
-        root.inert = createTask;
-        document.body.style.overflow = createTask ? "hidden" : "";
-
-        return () => {
-            root.inert = false;
-            document.body.style.overflow = "";
-        };
+        prepareBodyToShowModal(createTask ? "hidden" : "");
     }, [createTask]);
 
     useEffect(() => {
-        const root = document.getElementById("app-root");
-        if (!root) return;
-
-        root.inert = updateProject;
-        document.body.style.overflow = updateProject ? "hidden" : "";
-
-        return () => {
-            root.inert = false;
-            document.body.style.overflow = "";
-        };
+        prepareBodyToShowModal(updateProject ? "hidden" : "");
     }, [updateProject]);
 
     const admin: boolean = project?.ownerId === user?.id;
@@ -205,7 +187,8 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                                     onClickFunc={() => setView(ProjectsViews.Calendar)}
                                 />
                             </div>
-                            <Select
+                            {/* à remplacer : https://www.radix-ui.com/primitives/docs/components/select */}
+                            {/* <Select
                                 className="status-drop-down"
                                 classNamePrefix="status-drop-down"
                                 name="status"
@@ -214,7 +197,8 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                                 isSearchable={true}
                                 placeholder="Statut"
                                 onChange={(option: { value: string, label: string } | null, actionMeta: ActionMeta<any>) => setStatus(option)}
-                            />
+                            /> */}
+                            <label htmlFor="search" className="invisible">Rechercher une tâche</label>
                             <Input
                                 name="search"
                                 type={InputTypes.Text}

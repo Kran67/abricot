@@ -63,3 +63,11 @@ export const formatYMMDD = (date: Date, locale: string = "en-GB"): string => {
 
     return `${map.year}-${map.month}-${map.day}`;
 }
+
+export const prepareBodyToShowModal = (overflow: string): any => {
+    document.body.style.overflow = overflow;
+
+    return () => {
+        document.body.style.overflow = "";
+    };
+}

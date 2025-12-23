@@ -56,7 +56,7 @@ export default function UserIcon({ text, mode, url, isOwner = false, hasBorder =
 
     return (
         (url
-            ? <button className={classNames.join(" ")} onClick={handleClick}>{text}</button>
+            ? <button className={classNames.join(" ")} onClick={handleClick} role="button">{text}</button>
             : <span className={classNames.join(" ")}>{text}</span>
         )
     );

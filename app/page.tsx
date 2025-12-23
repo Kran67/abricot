@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import type { TaskItem } from "@/app/interfaces/taskItem";
 import ModalCreateProject from "@/app/components/modals/ModalCreateProject";
 import { createPortal } from "react-dom";
+import { prepareBodyToShowModal } from "@/app/lib/utils";
 
 export default function Dashboard() {
   const user: User | null = useUser();
@@ -68,11 +69,7 @@ export default function Dashboard() {
   const nbDoneTasks: string = doneTasks.length.toString();
 
   useEffect(() => {
-    document.body.style.overflow = showModal ? "hidden" : "";
-
-    return () => {
-      document.body.style.overflow = "";
-    };
+    prepareBodyToShowModal(showModal ? "hidden" : "");
   }, [showModal]);
 
   return (
@@ -121,6 +118,7 @@ export default function Dashboard() {
                 <h4 className="text-(--grey-800)">Mes tâches assignées</h4>
                 <span className="body-l text-black">Par ordre de priorité</span>
               </div>
+              <label htmlFor="search" className="invisible">Rechercher une tâche</label>
               <Input
                 name="search"
                 placeHolder="Rechercher une tâche"

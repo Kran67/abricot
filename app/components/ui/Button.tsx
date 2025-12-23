@@ -63,7 +63,8 @@ export default function Button({ text, disabled, className, image, url, width, h
             disabled={disabled}
             type={buttonType}
             style={{ width: width ?? '', height: height ?? '' }}
-            onClick={handleClick}>
+            onClick={handleClick}
+            role="button">
             {image ? <Image className={(image.className ?? '') + color} src={image.url} alt={image.alt} width={image.width ?? 21} height={image.height ?? 21} /> : ""}{text}
         </button>
     );

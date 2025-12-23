@@ -122,7 +122,7 @@ export default function Profile() {
             <Header activeMenu={HeaderMenuItems.Profile} />
             <div className={classNames}>
                 <div className="flex flex-col flex-1 gap-41 rounded-(--radius10) border border-solid border-(--grey-200) bg-(--white) pt-40 pr-59 pb-40 pl-59">
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-41">
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-41" role="form" aria-label="Information du compte">
                         <div className="flex flex-col gap-8">
                             <h5 className="text-(--grey-800)">Mon compte</h5>
                             <span className="body-m text-(--grey-600)">{user?.name}</span>

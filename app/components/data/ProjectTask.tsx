@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Tag from "@/app/components/ui/Tag";
 import IconButton from "@/app/components/ui/IconButton";
-import { formatDate, getInitials } from "@/app/lib/utils";
+import { formatDate, getInitials, prepareBodyToShowModal } from "@/app/lib/utils";
 import UserIcon from "@/app/components/ui/UserIcon";
 import { UserIconModes, IconButtonTypes } from "@/app/enums/enums";
 import Comment from "@/app/components/data/Comment";
@@ -48,16 +48,7 @@ export default function ProjectTask({ task, contributorList, refreshTasks }: Pro
     }
 
     useEffect(() => {
-        const root = document.getElementById("app-root");
-        if (!root) return;
-
-        root.inert = updateTask;
-        document.body.style.overflow = updateTask ? "hidden" : "";
-
-        return () => {
-            root.inert = false;
-            document.body.style.overflow = "";
-        };
+        prepareBodyToShowModal(updateTask ? "hidden" : "");
     }, [updateTask]);
 
     return (

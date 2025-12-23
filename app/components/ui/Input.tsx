@@ -52,6 +52,8 @@ export default function Input({ name, label, type, value, imageType, placeHolder
                     autoComplete={autoComplete}
                     onChange={onChange}
                     maxLength={maxLength}
+                    aria-placeholder={placeHolder}
+                    aria-required={required}
                 />
                 {imageType &&
                     <Image src={"/images/" + imageType + ".svg"} width={15} height={imgHeight} alt={" Image " + imageType} />

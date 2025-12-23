@@ -42,7 +42,8 @@ export default function IconButton({ type = IconButtonTypes.Arrow, onClick }: Ic
     return (
         <button
             className={classNames}
-            onClick={handleClick}>
+            onClick={handleClick}
+            role="button">
             <Image src={"/images/" + (isBackBtn ? "left_arrow" : "three_points") + ".svg"} alt={"Image " + (isBackBtn ? "retour" : "image menu")} width={15} height={4} />
         </button>
     );

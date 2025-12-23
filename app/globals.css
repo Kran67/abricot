@@ -199,3 +199,8 @@ img.logo.black,
 .trash {
   filter: sepia(100%) saturate(2800%) hue-rotate(6deg) brightness(95%) contrast(105%);
 }
+
+.invisible {
+  width: 0;
+  height: 0;
+}

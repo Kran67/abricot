@@ -164,18 +164,19 @@ export default function ModalUpdateProject({
     }, []);
 
     return (
-        <aside className="fixed inset-0 bg-(--grey-200)/50 flex items-center justify-center" onClick={() => closeModal(isModified)}>
+        <aside className="fixed inset-0 bg-(--grey-200)/50 flex items-center justify-center z-1" onClick={() => closeModal(isModified)}>
             <div
                 className="bg-(--white) relative px-73 py-79 rounded-(--radius10) flex flex-col gap-40 w-598"
                 onClick={(e) => e.stopPropagation()}
             >
                 <h4 className="text-(--grey-800)">Modifier un projet</h4>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-24">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-24" role="form" aria-label="Information du projet">
                     <Input name="name" label="Titre" type={InputTypes.Text} required={true} value={name} onChange={(e) => setName(e.target.value)} />
                     <Input name="description" label="Description" type={InputTypes.Text} required={true} value={description} onChange={(e) => setDescription(e.target.value)} />
                     <div className="flex flex-col gap-1">
                         <label htmlFor="assignees">Contributeurs</label>
-                        <AsyncSelect
+                        {/* À remplacer */}
+                        {/* <AsyncSelect
                             cacheOptions
                             loadOptions={promiseOptions}
                             defaultOptions={[]}
@@ -190,14 +191,14 @@ export default function ModalUpdateProject({
                             placeholder="Choisir un ou plusieurs collaborateurs"
                             defaultValue={contributorsList}
                             onChange={onChange}
-                        />
+                        /> */}
                     </div>
                     <div className="flex gap-10">
                         <Button text="Enregistrer" width={181} height={50} />
                         <Button text="Supprimer" width={181} height={50} buttonType={ButtonTypes.Button} color="orange" onClick={handleDelete} />
                     </div>
                 </form>
-                <button className="absolute top-15 right-15 cursor-pointer" onClick={() => closeModal(isModified)}>
+                <button className="absolute top-15 right-15 cursor-pointer" onClick={() => closeModal(isModified)} role="button">
                     <Image src="/images/cross.svg" height={15} width={15} alt="Image fermer" />
                 </button>
             </div>
