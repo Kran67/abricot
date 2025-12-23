@@ -46,3 +46,8 @@ export enum ProjectsViews {
     List,
     Calendar
 }
+
+export enum ButtonTypes {
+    Submit = "submit",
+    Button = "button"
+}

@@ -152,7 +152,7 @@ export default function Profile() {
                         </div>
                         <Button text="Modifier les informations" width={242} height={50} />
                     </form>
-                    <Link text="Se déconnecter" url="/" onClickFunc={() => cookies.remove("token")} />
+                    <Link text="Se déconnecter" url="/" onClick={() => cookies.remove("token")} />
                 </div>
             </div>
             <Footer />

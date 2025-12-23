@@ -21,20 +21,24 @@ import { TaskItem } from "@/app/interfaces/taskItem";
 import Select, { ActionMeta } from "react-select";
 import ModalCreateTask from "@/app/components/modals/ModalCreateTask";
 import { createPortal } from "react-dom";
+import { useUser } from "@/app/contexts/userContext";
+import ModalUpdateProject from "@/app/components/modals/ModalUpdateProject";
 
 export default function ProjectDetails({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
     const cookies = useCookies();
     const token: string | undefined = cookies.get("token");
     const { tasks, refreshTasks } = useProjectsTasks(token, slug);
-    const { projects } = useProjects(token);
+    const { projects, refresh } = useProjects(token);
     const [view, setView] = useState<ProjectsViews>(ProjectsViews.List);
     const [search, setSearch] = useState<string>("");
     const [status, setStatus] = useState<{
         value: string,
         label: string,
     } | null>(null);
-    const [showModal, setShowModal] = useState(false);
+    const [updateProject, setUpdateProject] = useState(false);
+    const user = useUser();
+    const [createTask, setCreateTask] = useState(false);
 
     const classNames = [
         "projectdetails",
@@ -94,14 +98,29 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
         const root = document.getElementById("app-root");
         if (!root) return;
 
-        root.inert = showModal;
-        document.body.style.overflow = showModal ? "hidden" : "";
+        root.inert = createTask;
+        document.body.style.overflow = createTask ? "hidden" : "";
 
         return () => {
             root.inert = false;
             document.body.style.overflow = "";
         };
-    }, [showModal]);
+    }, [createTask]);
+
+    useEffect(() => {
+        const root = document.getElementById("app-root");
+        if (!root) return;
+
+        root.inert = updateProject;
+        document.body.style.overflow = updateProject ? "hidden" : "";
+
+        return () => {
+            root.inert = false;
+            document.body.style.overflow = "";
+        };
+    }, [updateProject]);
+
+    const admin: boolean = project?.ownerId === user?.id;
 
     return (
         <main className="flex flex-col bg-white w-1440">
@@ -112,19 +131,31 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                     <div className="flex flex-col flex-1 gap-6">
                         <div className="flex gap-16">
                             <h4 className="text-(--grey-800)">{project?.name}</h4>
-                            <Link text="Modifier" url="" />
+                            {admin && <Link text="Modifier" onClick={() => setUpdateProject(true)} />}
+                            {updateProject &&
+                                createPortal(
+                                    <ModalUpdateProject
+                                        closeModal={() => setUpdateProject(false)}
+                                        project={project}
+                                        onSuccess={() => {
+                                            refresh();
+                                            setUpdateProject(false);
+                                        }}
+                                    />,
+                                    document.body
+                                )}
                         </div>
                         <span className="body-l text-black">{project?.description}</span>
                     </div>
-                    <Button text="Créer une tâche" width={141} height={50} onClick={() => setShowModal(true)} />
-                    {showModal && createPortal(
+                    <Button text="Créer une tâche" width={141} height={50} onClick={() => setCreateTask(true)} />
+                    {createTask && createPortal(
                         <ModalCreateTask
                             projectId={project?.id}
                             contributorList={contributorList}
-                            closeModal={() => setShowModal(false)}
+                            closeModal={() => setCreateTask(false)}
                             onSuccess={() => {
                                 refreshTasks();
-                                setShowModal(false);
+                                setCreateTask(false);
                             }}
                         />,
                         document.body

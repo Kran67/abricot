@@ -39,7 +39,7 @@ export const validatePassword = (pw: string): boolean => {
 }
 
 export const redirectWithDelay = (url: string, delay: number = 0): void => {
-    setTimeout(() => window.location.href = "/profile", delay);
+    setTimeout(() => window.location.href = url, delay);
 }
 
 export const formDataToJSON = (formData: FormData) => {

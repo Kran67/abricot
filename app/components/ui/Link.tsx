@@ -8,15 +8,15 @@ interface LinkProps {
     text: string;
     url?: string;
     disabled?: boolean;
-    onClickFunc?(): void;
+    onClick?(): void;
 }
 
-export default function Link({ text, url = "#", disabled = false, onClickFunc }: LinkProps) {
+export default function Link({ text, url = "#", disabled = false, onClick }: LinkProps) {
     const router: AppRouterInstance = useRouter();
 
     const handleClick = () => {
-        onClickFunc?.();
-        router.push(url);
+        onClick?.();
+        if (url) router.push(url);
     };
 
     const classNames = [

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ImageProps } from "@/app/interfaces/imageProps";
 import { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
+import { ButtonTypes } from "@/app/enums/enums";
 
 interface ButtonProps {
     text?: string;
@@ -14,10 +15,11 @@ interface ButtonProps {
     width?: number;
     height?: number;
     color?: string;
-    onClick?: () => void
+    onClick?: () => void;
+    buttonType?: ButtonTypes;
 }
 
-export default function Button({ text, disabled, className, image, url, width, height, color, onClick }: ButtonProps) {
+export default function Button({ text, disabled, className, image, url, width, height, color, onClick, buttonType = ButtonTypes.Submit }: ButtonProps) {
     const router: AppRouterInstance = useRouter();
 
     const handleClick = () => {
@@ -59,6 +61,7 @@ export default function Button({ text, disabled, className, image, url, width, h
         <button
             className={classNames}
             disabled={disabled}
+            type={buttonType}
             style={{ width: width ?? '', height: height ?? '' }}
             onClick={handleClick}>
             {image ? <Image className={(image.className ?? '') + color} src={image.url} alt={image.alt} width={image.width ?? 21} height={image.height ?? 21} /> : ""}{text}
