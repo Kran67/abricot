@@ -23,6 +23,7 @@ import ModalCreateTask from "@/app/components/modals/ModalCreateTask";
 import { createPortal } from "react-dom";
 import { useUser } from "@/app/contexts/userContext";
 import ModalUpdateProject from "@/app/components/modals/ModalUpdateProject";
+import ProjectCalendar from "@/app/components/data/ProjectCalendar";
 
 export default function ProjectDetails({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
@@ -225,9 +226,13 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                         </div>
                     </div>
                     <div className="flex flex-col gap-17 pr-36 pl-36">
-                        {filteredTasks?.map((taskItem, index) => (
-                            <ProjectTask key={index} task={taskItem} contributorList={contributorList} refreshTasks={refreshTasks} />
-                        ))}
+                        {view === ProjectsViews.List ?
+                            (filteredTasks?.map((taskItem, index) => (
+                                <ProjectTask key={index} task={taskItem} contributorList={contributorList} refreshTasks={refreshTasks} />
+                            )))
+                            :
+                            <ProjectCalendar tasks={filteredTasks} />
+                        }
                     </div>
                 </div>
             </div >
