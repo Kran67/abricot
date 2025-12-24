@@ -48,8 +48,8 @@ export default function SignIn() {
     };
 
     return (
-        <div className="sign-in flex w-1440 h-1024 flex-1 ">
-            <div className="flex flex-col w-562 bg-(--white) gap-202 pt-55 pr-140 pb-55 pl-140">
+        <div className="sign-in flex w-full h-1024 flex-1">
+            <div className="flex flex-col w-[100%] md:w-[100%] xl:w-562 bg-(--white) gap-202 pt-55 pr-140 pb-55 pl-140">
                 <Logo />
                 <div className="flex flex-col gap-30">
                     <h1 className="text-(--dark-orange) self-center">Inscription</h1>

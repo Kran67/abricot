@@ -98,9 +98,9 @@ export default function ModalCreateTask({
     }, []);
 
     return (
-        <aside className="fixed inset-0 bg-(--grey-200)/50 flex items-center justify-center z-1" onClick={closeModal}>
+        <aside className="absolute inset-0 bg-(--grey-200)/50 flex items-center justify-center z-1" onClick={closeModal}>
             <div
-                className="bg-(--white) relative px-73 py-79 rounded-(--radius10) flex flex-col gap-40 w-598"
+                className="bg-(--white) relative px-36 py-40 md:px-73 md:py-79 rounded-(--radius10) flex flex-col gap-40 w-598"
                 onClick={(e) => e.stopPropagation()}
             >
                 <h4 className="text-(--grey-800)">Modifier une tâche</h4>

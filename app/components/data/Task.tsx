@@ -45,15 +45,21 @@ export default function Task({ props }: PropsTL) {
                 <Tag text={tagStatusText[props.status]} color={props.status} />
             </div>
             <div className="flex flex-wrap">
-                <div className="flex items-center self-end mt-32 flex-1">
-                    <div className="project-image-wrapper min-w-18 min-h-14 bg-(--grey-600)"></div>
-                    <span className="body-xs text-(--grey-600) pl-8">{props.projectName}</span>
-                    <span className="body-2xs pl-15 pr-15">|</span>
-                    <Image src="/images/calendar.svg" alt="Image calendrier" width={15} height={16} />
-                    <span className="body-xs text-(--grey-600) pl-8 whitespace-nowrap">{formatDate(new Date(props.dueDate), false)}</span>
-                    <span className="body-2xs pl-15 pr-15">|</span>
-                    <Image src="/images/comment.svg" alt="Image commentaire" width={15} height={15} />
-                    <span className="body-xs text-(--grey-600) pl-8">{props.comments.length}</span>
+                <div className="flex items-center self-end mt-32 flex-1 flex-wrap min-w-220">
+                    <div className="flex whitespace-nowrap">
+                        <div className="project-image-wrapper min-w-18 min-h-14 bg-(--grey-600)"></div>
+                        <span className="body-xs text-(--grey-600) pl-8">{props.projectName}</span>
+                        <span className="body-2xs pl-15 pr-15">|</span>
+                    </div>
+                    <div className="flex whitespace-nowrap">
+                        <Image src="/images/calendar.svg" alt="Image calendrier" width={15} height={16} />
+                        <span className="body-xs text-(--grey-600) pl-8 whitespace-nowrap">{formatDate(new Date(props.dueDate), false)}</span>
+                        <span className="body-2xs pl-15 pr-15">|</span>
+                    </div>
+                    <div className="flex whitespace-nowrap">
+                        <Image src="/images/comment.svg" alt="Image commentaire" width={15} height={15} />
+                        <span className="body-xs text-(--grey-600) pl-8">{props.comments.length}</span>
+                    </div>
                 </div>
                 <Button className="mt-32" text="Voir" disabled={false} url={`/projects/${props.projectId}`} width={121} height={50} />
             </div>

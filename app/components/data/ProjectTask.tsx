@@ -56,10 +56,10 @@ export default function ProjectTask({ task, contributorList, refreshTasks }: Pro
             <div className="flex">
                 <div className="flex flex-col flex-1 gap-7">
                     <div className="flex flex-1 gap-8">
-                        <h5 className="text-black h-25">{task.title}</h5>
+                        <h5 className="text-black min-h-25">{task.title}</h5>
                         <Tag text={tagStatusText[task.status]} color={task.status} />
                     </div>
-                    <div className="body-s text-(--grey-600) h-17">{task.description}</div>
+                    <div className="body-s text-(--grey-600) min-h-17">{task.description}</div>
                 </div>
                 <IconButton type={IconButtonTypes.Points} onClick={() => setUpdateTask(true)} />
                 {updateTask &&
@@ -82,8 +82,8 @@ export default function ProjectTask({ task, contributorList, refreshTasks }: Pro
                 <Image src="/images/calendar.svg" alt="Image date échéance" width={15} height={16} />
                 <span className="body-xs text-(--grey-800)">{formatDate(new Date(task.dueDate), false)}</span>
             </div>
-            <div className="flex gap-8 items-center">
-                <span className="body-xs text-(--grey-600)">Assigné à :</span>
+            <div className="flex gap-4 md:gap-8 sd:items-center flex-col lg:flex-row">
+                <span className="body-xs text-(--grey-600) whitespace-nowrap">Assigné à :</span>
                 {task.assignees.map((assignee, index) => (
                     <div key={index} className="flex items-center gap-4">
                         <UserIcon text={getInitials(assignee.user.name)} mode={UserIconModes.Small} />

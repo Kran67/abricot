@@ -22,10 +22,10 @@ export default function Profile() {
     const classNames = [
         "account",
         "flex",
-        "pt-57",
-        "pr-100",
+        "md:pt-57",
+        "md:pr-100",
         "pb-181",
-        "pl-100",
+        "md:pl-100",
         "bg-(--grey-50)",
         "flex-1"
     ].join(" ");

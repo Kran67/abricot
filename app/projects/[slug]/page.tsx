@@ -41,12 +41,16 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
         "projectdetails",
         "flex",
         "flex-col",
-        "pt-57",
-        "pr-100",
-        "pb-181",
-        "pl-100",
+        "pt-28",
+        "pr-50",
+        "pb-90",
+        "pl-50",
+        "md:pt-57",
+        "md:pr-100",
+        "md:pb-181",
+        "md:pl-100",
         "bg-(--grey-50)",
-        "flex-1",
+        "w-full",
     ].join(" ");
     const statuts = [
         {
@@ -102,13 +106,13 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
     const admin: boolean = project?.ownerId === user?.id;
 
     return (
-        <main className="flex flex-col bg-white w-1440">
+        <main className="flex flex-col bg-white w-full">
             <Header activeMenu={HeaderMenuItems.Projects} />
             <div className={classNames}>
-                <div className="flex flex-1 items-center gap-16 -ml-55">
+                <div className="flex flex-col md:flex-row flex-1 md:items-center gap-16 md:-ml-55">
                     <IconButton />
                     <div className="flex flex-col flex-1 gap-6">
-                        <div className="flex gap-16">
+                        <div className="flex gap-16 whitespace-nowrap">
                             <h4 className="text-(--grey-800)">{project?.name}</h4>
                             {admin && <Link text="Modifier" onClick={() => setUpdateProject(true)} />}
                             {updateProject &&
@@ -144,12 +148,12 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                     )}
                     {/* <Button text="IA" width={94} height={50} image={{ url: "/images/star.svg", alt: "", width: 21, height: 21 }} color="orange" /> */}
                 </div>
-                <div className="flex gap-24 bg-(--grey-100) rounded-(--radius10) pt-20 pr-50 pb-20 pl-50 items-center mt-48">
+                <div className="flex flex-col md:flex-row gap-12 md:gap-24 bg-(--grey-100) rounded-(--radius10) pt-10 pr-25 pb-10 pl-25 md:pt-20 md:pr-50 md:pb-20 md:pl-50 md:items-center mt-24 md:mt-48">
                     <div className="flex gap-8 items-center flex-1">
                         <h5 className="text-(--grey-800)">Contributeurs</h5>
-                        <span className="body-m text-(--grey-600)">{memberCount} personne{memberCount > 1 ? "s" : null}</span>
+                        <span className="body-m text-(--grey-600) whitespace-nowrap">{memberCount} personne{memberCount > 1 ? "s" : null}</span>
                     </div>
-                    <div className="flex gap-8">
+                    <div className="flex flex-col md:flex-row gap-8">
                         {memberInitials?.map((member: string, index: number) => (
                             <div key={index} className="flex items-center gap-5">
                                 <UserIcon text={member} mode={UserIconModes.Small} isOwner={member === ownerInitials} hasBorder={member !== ownerInitials} />
@@ -158,13 +162,13 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                         ))}
                     </div>
                 </div>
-                <div className="flex flex-col gap-41 border border-solid border-(--grey-200) pt-40 pr-59 pb-40 pl-59 rounded-(--radius10) bg-(--white) mt-35">
-                    <div className="flex gap-24 justify-between">
+                <div className="flex flex-col md:gap-41 border border-solid border-(--grey-200) pt-20 pr-30 pb-20 pl-30 md:pt-40 md:pr-59 md:pb-40 md:pl-59 rounded-(--radius10) bg-(--white) mt-17 md:mt-35">
+                    <div className="flex flex-col lg:flex-row md:gap-24 justify-between">
                         <div className="flex flex-col gap-8">
                             <h5 className="text-(--grey800)">Tâches</h5>
                             <span className="body-m text-(--grey-600)">Par ordre de priorité</span>
                         </div>
-                        <div className="flex flex gap-16 items-center">
+                        <div className="flex flex-row flex-wrap lg:flex-row gap-16 items-center">
                             <div className="flex flex gap-10">
                                 <Chip
                                     text="Liste"
@@ -197,7 +201,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                                 name="search"
                                 type={InputTypes.Text}
                                 imageType={InputImageTypes.Search}
-                                width={283}
+                                className="min-w-200 xl:w-283"
                                 placeHolder="Rechercher une tâche"
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)} />

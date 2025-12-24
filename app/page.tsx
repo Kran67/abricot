@@ -73,10 +73,10 @@ export default function Dashboard() {
   }, [showModal]);
 
   return (
-    <main className="flex flex-col bg-white w-1440">
+    <main className="flex flex-col bg-white w-full">
       <Header activeMenu={HeaderMenuItems.Dashboard} />
       <div className={classNames}>
-        <div className="flex flex-1 items-center">
+        <div className="flex items-center md:flex-row flex-col">
           <div className="flex flex-col flex-1 gap-6">
             <h4 className="text-(--grey-800)">Tableau de bord</h4>
             <span className="body-l text-black">Bonjour {user?.name}, voici un aperçu de vos projets et tâches</span>
@@ -112,9 +112,9 @@ export default function Dashboard() {
           />
         </div>
         {view === DashboardViews.List
-          ? <div className="flex flex-col gap-41 border border-solid border-(--grey-200) bg-(--white) pt-40 pr-59 pb-40 pl-59 rounded-(--radius10) mt-30">
-            <div className="flex flex-1 items-center">
-              <div className="flex flex-col w-763 gap-6">
+          ? <div className="flex flex-col gap-41 border border-solid border-(--grey-200) bg-(--white) rounded-(--radius10) pt-20 pr-30 pb-20 pl-30 md:mt-15 md:pt-40 md:pr-59 md:pb-40 md:pl-59 md:mt-30">
+            <div className="flex flex-1 md:items-center gap-20 md:justify-between flex-col md:flex-row">
+              <div className="flex flex-col gap-6">
                 <h4 className="text-(--grey-800)">Mes tâches assignées</h4>
                 <span className="body-l text-black">Par ordre de priorité</span>
               </div>
@@ -123,7 +123,7 @@ export default function Dashboard() {
                 name="search"
                 placeHolder="Rechercher une tâche"
                 imageType={InputImageTypes.Search}
-                width={357}
+                className="lg:max-w-357 w-full"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)} />
             </div>
@@ -133,8 +133,8 @@ export default function Dashboard() {
               ))}
             </div>
           </div>
-          : <div className="flex gap-22 -ml-24 mt-40">
-            <div className="flex flex-col gap-41 rounded-(--radius10) max-w-419 min-w-419 border border-solid border-(--error-light) pt-40 pr-24 pb-40 pl-24 bg-(--white)">
+          : <div className="flex flex-col lg:flex-row gap-22 md:-ml-24 mt-20 md:mt-40 ">
+            <div className="flex flex-1 flex-col gap-41 rounded-(--radius10) border border-solid border-(--error-light) pt-40 pr-24 pb-40 pl-24 bg-(--white)">
               <div className="flex gap-8">
                 <h5 className="text-(--grey-800)">À faire</h5>
                 <Tag text={nbTodoTasks} color="USER" />
@@ -145,7 +145,7 @@ export default function Dashboard() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-col gap-41 rounded-(--radius10) max-w-419 min-w-419 border border-solid border-(--error-light) pt-40 pr-24 pb-40 pl-24 bg-(--white)">
+            <div className="flex flex-1 flex-col gap-41 rounded-(--radius10) border border-solid border-(--error-light) pt-40 pr-24 pb-40 pl-24 bg-(--white)">
               <div className="flex gap-8">
                 <h5 className="text-(--grey-800)">En cours</h5>
                 <Tag text={nbInProgressTasks} color="USER" />
@@ -156,7 +156,7 @@ export default function Dashboard() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-col gap-41 rounded-(--radius10) max-w-419 min-w-419 border border-solid border-(--error-light) pt-40 pr-24 pb-40 pl-24 bg-(--white)">
+            <div className="flex flex-1 flex-col gap-41 rounded-(--radius10) border border-solid border-(--error-light) pt-40 pr-24 pb-40 pl-24 bg-(--white)">
               <div className="flex gap-8">
                 <h5 className="text-(--grey-800)">Terminées</h5>
                 <Tag text={nbDoneTasks} color="USER" />

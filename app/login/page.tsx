@@ -36,8 +36,8 @@ export default function Login() {
     };
 
     return (
-        <div className="login flex w-1440 h-1024 flex-1 ">
-            <div className="flex flex-col w-562 bg-(--white) gap-202 py-55 px-140">
+        <div className="login flex w-full h-1024 flex-1">
+            <div className="flex flex-col w-[100%] md:w-[100%] xl:w-562 bg-(--white) gap-202 py-55 items-center">
                 <Logo />
                 <div className="flex flex-col gap-30">
                     <h1 className="text-(--dark-orange) self-center">Connexion</h1>

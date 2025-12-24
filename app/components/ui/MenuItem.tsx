@@ -36,14 +36,18 @@ export default function MenuItem({ type = MenuItemTypes.Dashboard, isActive = fa
         isActive ? "text-(--white)" : "text-(--dark-orange)",
         !isActive ? "hover:bg-(--grey-950)" : "",
         !isActive ? "hover:text-(--white)" : "",
-        "w-248",
-        "h-78"
+        "md:w-248",
+        "lg:w-248",
+        "xl:w-248",
+        "h-78",
+        "min-w-78"
     ];
     const text: string = isDashboard ? "Tableau de bord" : "Projets";
 
     return (
         <button className={classNames.join(" ")} onClick={handleClick} role="button">
-            <Image src={"/images/" + (isDashboard ? "dashbord" : "project") + ".svg"} alt={isDashboard ? "Image tableau de bord" : "Image projet"} width={isDashboard ? 24 : 29} height={isDashboard ? 24 : 23} />{text}
+            <Image src={"/images/" + (isDashboard ? "dashbord" : "project") + ".svg"} alt={isDashboard ? "Image tableau de bord" : "Image projet"} width={isDashboard ? 24 : 29} height={isDashboard ? 24 : 23} />
+            <span className="hidden md:inline lg:inline xl:inline" >{text}</span>
         </button>
     );
 }

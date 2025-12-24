@@ -33,7 +33,7 @@ export default function UserIcon({ text, mode, url, isOwner = false, hasBorder =
         url && !isActive ? "cursor-pointer" : ""
     ];
     if (mode === UserIconModes.Large) {
-        classNames = [...classNames, "w-65 h-65"];
+        classNames = [...classNames, "min-w-65 min-h-65"];
         if (!isActive) {
             classNames = [...classNames, " bg-(--light-orange) text-(--grey-950) transition-colors duration-300 caption-l ease-out hover:bg-(--dark-orange) hover:text-(--white)"];
         } else {

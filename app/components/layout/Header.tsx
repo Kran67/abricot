@@ -16,8 +16,11 @@ export default function Header({ activeMenu }: HeaderProps) {
     const classNames = [
         "flex",
         "flex-1",
-        "justify-between",
+        "md:justify-between",
         "items-center",
+        "justify-center",
+        "gap-16",
+        "md:gap-0",
         "bg-(--white)",
         "h-94",
         "pt-8",

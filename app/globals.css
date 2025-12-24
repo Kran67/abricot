@@ -89,10 +89,6 @@ h5 {
   font-weight: 600;
 }
 
-.hidden {
-  display: none;
-}
-
 /* noir -> #D3590B (dark-orange) */
 button:hover img.orange,
 button:hover img.calendar,

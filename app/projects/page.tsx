@@ -43,7 +43,7 @@ export default function Projects() {
         <main className="flex flex-col bg-white w-1440">
             <Header activeMenu={HeaderMenuItems.Projects} />
             <div className={classNames}>
-                <div className="flex flex-1 items-center">
+                <div className="flex flex-row flex-1 items-center">
                     <div className="flex flex-col flex-1 gap-6">
                         <h4 className="text-(--grey-800)">Mes projets</h4>
                         <span className="body-l text-black">Gérez vos projets</span>
@@ -60,7 +60,7 @@ export default function Projects() {
                         document.body
                     )}
                 </div>
-                <div className="grid grid-cols-3 gap-16" style={{ "gridTemplateRows": `repeat(${projectCount / 3}, 1fr)` }}>
+                <div className="flex flex-col lg:grid grid-cols-3 gap-16" style={{ "gridTemplateRows": `repeat(${projectCount / 3}, 1fr)` }}>
                     {projects?.map((project, index) => (
                         <ProjectCard key={index} props={project} />
                     ))}

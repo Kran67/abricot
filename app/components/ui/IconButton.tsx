@@ -35,8 +35,10 @@ export default function IconButton({ type = IconButtonTypes.Arrow, onClick }: Ic
         "border-solid",
         "border-(--grey-200)",
         "hover:border-(--dark-orange)",
-        "w-57",
-        "h-57"
+        "min-w-57",
+        "min-h-57",
+        "max-w-57",
+        "max-h-57"
     ].join(" ");
 
     return (

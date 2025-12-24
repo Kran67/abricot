@@ -16,9 +16,10 @@ interface InputProps {
     hasError?: boolean;
     autoComplete?: string;
     maxLength?: number;
+    className?: string;
 }
 
-export default function Input({ name, label, type, value, imageType, placeHolder, required, width, onChange, hasError, autoComplete = "on", maxLength }: InputProps) {
+export default function Input({ name, label, type, value, imageType, placeHolder, required, width, onChange, hasError, autoComplete = "on", maxLength, className }: InputProps) {
     const classNames = [
         "input",
         "flex",
@@ -27,6 +28,7 @@ export default function Input({ name, label, type, value, imageType, placeHolder
         "gap-7",
         "justify-center",
         label ? "h-77" : "h-63",
+        className ?? ""
     ].join(" ");
 
     const imgHeight = imageType === InputImageTypes.Search
