@@ -15,7 +15,7 @@ interface ChipProps {
 }
 
 export default function Chip({ text, className, image, width, height, isActive, onClickFunc }: ChipProps) {
-    const classNames = [
+    const classNames: string = [
         "chip",
         "inline-flex",
         "items-center",

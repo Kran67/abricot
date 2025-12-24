@@ -12,7 +12,7 @@ export interface PropsPC {
 
 export default function ProjectCalendar({ tasks }: PropsPC) {
 
-    const classNames = [
+    const classNames: string = [
         "project-calendar",
         "flex",
         "flex-col",

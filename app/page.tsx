@@ -11,7 +11,7 @@ import Footer from "@/app/components/layout/Footer";
 import { User } from "@/app/interfaces/user";
 import { useUser } from "@/app/contexts/userContext";
 import { useProjectsWithTasks } from "@/app/hooks/useProjectsWithTasks";
-import { useCookies } from 'next-client-cookies';
+import { Cookies, useCookies } from 'next-client-cookies';
 import { useEffect, useState } from "react";
 import type { TaskItem } from "@/app/interfaces/taskItem";
 import ModalCreateProject from "@/app/components/modals/ModalCreateProject";
@@ -21,13 +21,13 @@ import { prepareBodyToShowModal } from "@/app/lib/utils";
 export default function Dashboard() {
   const user: User | null = useUser();
   const [view, setView] = useState<DashboardViews>(DashboardViews.List);
-  const cookies = useCookies();
+  const cookies: Cookies = useCookies();
   const { projects, refresh } = useProjectsWithTasks(cookies.get("token"));
   const tasks: TaskItem[] = [];
   const [search, setSearch] = useState<string>("");
   const [showModal, setShowModal] = useState(false);
 
-  const classNames = [
+  const classNames: string = [
     "dashboard",
     "flex",
     "flex-col",
@@ -46,15 +46,20 @@ export default function Dashboard() {
     });
   });
 
-  const priorityOrder = { URGENT: 1, HIGH: 2, MEDIUM: 3, LOW: 4 };
+  const priorityOrder: {
+    URGENT: number;
+    HIGH: number;
+    MEDIUM: number;
+    LOW: number;
+  } = { URGENT: 1, HIGH: 2, MEDIUM: 3, LOW: 4 };
 
   tasks.sort((a: TaskItem, b: TaskItem) => {
     return priorityOrder[a.priority] - priorityOrder[b.priority];
   });
 
   /* pour l'affichage liste */
-  const filteredTasks = tasks.filter((task: TaskItem) => {
-    const strToSearch = search.toLowerCase();
+  const filteredTasks: TaskItem[] = tasks.filter((task: TaskItem) => {
+    const strToSearch: string = search.toLowerCase();
     return task?.title.toLowerCase().includes(strToSearch) || task?.description?.toLowerCase().includes(strToSearch) ||
       task?.projectName?.toLowerCase().includes(strToSearch);
   });

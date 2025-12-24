@@ -14,13 +14,13 @@ export default function IconButton({ type = IconButtonTypes.Arrow, onClick }: Ic
     const isBackBtn: boolean = type === IconButtonTypes.Arrow;
     const router: AppRouterInstance = useRouter();
 
-    const handleClick = () => {
+    const handleClick: () => void = () => {
         if (isBackBtn) {
             router.push("/projects");
         } else onClick?.();
     };
 
-    const classNames = [
+    const classNames: string = [
         "icon-button",
         isBackBtn ? "back" : "",
         "inline-flex",

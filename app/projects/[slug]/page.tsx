@@ -26,7 +26,7 @@ import ProjectCalendar from "@/app/components/data/ProjectCalendar";
 
 export default function ProjectDetails({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
-    const cookies = useCookies();
+    const cookies: Cookies = useCookies();
     const token: string | undefined = cookies.get("token");
     const { tasks, refreshTasks } = useProjectsTasks(token, slug);
     const { projects, refresh } = useProjects(token);
@@ -34,10 +34,10 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
     const [search, setSearch] = useState<string>("");
     const [status, setStatus] = useState<string>("");
     const [updateProject, setUpdateProject] = useState(false);
-    const user = useUser();
+    const user: User = useUser();
     const [createTask, setCreateTask] = useState(false);
 
-    const classNames = [
+    const classNames: string = [
         "projectdetails",
         "flex",
         "flex-col",
@@ -52,46 +52,54 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
         "bg-(--grey-50)",
         "w-full",
     ].join(" ");
-    const statuts = [
-        {
-            value: "TODO",
-            label: "À faire",
-        },
-        {
-            value: "IN_PROGRESS",
-            label: "En cours",
-        },
-        {
-            value: "DONE",
-            label: "Terminée",
-        },
-        {
-            value: "CANCELLED",
-            label: "Annulée",
-        },
-    ];
+    const statuts: {
+        value: string;
+        label: string;
+    }[] = [
+            {
+                value: "TODO",
+                label: "À faire",
+            },
+            {
+                value: "IN_PROGRESS",
+                label: "En cours",
+            },
+            {
+                value: "DONE",
+                label: "Terminée",
+            },
+            {
+                value: "CANCELLED",
+                label: "Annulée",
+            },
+        ];
 
-    const priorityOrder = { URGENT: 1, HIGH: 2, MEDIUM: 3, LOW: 4 };
+    const priorityOrder: {
+        URGENT: number;
+        HIGH: number;
+        MEDIUM: number;
+        LOW: number;
+    } = { URGENT: 1, HIGH: 2, MEDIUM: 3, LOW: 4 };
 
     tasks?.sort((a: TaskItem, b: TaskItem) => {
         return priorityOrder[a.priority] - priorityOrder[b.priority];
     });
 
     /* pour l'affichage liste */
-    const filteredTasks = tasks?.filter((task: TaskItem) => {
-        const strToSearch = search.toLowerCase();
+    const filteredTasks: TaskItem[] | undefined = tasks?.filter((task: TaskItem) => {
+        const strToSearch: string = search.toLowerCase();
 
-        const matchSearch = task.title.toLowerCase().includes(strToSearch) || task.description.toLowerCase().includes(strToSearch);
+        const matchSearch: boolean = task.title.toLowerCase().includes(strToSearch) || task.description.toLowerCase().includes(strToSearch);
 
-        const matchStatus = !status || task.status === status;
+        const matchStatus: boolean = !status || task.status === status;
 
         return matchSearch && matchStatus;
     });
 
     const project: Project | undefined = projects?.find((p) => p.id === slug);
-    const memberInitials = project?.members.map((m) => getInitials(m.user?.name)) ?? [];
-    const members = project?.members.map((m) => m.user?.name) ?? [];
-    const ownerInitials = getInitials(project?.owner?.name);
+    const memberInitials: string[] = project?.members.map((m) => getInitials(m.user?.name)) ?? [];
+    const members: (string | undefined)[] = project?.members.map((m) => m.user?.name) ?? [];
+    const ownerInitials: string = getInitials(project?.owner?.name);
     const contributorList: { value: string, label: string | undefined }[] = project?.members.map((member) => { return { value: member.user.id, label: member.user.name } }) || [];
     const memberCount: number = members?.length ?? 0;
 

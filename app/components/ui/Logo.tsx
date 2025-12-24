@@ -10,7 +10,7 @@ interface LogoProps {
 }
 
 export default function Logo({ color = LogoColors.Orange, width = 147, height = 19 }: LogoProps) {
-    const classNames = [
+    const classNames: string = [
         "logo",
         color !== LogoColors.Black ? "hidden md:block" : "",
         color

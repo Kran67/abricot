@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Input from "@/app/components/ui/Input";
 import { InputTypes } from "@/app/enums/enums";
 import Select from 'react-select';
 import Button from "@/app/components/ui/Button";
-import { useCookies } from "next-client-cookies";
+import { Cookies, useCookies } from "next-client-cookies";
 import Tag from "@/app/components/ui/Tag";
 
 export default function ModalCreateTask({
@@ -22,15 +22,15 @@ export default function ModalCreateTask({
     onSuccess: () => void;
 }) {
     const [priority, setPriority] = useState<"LOW" | "MEDIUM" | "HIGH" | "URGENT">("LOW");
-    const cookies = useCookies();
+    const cookies: Cookies = useCookies();
     const token: string | undefined = cookies.get("token");
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const form = e.currentTarget;
-        const formData = new FormData(form);
+        const form: EventTarget & HTMLFormElement = e.currentTarget;
+        const formData: FormData = new FormData(form);
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${projectId}/tasks`, {
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${projectId}/tasks`, {
             method: "POST",
             body: JSON.stringify({
                 title: formData.get("title"),

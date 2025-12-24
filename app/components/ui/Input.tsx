@@ -20,7 +20,7 @@ interface InputProps {
 }
 
 export default function Input({ name, label, type, value, imageType, placeHolder, required, width, onChange, hasError, autoComplete = "on", maxLength, className }: InputProps) {
-    const classNames = [
+    const classNames: string = [
         "input",
         "flex",
         "flex-col",
@@ -31,7 +31,7 @@ export default function Input({ name, label, type, value, imageType, placeHolder
         className ?? ""
     ].join(" ");
 
-    const imgHeight = imageType === InputImageTypes.Search
+    const imgHeight: 14 | 16 = imageType === InputImageTypes.Search
         ? 14
         : 16;
 

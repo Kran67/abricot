@@ -22,7 +22,7 @@ export default function ProjectTask({ task, contributorList, refreshTasks }: Pro
     const [isCommentOpen, setIsCommentOpen] = useState(false);
     const [updateTask, setUpdateTask] = useState(false);
 
-    const classNames = [
+    const classNames: string = [
         "project-task",
         "flex",
         "flex-col",

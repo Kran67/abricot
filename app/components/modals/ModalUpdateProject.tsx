@@ -1,12 +1,12 @@
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { Project } from "@/app/interfaces/project";
 import type { User } from "@/app/interfaces//user";
 import Button from "@/app/components/ui/Button";
 import Input from "@/app/components/ui/Input";
 import { ButtonTypes, InputTypes } from "@/app/enums/enums";
 import { toast } from "react-toastify";
-import { useCookies } from "next-client-cookies";
+import { Cookies, useCookies } from "next-client-cookies";
 import { redirectWithDelay } from "@/app/lib/utils";
 import AsyncSelect from "react-select/async";
 import { ProjectMember } from "@/app/interfaces/projectMember";
@@ -21,7 +21,7 @@ export default function ModalUpdateProject({
     project: Project | undefined;
     onSuccess: () => void;
 }) {
-    const cookies = useCookies();
+    const cookies: Cookies = useCookies();
     const token: string | undefined = cookies.get("token");
     const [name, setName] = useState(project?.name);
     const [description, setDescription] = useState(project?.description);
@@ -31,7 +31,7 @@ export default function ModalUpdateProject({
     });
     const [isModified, setIsModified] = useState(false);
 
-    const promiseOptions = (inputValue: string) => {
+    const promiseOptions: (inputValue: string) => Promise<any> | undefined = (inputValue: string) => {
         if (inputValue && inputValue.length > 1) {
             return fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/users/search?query=${inputValue}`, {
                 method: "GET",
@@ -39,7 +39,7 @@ export default function ModalUpdateProject({
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 }
-            }).then(async (res) => {
+            }).then(async (res: Response) => {
                 const data = await res.json();
                 if (res.ok) {
                     const values = data.data.users.map((user: User) => { return { value: user.email, label: user.name, user: user } });
@@ -51,11 +51,11 @@ export default function ModalUpdateProject({
         }
     }
 
-    const addContributor = async (user: User | undefined) => {
+    const addContributor: (user: User | undefined) => Promise<void> = async (user: User | undefined) => {
         if (user && !contributors.some((c) => c.id === user.id)) {
             setContributors((prev) => [...prev, user]);
 
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${project?.id}/contributors`, {
+            const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${project?.id}/contributors`, {
                 method: "POST",
                 body: JSON.stringify({ email: user.email }),
                 headers: {
@@ -74,9 +74,9 @@ export default function ModalUpdateProject({
         }
     };
 
-    const removeContributor = async (id: string | undefined) => {
+    const removeContributor: (id: string | undefined) => Promise<void> = async (id: string | undefined) => {
         setContributors((prev) => prev.filter((u) => u.id !== id));
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${project?.id}/contributors/${id}`, {
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${project?.id}/contributors/${id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -93,12 +93,12 @@ export default function ModalUpdateProject({
         }
     };
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const form = e.currentTarget;
-        const formData = new FormData(form);
+        const form: EventTarget & HTMLFormElement = e.currentTarget;
+        const formData: FormData = new FormData(form);
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${project?.id}`, {
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${project?.id}`, {
             method: "PUT",
             body: JSON.stringify({
                 name: formData.get("name"),
@@ -119,11 +119,11 @@ export default function ModalUpdateProject({
         }
     };
 
-    const handleDelete = async () => {
-        const ok = window.confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
+    const handleDelete: () => Promise<void> = async () => {
+        const ok: boolean = window.confirm("Êtes-vous sûr de vouloir supprimer ce projet ?");
 
         if (!ok) return;
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${project?.id}`, {
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${project?.id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -140,20 +140,27 @@ export default function ModalUpdateProject({
         }
     };
 
-    const onChange = (option: readonly { value: string, label: string | undefined, user: User }[],
+    const onChange: (option: readonly {
+        value: string;
+        label: string | undefined;
+        user: User;
+    }[], actionMeta: ActionMeta<{
+        value: string;
+        label: string | undefined;
+        user: User;
+    }>) => void = (option: readonly { value: string, label: string | undefined, user: User }[],
         actionMeta: ActionMeta<{ value: string, label: string | undefined, user: User }>) => {
-        switch (actionMeta.action) {
-            case "remove-value":
-                removeContributor(actionMeta.removedValue.user.id);
-                break;
-            case "select-option":
-                console.log(actionMeta);
-                addContributor(actionMeta.option?.user);
-                break;
-            default:
-                break;
-        }(actionMeta);
-    }
+            switch (actionMeta.action) {
+                case "remove-value":
+                    removeContributor(actionMeta.removedValue.user.id);
+                    break;
+                case "select-option":
+                    addContributor(actionMeta.option?.user);
+                    break;
+                default:
+                    break;
+            }(actionMeta);
+        }
 
     useEffect(() => {
         const closeOnEsc = (e: KeyboardEvent) => {

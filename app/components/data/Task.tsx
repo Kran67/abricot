@@ -11,7 +11,7 @@ export interface PropsTL {
 }
 
 export default function Task({ props }: PropsTL) {
-    const classNames = [
+    const classNames: string = [
         "task",
         "flex",
         "flex-col",

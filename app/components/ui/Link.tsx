@@ -14,12 +14,12 @@ interface LinkProps {
 export default function Link({ text, url = "#", disabled = false, onClick }: LinkProps) {
     const router: AppRouterInstance = useRouter();
 
-    const handleClick = () => {
+    const handleClick: () => void = () => {
         onClick?.();
         if (url) router.push(url);
     };
 
-    const classNames = [
+    const classNames: string = [
         "link",
         "inline-flex",
         "items-center",

@@ -4,22 +4,22 @@ import Input from "@/app/components/ui/Input";
 import { InputTypes, HeaderMenuItems } from "@/app/enums/enums";
 import Button from "@/app/components/ui/Button";
 import Link from "@/app/components/ui/Link";
-import { useCookies } from 'next-client-cookies';
+import { Cookies, useCookies } from 'next-client-cookies';
 import { User } from "@/app/interfaces/user";
 import { useUser } from "@/app/contexts/userContext";
 import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { redirectWithDelay, validatePassword } from "@/app/lib/utils";
 import { toast } from "react-toastify";
 
 export default function Profile() {
     const user: User | null = useUser();
-    const cookies = useCookies();
+    const cookies: Cookies = useCookies();
     const token: string | undefined = cookies.get("token");
     const [password, setPassword] = useState("");
     const [passwordError, setPasswordError] = useState(false);
-    const classNames = [
+    const classNames: string = [
         "account",
         "flex",
         "md:pt-57",
@@ -30,14 +30,14 @@ export default function Profile() {
         "flex-1"
     ].join(" ");
 
-    let firstName = "";
-    let lastName = "";
+    let firstName: string = "";
+    let lastName: string = "";
 
     if (user?.name) {
         [firstName, lastName] = user?.name.split(" ");
     }
 
-    const savePassword = (oldPassword: string, newPassword: string): boolean | undefined => {
+    const savePassword: (oldPassword: string, newPassword: string) => boolean | undefined = (oldPassword: string, newPassword: string): boolean | undefined => {
         if (oldPassword?.trim() !== "") {
             if (!newPassword || newPassword.trim() === "") {
                 setPasswordError(true);
@@ -61,7 +61,7 @@ export default function Profile() {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
-        }).then((res) => {
+        }).then((res: Response) => {
             res.json().then((data) => {
                 if (!res.ok) {
                     toast.error("Erreur lors de la mise à jour du mot de passe : " + data.data.errors[0].message);
@@ -78,17 +78,17 @@ export default function Profile() {
     }
 
     // Avant chaque soumission, vérification des données fournies valides.
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const form = e.currentTarget;
-        const formData = new FormData(form);
+        const form: EventTarget & HTMLFormElement = e.currentTarget;
+        const formData: FormData = new FormData(form);
 
-        const lastName = formData.get("lastname") as string;
-        const name = formData.get("name") as string;
-        const email = formData.get("email") as string;
-        const oldPassword = formData.get("oldPassword") as string;
-        const password = formData.get("password") as string;
+        const lastName: string = formData.get("lastname") as string;
+        const name: string = formData.get("name") as string;
+        const email: string = formData.get("email") as string;
+        const oldPassword: string = formData.get("oldPassword") as string;
+        const password: string = formData.get("password") as string;
 
         fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/profile`, {
             method: "PUT",
@@ -100,7 +100,7 @@ export default function Profile() {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${token}`,
             },
-        }).then((res) => {
+        }).then((res: Response) => {
             res.json().then((data) => {
                 if (!res.ok) {
                     toast.error("Erreur lors de la mise à jour : " + data.data.errors[0].message);

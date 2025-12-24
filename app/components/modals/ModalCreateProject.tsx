@@ -2,13 +2,13 @@
 
 import Image from "next/image";
 import { User } from "@/app/interfaces/user";
-import { useEffect } from "react";
+import { FormEvent, useEffect } from "react";
 import { toast } from "react-toastify";
 import Input from "@/app/components/ui/Input";
 import { InputTypes } from "@/app/enums/enums";
 import AsyncSelect from 'react-select/async';
 import Button from "@/app/components/ui/Button";
-import { useCookies } from "next-client-cookies";
+import { Cookies, useCookies } from "next-client-cookies";
 
 export default function ModalCreateProject({
     closeModal,
@@ -17,7 +17,7 @@ export default function ModalCreateProject({
     closeModal: () => void;
     onSuccess: () => void;
 }) {
-    const cookies = useCookies();
+    const cookies: Cookies = useCookies();
     const token: string | undefined = cookies.get("token");
     const promiseOptions = (inputValue: string) => {
         if (inputValue && inputValue.length > 1) {
@@ -27,7 +27,7 @@ export default function ModalCreateProject({
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${token}`,
                 }
-            }).then(async (res) => {
+            }).then(async (res: Response) => {
                 const data = await res.json();
                 if (res.ok) {
                     const values = data.data.users.map((user: User) => { return { value: user.email, label: user.name } });
@@ -39,12 +39,12 @@ export default function ModalCreateProject({
         }
     }
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const form = e.currentTarget;
-        const formData = new FormData(form);
+        const form: EventTarget & HTMLFormElement = e.currentTarget;
+        const formData: FormData = new FormData(form);
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects`, {
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects`, {
             method: "POST",
             body: JSON.stringify({
                 name: formData.get("name"),

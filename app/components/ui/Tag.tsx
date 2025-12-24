@@ -20,7 +20,7 @@ export default function Tag({ text, color, onClick }: TagProps) {
 
     const tagColors: string = color ? colors[color] : colors.DEFAULT;
 
-    const classNames = [
+    const classNames: string = [
         "tag",
         "inline-flex",
         "items-center",

@@ -14,7 +14,7 @@ export default function MenuItem({ type = MenuItemTypes.Dashboard, isActive = fa
     const isDashboard = type === MenuItemTypes.Dashboard;
     const router: AppRouterInstance = useRouter();
 
-    const handleClick = () => {
+    const handleClick: () => void = () => {
         router.push(isDashboard ? "/" : "/projects");
     };
 

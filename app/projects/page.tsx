@@ -6,18 +6,19 @@ import Header from "@/app/components/layout/Header";
 import Footer from "@/app/components/layout/Footer";
 import { HeaderMenuItems } from "@/app/enums/enums";
 import { useProjects } from "@/app/hooks/useProjects";
-import { useCookies } from 'next-client-cookies';
+import { Cookies, useCookies } from 'next-client-cookies';
 import { useEffect, useState } from "react";
 import ModalCreateProject from "@/app/components/modals/ModalCreateProject";
 import { createPortal } from "react-dom";
+import { prepareBodyToShowModal } from "../lib/utils";
 
 export default function Projects() {
-    const cookies = useCookies();
+    const cookies: Cookies = useCookies();
     const token: string | undefined = cookies.get("token");
     const { projects, refresh } = useProjects(token);
     const [showModal, setShowModal] = useState(false);
 
-    const classNames = [
+    const classNames: string = [
         "projects",
         "flex",
         "flex-col",
@@ -32,11 +33,7 @@ export default function Projects() {
     const projectCount: number = projects?.length ?? 0;
 
     useEffect(() => {
-        document.body.style.overflow = showModal ? "hidden" : "";
-
-        return () => {
-            document.body.style.overflow = "";
-        };
+        prepareBodyToShowModal(showModal ? "hidden" : "");
     }, [showModal]);
 
     return (

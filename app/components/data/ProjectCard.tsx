@@ -17,11 +17,11 @@ interface PropsPC {
 export default function ProjectCard({ props }: PropsPC) {
     const router: AppRouterInstance = useRouter();
 
-    const handleClick = (projectId: string) => {
+    const handleClick: (projectId: string) => void = (projectId: string) => {
         router.push(`/projects/${projectId}`);
     };
 
-    const classNames = [
+    const classNames: string = [
         "project-card",
         "flex",
         "flex-col",
@@ -39,10 +39,9 @@ export default function ProjectCard({ props }: PropsPC) {
     const nbTotalTasks: number = props._count?.tasks || 0;
     const nbTaskDone: number = props.tasks?.filter((task: TaskItem) => task.status === "DONE").length ?? 0;
 
-    const totalTasks = `${nbTaskDone}/${nbTotalTasks} tâche${nbTotalTasks > 1 ? "s" : ""} terminée${nbTotalTasks > 1 ? "s" : ""}`;
-    const memberInitials = props.members.map((m) => getInitials(m.user?.name));
-    const ownerInitials = getInitials(props.owner?.name);
-    //const doneTasks = props.tasks?.filter((task) => task.status === "DONE");
+    const totalTasks: string = `${nbTaskDone}/${nbTotalTasks} tâche${nbTotalTasks > 1 ? "s" : ""} terminée${nbTotalTasks > 1 ? "s" : ""}`;
+    const memberInitials: string[] = props.members.map((m) => getInitials(m.user?.name));
+    const ownerInitials: string = getInitials(props.owner?.name);
     const progressValue: number = (nbTaskDone * 100) / nbTotalTasks || 0;
 
     return (

@@ -5,8 +5,8 @@ import Link from "@/app/components/ui/Link";
 import Input from "@/app/components/ui/Input";
 import { InputTypes } from "@/app/enums/enums";
 import Button from "@/app/components/ui/Button";
-import { useCookies } from "next-client-cookies";
-import { useState } from "react";
+import { Cookies, useCookies } from "next-client-cookies";
+import { FormEvent, useState } from "react";
 import { validatePassword } from "@/app/lib/utils";
 import { toast } from "react-toastify";
 
@@ -15,9 +15,9 @@ export default function SignIn() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState(false);
     const [errorMail, setErrorMail] = useState(false);
-    const cookies = useCookies();
+    const cookies: Cookies = useCookies();
 
-    const handleSignIn = async (e: React.FormEvent) => {
+    const handleSignIn: (e: FormEvent<Element>) => Promise<void> = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (password.trim() !== "") {
@@ -27,7 +27,7 @@ export default function SignIn() {
             }
         }
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/register`, {
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/register`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),

@@ -6,14 +6,15 @@ import { UserProvider } from "@/app/contexts/userContext";
 import { getProfile } from "@/app/api/api";
 import { CookiesProvider } from 'next-client-cookies/server';
 import { Bounce, ToastContainer } from 'react-toastify';
+import { NextFontWithVariable } from "next/dist/compiled/@next/font";
 
-const inter = Inter({
+const inter: NextFontWithVariable = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
 });
 
-const manrope = Manrope({
+const manrope: NextFontWithVariable = Manrope({
   variable: "--font-manrope",
   subsets: ["latin"],
   display: "swap",

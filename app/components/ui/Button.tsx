@@ -37,7 +37,7 @@ export default function Button({ text, disabled, className, image, url, width, h
 
     const buttonColors: string = color ? colors[color] : colors.black;
 
-    const classNames = [
+    const classNames: string = [
         "button",
         "inline-flex",
         "items-center",

@@ -13,7 +13,7 @@ interface HeaderProps {
 
 export default function Header({ activeMenu }: HeaderProps) {
     const user: User | null = useUser();
-    const classNames = [
+    const classNames: string = [
         "flex",
         "flex-1",
         "md:justify-between",
@@ -30,8 +30,8 @@ export default function Header({ activeMenu }: HeaderProps) {
         "self-stretch"
     ].join(" ");
 
-    let firstName = "";
-    let lastName = "";
+    let firstName: string = "";
+    let lastName: string = "";
 
     if (user?.name) {
         [firstName, lastName] = user?.name.split(" ");

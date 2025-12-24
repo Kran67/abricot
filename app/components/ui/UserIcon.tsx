@@ -17,7 +17,7 @@ interface UserIconProps {
 export default function UserIcon({ text, mode, url, isOwner = false, hasBorder = false, withDrawal = false, isActive = false }: UserIconProps) {
     const router: AppRouterInstance = useRouter();
 
-    const handleClick = () => {
+    const handleClick: () => void = () => {
         url && router.push(url);
     };
 

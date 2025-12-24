@@ -9,7 +9,8 @@ import { useUser } from "@/app/contexts/userContext";
 import { toast } from "react-toastify";
 import { useState } from "react";
 import Image from "next/image";
-import { useCookies } from "next-client-cookies";
+import { Cookies, useCookies } from "next-client-cookies";
+import { User } from "@/app/interfaces/user";
 
 interface CommentProps {
     comments: TaskComment[];
@@ -19,17 +20,17 @@ interface CommentProps {
 }
 
 export default function Comment({ comments, taskId, projectId, refreshTasks }: CommentProps) {
-    const currentUser = useUser();
+    const currentUser: User | null = useUser();
     const [newComment, setNewComment] = useState<string>("");
-    const cookies = useCookies();
+    const cookies: Cookies = useCookies();
     const token: string | undefined = cookies.get("token");
 
-    const createComment = async () => {
+    const createComment: () => Promise<void> = async () => {
         if (!newComment) {
             return;
         }
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${projectId}/tasks/${taskId}/comments`, {
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${projectId}/tasks/${taskId}/comments`, {
             method: "POST",
             body: JSON.stringify({ content: newComment }),
             headers: {
@@ -49,12 +50,12 @@ export default function Comment({ comments, taskId, projectId, refreshTasks }: C
     };
 
     const deleteComment = async (commentId: string) => {
-        const ok = window.confirm("Voulez-vous vraiment supprimer ce commentaire ?");
+        const ok: boolean = window.confirm("Voulez-vous vraiment supprimer ce commentaire ?");
         if (!ok) {
             return;
         }
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${projectId}/tasks/${taskId}/comments/${commentId}`, {
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${projectId}/tasks/${taskId}/comments/${commentId}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',

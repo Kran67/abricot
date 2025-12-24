@@ -4,7 +4,7 @@ import Logo from "@/app/components/ui/Logo";
 import { LogoColors } from "@/app/enums/enums";
 
 export default function Footer() {
-    const classNames = [
+    const classNames: string = [
         "flex",
         "flex-1",
         "justify-between",

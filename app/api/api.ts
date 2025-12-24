@@ -3,15 +3,15 @@ import { cookies } from "next/headers";
 import { Project, ProjectsResponse } from "@/app/interfaces/project";
 
 
-// retrieve profile data
+// récupérer les données du profil
 export const getProfile = async (): Promise<User | null> => {
   const cookieStore = await cookies();
-  const token = cookieStore.get("token")?.value;
+  const token: string | undefined = cookieStore.get("token")?.value;
 
   if (!token) return null;
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/profile`, {
+    const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/profile`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -27,12 +27,12 @@ export const getProfile = async (): Promise<User | null> => {
   }
 }
 
-// retrieve the projects to which the user has assigned tasks
+// récupérer les projets auxquels l'utilisateur a des tâches attribuées
 export const getProjectsWithTasks = async (token: string | undefined): Promise<Project[] | null> => {
   if (!token) return null;
 
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/dashboard/projects-with-tasks`, {
+    const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/dashboard/projects-with-tasks`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${token}`,

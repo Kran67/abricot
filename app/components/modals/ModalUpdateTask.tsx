@@ -1,13 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Input from "@/app/components/ui/Input";
 import { InputTypes } from "@/app/enums/enums";
 import Select from 'react-select';
 import Button from "@/app/components/ui/Button";
-import { useCookies } from "next-client-cookies";
+import { Cookies, useCookies } from "next-client-cookies";
 import Tag from "@/app/components/ui/Tag";
 import { TaskAssignee, TaskItem } from "@/app/interfaces/taskItem";
 import { formatYMMDD } from "@/app/lib/utils";
@@ -26,7 +26,7 @@ export default function ModalCreateTask({
     onSuccess: () => void;
 }) {
     const [priority, setPriority] = useState<"LOW" | "MEDIUM" | "HIGH" | "URGENT">("LOW");
-    const cookies = useCookies();
+    const cookies: Cookies = useCookies();
     const token: string | undefined = cookies.get("token");
     const [title, setTitle] = useState(task.title);
     const [description, setDescription] = useState(task.description);
@@ -36,12 +36,12 @@ export default function ModalCreateTask({
         return { value: assignee.user.id, label: assignee.user.name }
     });
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit: (e: FormEvent<HTMLFormElement>) => Promise<void> = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const form = e.currentTarget;
-        const formData = new FormData(form);
+        const form: EventTarget & HTMLFormElement = e.currentTarget;
+        const formData: FormData = new FormData(form);
 
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${task.projectId}/tasks/${task.id}`, {
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${task.projectId}/tasks/${task.id}`, {
             method: "PUT",
             body: JSON.stringify({
                 title: formData.get("title"),
@@ -66,12 +66,12 @@ export default function ModalCreateTask({
         }
     };
 
-    const handleDelete = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleDelete: (e: FormEvent<HTMLFormElement>) => Promise<void> = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const ok = window.confirm("Êtes-vous sûr de vouloir supprimer cette tache ?");
+        const ok: boolean = window.confirm("Êtes-vous sûr de vouloir supprimer cette tache ?");
 
         if (!ok) return;
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${task.projectId}/tasks/${task.id}`, {
+        const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/projects/${task.projectId}/tasks/${task.id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',

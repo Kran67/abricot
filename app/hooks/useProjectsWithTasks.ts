@@ -7,7 +7,7 @@ export function useProjectsWithTasks(token: string | undefined) {
 
   async function refresh() {
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/dashboard/projects-with-tasks`, {
+      const res: Response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/dashboard/projects-with-tasks`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -30,7 +30,7 @@ export function useProjectsWithTasks(token: string | undefined) {
   }
 
   useEffect(() => {
-    let active = true;
+    let active: boolean = true;
 
     async function load() {
       await refresh();
