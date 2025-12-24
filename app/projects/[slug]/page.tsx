@@ -15,7 +15,7 @@ import { Project } from "@/app/interfaces/project";
 import { getInitials, prepareBodyToShowModal } from "@/app/lib/utils";
 import { useProjectsTasks } from "@/app/hooks/useProjectsTasks";
 import { useProjects } from "@/app/hooks/useProjects";
-import { useCookies } from 'next-client-cookies';
+import { Cookies, useCookies } from 'next-client-cookies';
 import ProjectTask from "@/app/components/data/ProjectTask";
 import { TaskItem } from "@/app/interfaces/taskItem";
 import ModalCreateTask from "@/app/components/modals/ModalCreateTask";
@@ -23,6 +23,7 @@ import { createPortal } from "react-dom";
 import { useUser } from "@/app/contexts/userContext";
 import ModalUpdateProject from "@/app/components/modals/ModalUpdateProject";
 import ProjectCalendar from "@/app/components/data/ProjectCalendar";
+import { User } from "@/app/interfaces/user";
 
 export default function ProjectDetails({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
@@ -34,7 +35,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
     const [search, setSearch] = useState<string>("");
     const [status, setStatus] = useState<string>("");
     const [updateProject, setUpdateProject] = useState(false);
-    const user: User = useUser();
+    const user: User | null = useUser();
     const [createTask, setCreateTask] = useState(false);
 
     const classNames: string = [
