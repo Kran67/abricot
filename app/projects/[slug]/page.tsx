@@ -24,6 +24,7 @@ import { useUser } from "@/app/contexts/userContext";
 import ModalUpdateProject from "@/app/components/modals/ModalUpdateProject";
 import ProjectCalendar from "@/app/components/data/ProjectCalendar";
 import { User } from "@/app/interfaces/user";
+import Select from 'react-select';
 
 export default function ProjectDetails({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = use(params);
@@ -196,7 +197,21 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                                     onClickFunc={() => setView(ProjectsViews.Calendar)}
                                 />
                             </div>
-                            <select
+                            <label htmlFor="status" className="invisible w-0 h-0">Filter par statut</label>
+                            <label htmlFor="react-select-2-input" className="invisible w-0 h-0">Choisir un ou plusieurs collaborateurs</label>
+                            <Select
+                                options={statuts}
+                                className="status-drop-down"
+                                classNamePrefix="status-drop-down"
+                                name="status"
+                                id="status"
+                                isMulti={false}
+                                isClearable={true}
+                                isSearchable={false}
+                                placeholder="Statuts"
+                                onChange={(e) => setStatus(e?.value ?? "")}
+                            />
+                            {/* <select
                                 id="status"
                                 className="monster-select w-152 h-53 border border-(--grey-200) border-solid rounded-(--radius8) body-s outline-0"
                                 onChange={(e) => setStatus(e.target.value)}>
@@ -204,7 +219,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                                 {statuts.map((status, index) => (
                                     <option key={index} value={status.value} className="bg-(--light-red)" label={status.label}></option>
                                 ))}
-                            </select>
+                            </select> */}
                             <label htmlFor="search" className="invisible">Rechercher une tâche</label>
                             <Input
                                 name="search"

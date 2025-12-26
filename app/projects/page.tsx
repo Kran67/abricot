@@ -37,7 +37,7 @@ export default function Projects() {
     }, [showModal]);
 
     return (
-        <main className="flex flex-col bg-white w-1440">
+        <main className="flex flex-col bg-white w-full">
             <Header activeMenu={HeaderMenuItems.Projects} />
             <div className={classNames}>
                 <div className="flex flex-row flex-1 items-center">

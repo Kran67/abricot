@@ -97,6 +97,12 @@ export default function ModalCreateTask({
         return () => document.removeEventListener("keydown", closeOnEsc);
     }, []);
 
+    setTimeout(() => {
+        const ds = document.getElementById("dynamicSelect");
+        const x = document.querySelector(".contributors-drop-down__input");
+        ds?.setAttribute("for", x?.id ?? "");
+    }, 500);
+
     return (
         <aside className="absolute inset-0 bg-(--grey-200)/50 flex items-center justify-center z-1" onClick={closeModal}>
             <div
@@ -110,6 +116,7 @@ export default function ModalCreateTask({
                     <Input name="dueDate" label="Echéance" type={InputTypes.Date} required={true} value={formatYMMDD(new Date(date))} onChange={(e) => setDate(e.target.value)} />
                     <div className="flex flex-col gap-1">
                         <label htmlFor="assignees">Assigné à</label>
+                        <label id="dynamicSelect" htmlFor="react-select-3-input" className="invisible w-0 h-0">Choisir un ou plusieurs collaborateurs</label>
                         <Select
                             options={contributorList}
                             noOptionsMessage={(obj: { inputValue: string }) => "Aucun utilisateur trouvé"}
@@ -117,6 +124,7 @@ export default function ModalCreateTask({
                             className="contributors-drop-down"
                             classNamePrefix="contributors-drop-down"
                             name="assignees"
+                            id="assignees"
                             isMulti={true}
                             isClearable={true}
                             isSearchable={true}
