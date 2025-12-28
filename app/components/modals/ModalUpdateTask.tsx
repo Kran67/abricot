@@ -104,13 +104,13 @@ export default function ModalCreateTask({
     }, 500);
 
     return (
-        <aside className="absolute inset-0 bg-(--grey-200)/50 flex items-center justify-center z-1" onClick={closeModal}>
+        <aside className="fixed inset-0 bg-(--grey-200)/50 flex items-center justify-center z-1 w-320 md:w-full" onClick={closeModal}>
             <div
-                className="bg-(--white) relative px-36 py-40 md:px-73 md:py-79 rounded-(--radius10) flex flex-col gap-40 w-598"
+                className="bg-(--white) relative px-18 py-20 md:px-73 md:py-79 rounded-(--radius10) flex flex-col gap-20 md:gap-40 w-full md:w-580"
                 onClick={(e) => e.stopPropagation()}
             >
                 <h4 className="text-(--grey-800)">Modifier une tâche</h4>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-24" role="form" aria-label="Information de la tâche">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-12 md:gap-24" role="form" aria-label="Information de la tâche">
                     <Input name="title" label="Titre" type={InputTypes.Text} required={true} maxLength={200} value={title} onChange={(e) => setTitle(e.target.value)} />
                     <Input name="description" label="Description" type={InputTypes.Text} required={true} maxLength={1000} value={description} onChange={(e) => setDescription(e.target.value)} />
                     <Input name="dueDate" label="Echéance" type={InputTypes.Date} required={true} value={formatYMMDD(new Date(date))} onChange={(e) => setDate(e.target.value)} />
@@ -135,7 +135,7 @@ export default function ModalCreateTask({
                     <div className="flex flex-col gap-2">
                         <label>Priorité</label>
                         <input type="hidden" name="priority" value={status} />
-                        <div className="flex gap-2 overflow-auto">
+                        <div className="flex flex-wrap gap-2 overflow-auto">
                             <Tag text="Urgente" color={priority === "URGENT" ? "TODO" : "USER"} onClick={() => setPriority("URGENT")} />
                             <Tag text="Élevée" color={priority === "HIGH" ? "DEFAULT" : "USER"} onClick={() => setPriority("HIGH")} />
                             <Tag text="Moyenne" color={priority === "MEDIUM" ? "IN_PROGRESS" : "USER"} onClick={() => setPriority("MEDIUM")} />
@@ -145,14 +145,14 @@ export default function ModalCreateTask({
                     <div className="flex flex-col gap-2">
                         <label>Statut</label>
                         <input type="hidden" name="status" value={status} />
-                        <div className="flex gap-2 overflow-auto">
+                        <div className="flex flex-wrap gap-2 overflow-auto">
                             <Tag text="À faire" color={status === "TODO" ? status : "USER"} onClick={() => setStatus("TODO")} />
                             <Tag text="En cours" color={status === "IN_PROGRESS" ? "DEFAULT" : "USER"} onClick={() => setStatus("IN_PROGRESS")} />
                             <Tag text="Termnée" color={status === "DONE" ? status : "USER"} onClick={() => setStatus("DONE")} />
                             <Tag text="Annulée" color={status === "CANCELLED" ? status : "USER"} onClick={() => setStatus("CANCELLED")} />
                         </div>
                     </div>
-                    <div className="flex gap-10">
+                    <div className="flex gap-10 flex-wrap items-center">
                         <Button text="Enregistrer" width={181} height={50} />
                         <Button text="Supprimer" width={181} height={50} color="orange" onClick={(e) => handleDelete(e)} />
                     </div>

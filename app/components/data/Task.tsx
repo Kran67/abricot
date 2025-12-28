@@ -17,10 +17,10 @@ export default function Task({ props }: PropsTL) {
         "flex-col",
         "rounded-(--radius10)",
         "bg-(--white)",
-        "pt-25",
-        "pr-40",
-        "pb-25",
-        "pl-40",
+        "py-10",
+        "px-20",
+        "md:py-25",
+        "md:px-40",
         "justify-between",
         "border",
         "border-solid",
@@ -40,15 +40,15 @@ export default function Task({ props }: PropsTL) {
             <div className="flex">
                 <div className="flex flex-col flex-1">
                     <h5 className="text-black">{props.title}</h5>
-                    <div className="body-s text-(--grey-600)">{props.description}</div>
+                    <div className="body-xs md:body-s text-(--grey-600)">{props.description}</div>
                 </div>
                 <Tag text={tagStatusText[props.status]} color={props.status} />
             </div>
             <div className="flex flex-wrap">
-                <div className="flex items-center self-end mt-32 flex-1 flex-wrap min-w-220">
+                <div className="flex items-center self-end mt-16 md:mt-32 flex-1 flex-wrap min-w-220">
                     <div className="flex whitespace-nowrap">
                         <div className="project-image-wrapper min-w-18 min-h-14 bg-(--grey-600)"></div>
-                        <span className="body-xs text-(--grey-600) pl-8">{props.projectName}</span>
+                        <span className="body-xs text-(--grey-600) pl-4 md:pl-8">{props.projectName}</span>
                         <span className="body-2xs pl-15 pr-15">|</span>
                     </div>
                     <div className="flex whitespace-nowrap">
@@ -61,7 +61,7 @@ export default function Task({ props }: PropsTL) {
                         <span className="body-xs text-(--grey-600) pl-8">{props.comments.length}</span>
                     </div>
                 </div>
-                <Button className="mt-32" text="Voir" disabled={false} url={`/projects/${props.projectId}`} width={121} height={50} />
+                <Button className="mt-16 md:mt-32" text="Voir" disabled={false} url={`/projects/${props.projectId}`} width={121} height={50} />
             </div>
         </div>
     );

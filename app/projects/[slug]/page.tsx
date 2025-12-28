@@ -43,14 +43,15 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
         "projectdetails",
         "flex",
         "flex-col",
-        "pt-28",
-        "pr-50",
-        "pb-90",
-        "pl-50",
-        "md:pt-57",
-        "md:pr-100",
-        "md:pb-181",
-        "md:pl-100",
+        "pt-7",
+        "px-12",
+        "pb-45",
+        "md:pt-27",
+        "md:px-55",
+        "md:pb-90",
+        "lg:pt-57",
+        "lg:px-100",
+        "lg:pb-181",
         "bg-(--grey-50)",
         "w-full",
     ].join(" ");
@@ -122,7 +123,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                 <div className="flex flex-col md:flex-row flex-1 md:items-center gap-16 md:-ml-55">
                     <IconButton />
                     <div className="flex flex-col flex-1 gap-6">
-                        <div className="flex gap-16 whitespace-nowrap">
+                        <div className="flex flex-wrap gap-8 md:gap-16 whitespace-nowrap">
                             <h4 className="text-(--grey-800)">{project?.name}</h4>
                             {admin && <Link text="Modifier" onClick={() => setUpdateProject(true)} />}
                             {updateProject &&
@@ -141,7 +142,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                                     document.body
                                 )}
                         </div>
-                        <span className="body-l text-black">{project?.description}</span>
+                        <span className="body-s md:body-l text-black">{project?.description}</span>
                     </div>
                     <Button text="Créer une tâche" width={141} height={50} onClick={() => setCreateTask(true)} />
                     {createTask && createPortal(
@@ -158,7 +159,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                     )}
                     {/* <Button text="IA" width={94} height={50} image={{ url: "/images/star.svg", alt: "", width: 21, height: 21 }} color="orange" /> */}
                 </div>
-                <div className="flex flex-col md:flex-row gap-12 md:gap-24 bg-(--grey-100) rounded-(--radius10) pt-10 pr-25 pb-10 pl-25 md:pt-20 md:pr-50 md:pb-20 md:pl-50 md:items-center mt-24 md:mt-48">
+                <div className="flex flex-col md:flex-row gap-12 md:gap-24 bg-(--grey-100) rounded-(--radius10) py-10 px-25 md:py-20 md:px-50 md:items-center mt-24 md:mt-48">
                     <div className="flex gap-8 items-center flex-1">
                         <h5 className="text-(--grey-800)">Contributeurs</h5>
                         <span className="body-m text-(--grey-600) whitespace-nowrap">{memberCount} personne{memberCount > 1 ? "s" : null}</span>
@@ -172,7 +173,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                         ))}
                     </div>
                 </div>
-                <div className="flex flex-col md:gap-41 border border-solid border-(--grey-200) pt-20 pr-30 pb-20 pl-30 md:pt-40 md:pr-59 md:pb-40 md:pl-59 rounded-(--radius10) bg-(--white) mt-17 md:mt-35">
+                <div className="flex flex-col md:gap-41 border border-solid border-(--grey-200) py-5 px-7 md:py-40 md:px-59 rounded-(--radius10) bg-(--white) mt-17 md:mt-35">
                     <div className="flex flex-col lg:flex-row md:gap-24 justify-between">
                         <div className="flex flex-col gap-8">
                             <h5 className="text-(--grey800)">Tâches</h5>
@@ -211,15 +212,6 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                                 placeholder="Statuts"
                                 onChange={(e) => setStatus(e?.value ?? "")}
                             />
-                            {/* <select
-                                id="status"
-                                className="monster-select w-152 h-53 border border-(--grey-200) border-solid rounded-(--radius8) body-s outline-0"
-                                onChange={(e) => setStatus(e.target.value)}>
-                                <option key="-1" value="" label="Tous les statuts"></option>
-                                {statuts.map((status, index) => (
-                                    <option key={index} value={status.value} className="bg-(--light-red)" label={status.label}></option>
-                                ))}
-                            </select> */}
                             <label htmlFor="search" className="invisible">Rechercher une tâche</label>
                             <Input
                                 name="search"
@@ -231,7 +223,7 @@ export default function ProjectDetails({ params }: { params: Promise<{ slug: str
                                 onChange={(e) => setSearch(e.target.value)} />
                         </div>
                     </div>
-                    <div className="flex flex-col gap-17 pr-36 pl-36">
+                    <div className="flex flex-col gap-8 md:gap-17 md:pr-36 md:pl-36">
                         {view === ProjectsViews.List ?
                             (filteredTasks?.map((taskItem, index) => (
                                 <ProjectTask key={index} task={taskItem} contributorList={contributorList} refreshTasks={refreshTasks} />

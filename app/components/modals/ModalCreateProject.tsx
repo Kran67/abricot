@@ -81,9 +81,9 @@ export default function ModalCreateProject({
     }, 500);
 
     return (
-        <aside className="absolute inset-0 bg-(--grey-200)/50 flex items-center justify-center z-1" onClick={closeModal}>
+        <aside className="fixed inset-0 bg-(--grey-200)/50 flex items-center justify-center z-1 w-320 md:w-full" onClick={closeModal}>
             <div
-                className="bg-(--white) relative px-36 py-40 md:px-73 md:py-79 rounded-(--radius10) flex flex-col gap-40 max-w-598"
+                className="bg-(--white) relative px-36 py-40 md:px-73 md:py-79 rounded-(--radius10) flex flex-col gap-40 w-full md:w-580"
                 onClick={(e) => e.stopPropagation()}
             >
                 <h4 className="text-(--grey-800)">Créer un projet</h4>

@@ -28,16 +28,17 @@ export default function ProjectTask({ task, contributorList, refreshTasks }: Pro
         "flex-col",
         "rounded-(--radius10)",
         "bg-(--white)",
-        "pt-25",
-        "pr-40",
-        "pb-25",
-        "pl-40",
+        "py-6",
+        "px-10",
+        "md:py-25",
+        "md:px-40",
         "justify-between",
         "border",
         "border-solid",
         "border-(--grey-200)",
         "self-stretch",
-        "gap-24"
+        "gap-6",
+        "md:gap-24"
     ].join(" ");
 
     const tagStatusText: { [key: string]: string } = {

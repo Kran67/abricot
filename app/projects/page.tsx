@@ -22,10 +22,12 @@ export default function Projects() {
         "projects",
         "flex",
         "flex-col",
-        "pt-57",
-        "pr-100",
-        "pb-181",
-        "pl-100",
+        "pt-14",
+        "px-25",
+        "pb-45",
+        "md:pt-57",
+        "md:px-100",
+        "md:pb-181",
         "bg-(--grey-50)",
         "flex-1",
         "gap-32"
@@ -40,10 +42,10 @@ export default function Projects() {
         <main className="flex flex-col bg-white w-full">
             <Header activeMenu={HeaderMenuItems.Projects} />
             <div className={classNames}>
-                <div className="flex flex-row flex-1 items-center">
-                    <div className="flex flex-col flex-1 gap-6">
+                <div className="flex flex-col md:flex-row flex-1 md:items-center">
+                    <div className="flex flex-col flex-1 gap-3 md:gap-6">
                         <h4 className="text-(--grey-800)">Mes projets</h4>
-                        <span className="body-l text-black">Gérez vos projets</span>
+                        <span className="body-s md:body-l text-black">Gérez vos projets</span>
                     </div>
                     <Button text="+ Créer un projet" width={181} height={50} onClick={() => setShowModal(true)} />
                     {showModal && createPortal(
@@ -57,7 +59,7 @@ export default function Projects() {
                         document.body
                     )}
                 </div>
-                <div className="flex flex-col lg:grid grid-cols-3 gap-16" style={{ "gridTemplateRows": `repeat(${projectCount / 3}, 1fr)` }}>
+                <div className="flex flex-col lg:grid grid-cols-3 gap-8 md:gap-16" style={{ "gridTemplateRows": `repeat(${projectCount / 3}, 1fr)` }}>
                     {projects?.map((project, index) => (
                         <ProjectCard key={index} props={project} />
                     ))}

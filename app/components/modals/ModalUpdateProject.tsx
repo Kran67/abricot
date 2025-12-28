@@ -177,13 +177,13 @@ export default function ModalUpdateProject({
     }, 500);
 
     return (
-        <aside className="absolute inset-0 bg-(--grey-200)/50 flex items-center justify-center z-1" onClick={() => closeModal(isModified)}>
+        <aside className="fixed inset-0 bg-(--grey-200)/50 flex items-center justify-center z-1 w-320 md:w-full" onClick={() => closeModal(isModified)}>
             <div
-                className="bg-(--white) relative px-36 py-40 md:px-73 md:py-79 rounded-(--radius10) flex flex-col gap-40 w-598"
+                className="bg-(--white) relative px-36 py-40 md:px-73 md:py-79 rounded-(--radius10) flex flex-col gap-20 md:gap-40 w-full md:w-580"
                 onClick={(e) => e.stopPropagation()}
             >
                 <h4 className="text-(--grey-800)">Modifier un projet</h4>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-24" role="form" aria-label="Information du projet">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-12 md:gap-24" role="form" aria-label="Information du projet">
                     <Input name="name" label="Titre" type={InputTypes.Text} required={true} value={name} onChange={(e) => setName(e.target.value)} />
                     <Input name="description" label="Description" type={InputTypes.Text} required={true} value={description} onChange={(e) => setDescription(e.target.value)} />
                     <div className="flex flex-col gap-1">
@@ -207,7 +207,7 @@ export default function ModalUpdateProject({
                             onChange={onChange}
                         />
                     </div>
-                    <div className="flex gap-10">
+                    <div className="flex flex-wrap gap-10">
                         <Button text="Enregistrer" width={181} height={50} />
                         <Button text="Supprimer" width={181} height={50} buttonType={ButtonTypes.Button} color="orange" onClick={handleDelete} />
                     </div>

@@ -31,10 +31,10 @@ export default function Dashboard() {
     "dashboard",
     "flex",
     "flex-col",
-    "pt-57",
-    "pr-100",
-    "pb-181",
-    "pl-100",
+    "px-10",
+    "md:pt-57",
+    "md:px-100",
+    "md:pb-181",
     "bg-(--grey-50)",
     "flex-1"
   ].join(" ");
@@ -84,7 +84,7 @@ export default function Dashboard() {
         <div className="flex items-center md:flex-row flex-col">
           <div className="flex flex-col flex-1 gap-6">
             <h4 className="text-(--grey-800)">Tableau de bord</h4>
-            <span className="body-l text-black">Bonjour {user?.name}, voici un aperçu de vos projets et tâches</span>
+            <span className="body-s md:body-l text-black">Bonjour {user?.name}, voici un aperçu de vos projets et tâches</span>
           </div>
           <Button text="+ Créer un projet" width={181} height={50} onClick={() => setShowModal(true)} />
           {showModal && createPortal(
@@ -98,7 +98,7 @@ export default function Dashboard() {
             document.body
           )}
         </div>
-        <div className="flex gap-10 mt-60">
+        <div className="flex gap-10 mt-30 md:mt-60">
           <Chip
             text="Liste"
             image={{ url: "/images/task_check.svg", alt: "Image liste", width: 16, height: 16 }}
@@ -117,11 +117,11 @@ export default function Dashboard() {
           />
         </div>
         {view === DashboardViews.List
-          ? <div className="flex flex-col gap-41 border border-solid border-(--grey-200) bg-(--white) rounded-(--radius10) pt-20 pr-30 pb-20 pl-30 md:mt-15 md:pt-40 md:pr-59 md:pb-40 md:pl-59 md:mt-30">
-            <div className="flex flex-1 md:items-center gap-20 md:justify-between flex-col md:flex-row">
-              <div className="flex flex-col gap-6">
+          ? <div className="flex flex-col gap-20 md:gap-41 border border-solid border-(--grey-200) bg-(--white) rounded-(--radius10) py-10 px-15 md:mt-15 md:py-40 md:px-59 md:mt-30">
+            <div className="flex flex-1 md:items-center gap-10 md:gap-20 md:justify-between flex-col md:flex-row">
+              <div className="flex flex-col gap-3 md:gap-6">
                 <h4 className="text-(--grey-800)">Mes tâches assignées</h4>
-                <span className="body-l text-black">Par ordre de priorité</span>
+                <span className="body-s md:body-l text-black">Par ordre de priorité</span>
               </div>
               <label htmlFor="search" className="invisible">Rechercher une tâche</label>
               <Input
@@ -138,8 +138,8 @@ export default function Dashboard() {
               ))}
             </div>
           </div>
-          : <div className="flex flex-col lg:flex-row gap-22 md:-ml-24 mt-20 md:mt-40 ">
-            <div className="flex flex-1 flex-col gap-41 rounded-(--radius10) border border-solid border-(--error-light) pt-40 pr-24 pb-40 pl-24 bg-(--white)">
+          : <div className="flex flex-col lg:flex-row gap-22 md:-ml-24 md:mt-20 md:mt-40 ">
+            <div className="flex flex-1 flex-col gap-20 md:gap-41 rounded-(--radius10) border border-solid border-(--error-light) py-20 px-12 md:py-40 md:px-24 bg-(--white)">
               <div className="flex gap-8">
                 <h5 className="text-(--grey-800)">À faire</h5>
                 <Tag text={nbTodoTasks} color="USER" />
@@ -150,7 +150,7 @@ export default function Dashboard() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-1 flex-col gap-41 rounded-(--radius10) border border-solid border-(--error-light) pt-40 pr-24 pb-40 pl-24 bg-(--white)">
+            <div className="flex flex-1 flex-col gap-20 md:gap-41 rounded-(--radius10) border border-solid border-(--error-light) py-20 px-12 md:py-40 md:px-24 bg-(--white)">
               <div className="flex gap-8">
                 <h5 className="text-(--grey-800)">En cours</h5>
                 <Tag text={nbInProgressTasks} color="USER" />
@@ -161,7 +161,7 @@ export default function Dashboard() {
                 ))}
               </div>
             </div>
-            <div className="flex flex-1 flex-col gap-41 rounded-(--radius10) border border-solid border-(--error-light) pt-40 pr-24 pb-40 pl-24 bg-(--white)">
+            <div className="flex flex-1 flex-col gap-20 md:gap-41 rounded-(--radius10) border border-solid border-(--error-light) py-20 px-12 md:py-40 md:px-24 bg-(--white)">
               <div className="flex gap-8">
                 <h5 className="text-(--grey-800)">Terminées</h5>
                 <Tag text={nbDoneTasks} color="USER" />

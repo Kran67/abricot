@@ -24,7 +24,7 @@ export default function Profile() {
         "flex",
         "md:pt-57",
         "md:pr-100",
-        "pb-181",
+        "md:pb-181",
         "md:pl-100",
         "bg-(--grey-50)",
         "flex-1"
@@ -118,16 +118,16 @@ export default function Profile() {
     };
 
     return (
-        <main className="flex flex-col bg-white w-1440">
+        <main className="flex flex-col bg-white w-full">
             <Header activeMenu={HeaderMenuItems.Profile} />
             <div className={classNames}>
-                <div className="flex flex-col flex-1 gap-41 rounded-(--radius10) border border-solid border-(--grey-200) bg-(--white) pt-40 pr-59 pb-40 pl-59">
-                    <form onSubmit={handleSubmit} className="flex flex-col gap-41" role="form" aria-label="Information du compte">
-                        <div className="flex flex-col gap-8">
+                <div className="flex flex-col flex-1 gap-20 md:gap-41 rounded-(--radius10) border border-solid border-(--grey-200) bg-(--white) py-20 px-30 md:py-40 md:px-59">
+                    <form onSubmit={handleSubmit} className="flex flex-col gap-20 md:gap-41" role="form" aria-label="Information du compte">
+                        <div className="flex flex-col gap-4 md:gap-8">
                             <h5 className="text-(--grey-800)">Mon compte</h5>
-                            <span className="body-m text-(--grey-600)">{user?.name}</span>
+                            <span className="body-s md:body-m text-(--grey-600)">{user?.name}</span>
                         </div>
-                        <div className="flex flex-col gap-24">
+                        <div className="flex flex-col gap-12 md:gap-24">
                             <Input name="lastname" label="Nom" value={lastName} required={true} />
                             <Input name="name" label="Prénom" value={firstName} required={true} />
                             <Input name="email" label="Email" value={user?.email} required={true} />

@@ -25,15 +25,16 @@ export default function ProjectCard({ props }: PropsPC) {
         "project-card",
         "flex",
         "flex-col",
-        "gap-56",
+        "gap-20",
+        "md:gap-56",
         "rounded-(--radius10)",
         "border",
         "border-(--grey-200)",
         "bg-(--white)",
-        "pl-34",
-        "pr-34",
-        "pt-30",
-        "pb-30"
+        "px-17",
+        "py-15",
+        "md:px-34",
+        "md:py-30"
     ].join(" ");
 
     const nbTotalTasks: number = props._count?.tasks || 0;
@@ -51,17 +52,17 @@ export default function ProjectCard({ props }: PropsPC) {
                     <h5 className="text-(--grey-800)">{props.name}</h5>
                     <div className="body-s text-(--grey-600)">{props.description}</div>
                 </div>
-                <div className="flex flex-col gap-16">
+                <div className="flex flex-col gap-8 md:gap-16">
                     <div className="flex justify-between">
                         <div className="body-xs text-(--grey-600)">Progession</div>
                         <div className="body-xs text-(--grey-800)">{progressValue}%</div>
                     </div>
-                    <div className="flex flex-col gap-8">
+                    <div className="flex flex-col gap-4 md:gap-8">
                         <div className="progress rounded-(--radius40) bg-(--grey-200) h-7 relative" style={{ ["--progress" as string]: `${progressValue}%` }}></div>
                         <div className="body-2xs text-(--grey-600)">{totalTasks}</div>
                     </div>
                 </div>
-                <div className="flex flex-col gap-15">
+                <div className="flex flex-col gap-8 md:gap-15">
                     <div className="flex gap-8 body-2xs text-(--grey-600)">
                         <Image src="/images/users.svg" alt="Image équipe" width={11} height={11} />
                         Équipe ({props.members.length + 1})

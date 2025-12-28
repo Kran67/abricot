@@ -37,7 +37,7 @@ export default function Login() {
 
     return (
         <div className="login flex w-full h-1024 flex-1">
-            <div className="flex flex-col w-[100%] md:w-[100%] xl:w-562 bg-(--white) gap-202 py-55 items-center">
+            <div className="flex flex-col w-[100%] md:w-[100%] xl:w-562 bg-(--white) gap-30 md:gap-202 md:py-55 items-center">
                 <Logo />
                 <div className="flex flex-col gap-30">
                     <h1 className="text-(--dark-orange) self-center">Connexion</h1>

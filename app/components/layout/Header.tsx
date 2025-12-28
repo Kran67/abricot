@@ -23,10 +23,8 @@ export default function Header({ activeMenu }: HeaderProps) {
         "md:gap-0",
         "bg-(--white)",
         "h-94",
-        "pt-8",
-        "pl-100",
-        "pr-100",
-        "pb-8",
+        "lg:px-100",
+        "lg:py-8",
         "self-stretch"
     ].join(" ");
 
