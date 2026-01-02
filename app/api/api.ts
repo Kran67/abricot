@@ -1,6 +1,5 @@
 import type { User, ProfileResponse } from "@/app/interfaces/user";
 import { cookies } from "next/headers";
-import { Project, ProjectsResponse } from "@/app/interfaces/project";
 
 
 // récupérer les données du profil
